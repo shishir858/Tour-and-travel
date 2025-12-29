@@ -147,7 +147,13 @@ $packages = $conn->query("SELECT * FROM rajasthan_tour ORDER BY id DESC");
                         <td><?= htmlspecialchars($row['title']) ?></td>
                         <td><?= htmlspecialchars($row['duration']) ?></td>
                         <td><?= htmlspecialchars($row['persons']) ?></td>
-                        <td><?php if(!empty($row['image'])): ?><img src="<?= htmlspecialchars($row['image']) ?>" style="width:60px;height:40px;object-fit:cover;"><?php endif; ?></td>
+                        <td>
+                            <?php if(!empty($row['image'])): ?>
+                                <img src="../<?= htmlspecialchars($row['image']) ?>" style="width:60px;height:40px;object-fit:cover;" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2240%22%3E%3Crect fill=%22%23ddd%22 width=%2260%22 height=%2240%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%228%22%3ENo Image%3C/text%3E%3C/svg%3E';">
+                            <?php else: ?>
+                                <span class="text-muted small">No image</span>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <button class="btn btn-sm btn-primary" onclick="viewItem(<?= $row['id'] ?>)">Edit</button>
                             <a href="?delete=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>

@@ -28,7 +28,7 @@ if (!$tour) {
 
 <style>
 .tour-hero {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('admin/<?= htmlspecialchars($tour['image']) ?>');
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), <?php echo !empty($tour['image']) ? "url('admin/" . htmlspecialchars($tour['image']) . "')" : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"; ?>;
     background-size: cover;
     background-position: center;
     min-height: 450px;
