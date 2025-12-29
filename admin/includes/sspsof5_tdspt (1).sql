@@ -1,0 +1,858 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Dec 29, 2025 at 01:13 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `sspsof5_tdspt`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cars`
+--
+
+CREATE TABLE `cars` (
+  `id` int(11) NOT NULL,
+  `car_name` varchar(100) DEFAULT NULL,
+  `car_type` varchar(50) DEFAULT NULL,
+  `start_price` varchar(50) DEFAULT NULL,
+  `min_running` varchar(50) DEFAULT NULL,
+  `passengers` varchar(50) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `whatsapp_link` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `cars`
+--
+
+INSERT INTO `cars` (`id`, `car_name`, `car_type`, `start_price`, `min_running`, `passengers`, `image_url`, `whatsapp_link`) VALUES
+(1, 'Maruti Swift Dzire & Driver', 'Sedan', 'Ask Us', '300 KM', '4 Person', 'assets/img/vehicles/front-view-118.avif', ''),
+(2, 'Honda Amaze & Driver', 'Sedan', 'Ask Us', '300 KM', '4 Person', 'assets/img/vehicles/amaze-2nd-gen-exterior-right-front-three-quarter-4.avif', ''),
+(3, 'Maruti Ertiga & Driver', 'MUV', 'Ask Us', '300 KM', '6 Person', 'assets/img/vehicles/Maruti_Ertiga_D_Ignity_Brown_9a98934e28.jpg', ''),
+(5, 'Innova & Drivers ', 'SUV', 'Ask Us', ' 300 KM', '6 Person', 'assets/img/vehicles/Innova Crysta.avif', ''),
+(6, 'Tempo Traveller & Driver', 'Luxury Vans for Family and Groups', 'Please Ask', '300', '12', 'assets/img/vehicles/urbania pic.webp', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_reviews`
+--
+
+CREATE TABLE `client_reviews` (
+  `id` int(11) NOT NULL,
+  `client_name` varchar(255) NOT NULL,
+  `profession` varchar(255) NOT NULL,
+  `client_location` varchar(255) NOT NULL,
+  `client_rating` int(11) DEFAULT NULL CHECK (`client_rating` between 1 and 5),
+  `client_review` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `client_reviews`
+--
+
+INSERT INTO `client_reviews` (`id`, `client_name`, `profession`, `client_location`, `client_rating`, `client_review`, `created_at`) VALUES
+(14, 'Rohit Sharma', '#', 'New Delhi', 5, '\"Excellent service and communication! We customized a Rajasthan tour, and they executed it flawlessly. The car was in top condition, and the driver went above and beyond.\"\r\n\r\n', '2025-04-26 11:18:34'),
+(15, 'Sunita Mehra', '#', 'Gurgaon', 5, '\"Tourist Drivers India made our Golden Triangle trip unforgettable. Everything—from hotel bookings to local sightseeing—was perfectly arranged. Highly recommend their tour packages!\"\r\n', '2025-04-26 11:19:36'),
+(16, 'Anil Kapoor', '#', 'Noida', 5, '\"Highly professional and reliable! We booked a car rental with them for a week, and the entire experience was seamless. The vehicle was clean and comfortable throughout our journey.\"', '2025-04-26 11:20:24'),
+(17, 'DanVowles', '#', 'Rajasthan India', 5, 'We wanted to tour Rajasthan without independently without a UK tour company but Rajanâ€™s services gave us allowed us a safety net making sure we got from place to place without a problem. All drivers were puntual friendly and knowledgeable. Rajan was always suggesting an extra guide if we needed. We are already planning our trip for next year with him', '2025-04-26 11:21:01'),
+(18, 'Anne-marie C', '', 'France', 5, 'Grace a lâ€™ agence Jodhpur voyage nous avons effectuÃ© un sÃ©jour original au Rajasthan . Loges dans dâ€™anciens palais de maharadjah ou haveli , le charme Ã©tait au rendez vous . Notre guide Vicky , parfaitement francophone nous a permis de belles rencontres locales . Un voyage en toute sÃ©curitÃ© , conduits par un chauffeur expÃ©rimentÃ© , et sans aucun problÃ¨me sanitaire grÃ¢ce au choix des restaurants. Une plongÃ©e dans lâ€™\r\nHistoire de lâ€™Inde grÃ¢ce Ã  lâ€™Ã©rudition de Vicky . Nous recommandons trÃ¨s vivement lâ€™agence de monsieur Singh qui a su organiser un circuit sur mesure .', '2025-05-25 02:26:06'),
+(19, 'Reena', '', 'Itilay ', 5, 'Abbiamo visitato il Rajasthan a Natale 2019 con tappe Delhi, Agra, Ranthambore e Jaipur. Abbiamo organizzato tutti i dettagli e gli hotel ma ci siamo affidati a questa agenzia per il trasporto con autista privato per 7 gg e le guide locali. Ci siamo trovati benissimo, comunicazione perfetta e in assoluto tempestiva, tutto fatto via Whatsapp. Il nostro driver Mr Ganga davvero carino, si Ã¨ preso cura di noi in modo eccellente e ha cercato di aiutarci in qualsiasi modo possibile.\r\nAvevo mandato la stessa mail di richiesta a 4 agenzie, questa Ã© stata in assoluto la prima a rispondere, con ottimo inglese, pagamento semplicissimo via PayPal e tra lâ€™altro la piÃ¹ economica. Assolutamente consigliato. Grazie per la bella vacanza.', '2025-05-25 02:27:38'),
+(20, 'David', '', 'German ', 5, 'Aus einer groÃŸen Auswahl von Agenturen die Autos und Fahrer vermitteln wÃ¼rde ich diese wirklich weiter empfehlen!\r\nIch hatte sie ausgewÃ¤hlt, da sie einen sehr guten Preis angeboten hatte und viele gute Bewertungen... und ich wurde nicht enttÃ¤uscht. Der Fahrer war sehr freundlich, pÃ¼nktlich und verfÃ¼gte Ã¼ber gute Ortskenntnis. Man hat sich im Auto sehr sicher und wohl gefÃ¼hlt..\r\nEs war wirklich eine tolle Reise! Vielen dank dafÃ¼r ', '2025-05-25 02:31:18'),
+(21, 'Jon', '', 'Russia', 5, 'Ð¡ÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚ Ð¼ÐµÑ‡ÐµÑ‚ÑŒ Ð²Ð½ÑƒÑ‚Ñ€Ð¸ ÐšÑƒÑ‚ÑƒÐ± ÐœÐ¸Ð½Ð°Ñ€. Quwwatu\'l-Ð˜ÑÐ»Ð°Ð¼ ÐœÐµÑ‡ÐµÑ‚ÑŒ ÑÐ¾ÑÑ‚Ð¾Ð¸Ñ‚ Ð¸Ð· Ð´Ð²Ð¾Ñ€Ð° Ð¸ Ð¼Ð¾Ð»Ð¸Ñ‚Ð²ÐµÐ½Ð½Ñ‹Ð¹ Ð·Ð°Ð».ÐšÑƒÑ‚Ð±-ÐœÐ¸Ð½Ð°Ñ€ ÑÐ²Ð»ÑÐµÑ‚ÑÑ ÐºÐ¾Ð»Ð¾Ð½ÐºÐ° Ð¿Ð¾ÑÑ‚Ñ€Ð¾ÐµÐ½ Ð¸Ð· ÐºÑ€Ð°ÑÐ½Ð¾Ð³Ð¾ Ð¸ Ð»ÑŽÐ±Ð¸Ñ‚ÐµÐ»ÑŒ Ð±Ð»Ð¾ÐºÐ¾Ð² Ð¿ÐµÑÑ‡Ð°Ð½Ð¸ÐºÐ° Ð¿Ð¾Ð´Ð½ÑÐ²ÑˆÐ¸ÑÑŒ Ð½Ð° Ð²Ñ‹ÑÐ¾Ñ‚Ñƒ 72,5 m.it IS Ð²Ñ‹ÑÐ¾ÐºÐ°Ñ ÐºÐ°Ð¼ÐµÐ½Ð½Ð°Ñ Ð±Ð°ÑˆÐ½Ñ Ð² Ð˜Ð½Ð´Ð¸Ð¸. Ð’ Ð´Ð¾Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ðº ÑÐ²Ð¾ÐµÐ¹ Ñ‚Ñ€Ð°Ð´Ð¸Ñ†Ð¸Ð¾Ð½Ð½Ð¾Ð¹ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ñ Ð´Ð»Ñ Ð²Ñ‹Ð·Ð¾Ð²Ð° Ð²ÐµÑ€ÑƒÑŽÑ‰Ð¸Ñ… Ðº Ð¼Ð¾Ð»Ð¸Ñ‚Ð²Ðµ, Ð¾Ð½ Ñ‚Ð°ÐºÐ¶Ðµ Ð¸Ð¼ÐµÐµÑ‚ Ð¼Ð¾Ð½ÑƒÐ¼ÐµÐ½Ñ‚Ð°Ð»ÑŒÐ½Ñ‹Ð¹ Ñ†ÐµÐ»ÑŒ, Ñ‚Ð°Ðº ÐºÐ°Ðº Ð¿Ð¾Ð·Ð¶Ðµ ÐÐ°Ð³Ð°Ñ€Ð¸ Ð½Ð°Ð´Ð¿Ð¸ÑÑŒ Ð½Ð°Ð·Ñ‹Ð²Ð°ÐµÑ‚ ÐµÐ³Ð¾ Alauld-Ð”Ð¸Ð½Ð° \"ÐŸÐ¾Ð±ÐµÐ´Ð° Ð¿Ð°Ð¼ÑÑ‚Ð½Ð¸Ðº\" (Vijava-ÑÑ‚Ð°Ð¼Ð±Ñ…Ð°). Ð’ ÑÐ²Ð¾ÐµÐ¼ Ð½Ñ‹Ð½ÐµÑˆÐ½ÐµÐ¼ Ð²Ð¸Ð´Ðµ Ð¾Ð½Ð° ÑÐ¾ÑÑ‚Ð¾Ð¸Ñ‚ Ð¸Ð· Ð¿ÑÑ‚Ð¸ ÑÑ‚Ð°Ð¶ÐµÐ¹.', '2025-05-25 02:32:34'),
+(22, 'Michelle T ', '', 'Singapore, Singapore', 5, 'Driver was punctual, helpful and reliable! Positive experience. This is the second time I engaged Rajanâ€™s service. Highly recommended! â­â­ï¸â­ï¸â­ï¸â­ï¸\r\n', '2025-06-19 14:11:57'),
+(23, 'Karenend', '', 'Amritsar,Shimla and Delhi with safe driver and super service!', 5, 'Apr 2025 â€¢ Family\r\nThis is the fourth time Iâ€™ve travelled with Raj and I will book again! Raj fixes everything you need and wants, he (and his other driver Haroon) is good and safe drivers, always gives super service and looks after their guests in a perfect way! This trip was â€œoutsideâ€ of the regular guided tours, including Amritsar and Shimla and Raj always fix everything you ask for and everything you need.\r\nIâ€™ve travelled solo, with family and with friends in India and always feel safe with Raj! Will recommend without a doubt!', '2025-06-19 14:13:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_info`
+--
+
+CREATE TABLE `contact_info` (
+  `id` int(11) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `email1` varchar(255) DEFAULT NULL,
+  `email2` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `instagram` varchar(255) DEFAULT NULL,
+  `pinterest` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `whatsapp` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL DEFAULT 'assets/img/default-logo.png'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `contact_info`
+--
+
+INSERT INTO `contact_info` (`id`, `address`, `phone`, `email1`, `email2`, `facebook`, `instagram`, `pinterest`, `twitter`, `whatsapp`, `logo`) VALUES
+(1, 'Plot No C 50 Ganesh Nagar Complex - New Delhi 110092  ', '+91 9310042916', 'touristdriversindiapvttours@gmail.com', ' ', 'https://www.facebook.com/share/19FNNr2ycZ/', 'https://www.instagram.com/touristdriversindiaprivatetour?utm_source=qr&igsh=Y3Y1NmVkdHJvOG5l', '#', 'https://youtube.com/@tourismindia557?si=2pyzrdl1suMuBlHe', '919310042916', 'assets/images/logo/THE DRIVER TAGLINE HERE (5).png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `footer_content`
+--
+
+CREATE TABLE `footer_content` (
+  `id` int(11) NOT NULL,
+  `about_us` text NOT NULL,
+  `branch1` text NOT NULL,
+  `branch2` text NOT NULL,
+  `branch3` text NOT NULL,
+  `mobile1` varchar(20) NOT NULL,
+  `mobile2` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `footer_content`
+--
+
+INSERT INTO `footer_content` (`id`, `about_us`, `branch1`, `branch2`, `branch3`, `mobile1`, `mobile2`) VALUES
+(1, 'Tourist Drivers India Private Tours offers a hire private drivers in India and hire a private tour guide in India with  reliable taxi services, customized tour packages, and affordable car rentals across India, ensuring safe, comfortable, and memorable travel experiences.Tourist Drivers India Private Tours Company managed by Mr. Rajan Singh,  his Drivers team of professionally qualified youngsters are fully equipped to offer you the best of Real Indian experience. Tourist Drivers India Private Tours doesnâ€™t just offer you how to explore a destination but to experience it as well. A great variety of tours which can be customized in any way i.e. whether you are a jungle beast who loves to trail tigers and follow birds, or a historian at heart who loves to listen to the stories etched in stone. We bring you fantastic finds, great deals of hotels, car rental, flight, train, jungle safaris, tour excursions, exclusive itineraries, professionally trained drivers with the good communicating skill to make your tours to Incredible India one of the most memorable and pleasurable experiences of your life.', 'Plot No C 50 Ganesh Nagar Complex - New Delhi 110092', 'Office No. A/1, Shayam Vihar Phase 1, E Extn Dwarka Sec 16 B, New Delhi', 'Haripur Kalan, Motichur Range, Haridwar, Uttarakhand  249411', '+91 7011399577', '+91 9718324344');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gallery`
+--
+
+CREATE TABLE `gallery` (
+  `id` int(11) NOT NULL,
+  `image_url` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`id`, `image_url`, `created_at`) VALUES
+(34, 'assets/img/gallery/im1.jpg', '2025-04-26 11:00:31'),
+(35, 'assets/img/gallery/im2.jpg', '2025-04-26 11:00:42'),
+(36, 'assets/img/gallery/im3.jpg', '2025-04-26 11:00:52'),
+(37, 'assets/img/gallery/im4.jpg', '2025-04-26 11:00:59'),
+(38, 'assets/img/gallery/im5.jpg', '2025-04-26 11:01:09'),
+(39, 'assets/img/gallery/im6.jpg', '2025-04-26 11:01:18'),
+(40, 'assets/img/gallery/im7.jpg', '2025-04-26 11:01:26'),
+(41, 'assets/img/gallery/im8.jpg', '2025-04-26 11:01:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `golden_triangle`
+--
+
+CREATE TABLE `golden_triangle` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `gallery_images` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `duration` varchar(100) DEFAULT NULL,
+  `persons` varchar(100) DEFAULT NULL,
+  `places_covered` text DEFAULT NULL,
+  `itinery_heading_1` varchar(255) DEFAULT NULL,
+  `itinery_heading_2` varchar(255) DEFAULT NULL,
+  `itinery_heading_3` varchar(255) DEFAULT NULL,
+  `itinery_heading_4` varchar(255) DEFAULT NULL,
+  `itinery_heading_5` varchar(255) DEFAULT NULL,
+  `itinery_heading_6` varchar(255) DEFAULT NULL,
+  `itinery_heading_7` varchar(255) DEFAULT NULL,
+  `itinery_heading_8` varchar(255) DEFAULT NULL,
+  `itinery_heading_9` varchar(255) DEFAULT NULL,
+  `itinery_heading_10` varchar(255) DEFAULT NULL,
+  `itinery_heading_11` varchar(255) DEFAULT NULL,
+  `itinery_heading_12` varchar(255) DEFAULT NULL,
+  `itinery_heading_13` varchar(255) DEFAULT NULL,
+  `itinery_heading_14` varchar(255) DEFAULT NULL,
+  `itinery_heading_15` varchar(255) DEFAULT NULL,
+  `itinery_heading_16` varchar(255) DEFAULT NULL,
+  `itinery_heading_17` varchar(255) DEFAULT NULL,
+  `itinery_description_1` text DEFAULT NULL,
+  `itinery_description_2` text DEFAULT NULL,
+  `itinery_description_3` text DEFAULT NULL,
+  `itinery_description_4` text DEFAULT NULL,
+  `itinery_description_5` text DEFAULT NULL,
+  `itinery_description_6` text DEFAULT NULL,
+  `itinery_description_7` text DEFAULT NULL,
+  `itinery_description_8` text DEFAULT NULL,
+  `itinery_description_9` text DEFAULT NULL,
+  `itinery_description_10` text DEFAULT NULL,
+  `itinery_description_11` text DEFAULT NULL,
+  `itinery_description_12` text DEFAULT NULL,
+  `itinery_description_13` text DEFAULT NULL,
+  `itinery_description_14` text DEFAULT NULL,
+  `itinery_description_15` text DEFAULT NULL,
+  `itinery_description_16` text DEFAULT NULL,
+  `itinery_description_17` text DEFAULT NULL,
+  `highlight_1` text DEFAULT NULL,
+  `highlight_2` text DEFAULT NULL,
+  `highlight_3` text DEFAULT NULL,
+  `highlight_4` text DEFAULT NULL,
+  `highlight_5` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `golden_triangle`
+--
+
+INSERT INTO `golden_triangle` (`id`, `title`, `image`, `gallery_images`, `description`, `duration`, `persons`, `places_covered`, `itinery_heading_1`, `itinery_heading_2`, `itinery_heading_3`, `itinery_heading_4`, `itinery_heading_5`, `itinery_heading_6`, `itinery_heading_7`, `itinery_heading_8`, `itinery_heading_9`, `itinery_heading_10`, `itinery_heading_11`, `itinery_heading_12`, `itinery_heading_13`, `itinery_heading_14`, `itinery_heading_15`, `itinery_heading_16`, `itinery_heading_17`, `itinery_description_1`, `itinery_description_2`, `itinery_description_3`, `itinery_description_4`, `itinery_description_5`, `itinery_description_6`, `itinery_description_7`, `itinery_description_8`, `itinery_description_9`, `itinery_description_10`, `itinery_description_11`, `itinery_description_12`, `itinery_description_13`, `itinery_description_14`, `itinery_description_15`, `itinery_description_16`, `itinery_description_17`, `highlight_1`, `highlight_2`, `highlight_3`, `highlight_4`, `highlight_5`) VALUES
+(2, 'Golden Triangle Tours 4 Days', 'assets/img/packages/golden-triangle-10days.jpg', NULL, 'Embark on a captivating journey through India\'s iconic Golden Triangle in just 4 days. This tour covers the historic cities of Delhi, Agra, and Jaipur, offering a perfect blend of culture, heritage, and architecture. Begin in Delhi, exploring the Red Fort, India Gate, and bustling markets. Travel to Agra to witness the magnificent Taj Mahal and Agra Fort. Conclude in Jaipur, the Pink City, with visits to the Amber Fort, City Palace, and Hawa Mahal. Ideal for first-time visitors, this tour provides an unforgettable glimpse into India\'s rich past and vibrant present. Comfort, history, and charm await you.', '4-days/3 Nights', '4 Persons', 'Delhi, Agra, Fatehpur Sikri, Jaipur, history, culture, architecture, heritage, forts.', 'Delhi half day tour - Agra', ' Agra - Jaipur', ' Jaipur city tour', 'Jaipur - Delhi', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Start your 3 nights 4 days Golden Triangle Tour from your desired location in Delhi, Gurgaon and Noida, from where, we will pick you up by Car. We would take you to the half-day tour exploring the historical monuments of Delhi such as Qutab Minar, Lotus Temple, India Gate and we have planned the drive pass through Indian Parliament and Presidentâ€™s House.\r\n\r\nQutub Minar is a towering 73-meter high tower built by Qutub-ud-Din Aibak in 1193. This tower is the highest tower in India that reflects the glorious Indian history, complete with five storeys and projecting balconies.\r\n\r\nThe India Gate, previously named as All India War Memorial, was built to pay homage to the 82,000 Indian soldiers Indian Army who lost their lives fighting in World War I.\r\n\r\nLotus Temple is notable for its flowerlike shape that has 27 marble petals that look like lotus; it has become a prominent attraction in the city. It is famous for its architecture.\r\n\r\nThe Parliament of India is the apex supreme legislative organ of the Republic of India. It is a bicameral legislature (law-making body) which consists of the President of India and the two houses: the Rajya Sabha and the Lok Sabha.\r\n\r\nPresidentâ€™s House popularly known as the Rashtrapati Bhavan is the official home of the President of India located at the Western end of Rajpath in New Delhi.\r\n\r\nAfter the half day Delhi city tour, head to Agra, the city of Taj Mahal, through a 3-hour drive on the Express Way. Upon your arrival to Agra, check in to your hotel and relax.\r\n\r\nOvernight, stay at Hotel Jaypee Palace or Hotel Courtyard by Marriott or Similar 5 Star Hotel.', 'Visit Taj Mahal early in the morning to see the spectacular view of sun rise along with Taj Mahal and take a guided tour from inside.\r\n\r\nWitness the new day of the tour with glorified Taj Mahal, the epitome of love at the time of sunrise that looks splendid in Sun Rays.\r\n\r\nTaj Mahal, which has already marked Indiaâ€™s name and added to Indiaâ€™s pride, is one of the Seven Wonders of the World, built in the memory of Mumtaz Mahal by Mughal Emperor Shah Jahan.\r\n\r\nAfter sightseeing, you would be taken back to the hotel for breakfast. Then we would pay a visit to the Agra Fort.\r\n\r\nAgra Fort: Agra Fort is an ancient and historical fort in the city of Agra. It is also known as the Red Fort, this large 16th-century fortress, made out of the red sandstone is located on the Yamuna River.\r\n\r\nAfter that proceed to Jaipur, at the end of the drive, arrive in Jaipur and check in at your hotel.\r\n\r\nOvernight stay at Hotel Holiday Inn city center or Hotel Hilton or Similar 5 Star Hotel.', 'Start your morning with a tasty breakfast and start discovering the belle of Jaipur. We have planned your visit to the historical monuments such as Amer Fort, Jal Mahal, City Palace, Jantar Mantar and Hawa Mahal.\r\n\r\nAmer Fort: Amer Fort made of red sandstone and marble, known for its imaginative Hindu design elements. It is an appealing and luxurious palace, which is laid out on 4 levels, each with its courtyard.\r\n\r\nJal Mahal was built in the year 1799. This historical palace was built by Maharaja Sawai Pratap Singh in the middle of The Man Sagar Lake.\r\n\r\nThe City Palace is an awesome specimen of architectural brilliance in the city of Jaipur. This Royal City Palace was built in the 18th century by Maharaja Jai Singh II.\r\n\r\nJantar Mantar was built in the year 1734 by the king Sawai Jai Singh II located in Jaipur and have the largest sundial.\r\n\r\nHawa Mahal is known as â€œThe Palace of Windsâ€ or â€œThe Palace of Breezeâ€ is a palace built by Maharaja Sawai Pratap Singh with the red and pink sandstone and the palace sits on the edge of the City Palace, Jaipur.\r\n\r\nOvernight stay at Hotel Holiday Inn city center or Hotel Hilton or Similar 5 Star Hotel.', 'Enjoy the breakfast, check out from the hotel, proceed to Delhi and we will drop you back to your desired location in Delhi, Noida or Gurugram.\r\n\r\nYou may opt for drop in Jaipur as well.\r\n\r\nWe assure you that you will have lot of great memories of Your 3 Nights 4 Day Golden triangle tour.', '', '', '', '', '', '', '', '', '', '', '', '', '', ' Visit Three Iconic Cities: Discover Delhi, Agra, and Jaipur, each with unique cultural identities.', ' Marvel at the Taj Mahal. Explore one of the world\'s most famous landmarks and a UNESCO World Heritage Site.', ' Amber Fort Experience: Ride an elephant or jeep up the majestic fort overlooking Jaipur.', 'Shopping & Local Markets  Experience vibrant bazaars in all three cities for handicrafts, textiles, and jewellery.', ' Cultural Flavours Enjoy regional Indian cuisine from Mughlai dishes in Agra to spicy Rajasthani thalis in Jaipur.\r\n\r\n'),
+(8, 'Golden Triangle with Ranthambore Tour', 'assets/img/packages/ranthambore one.jpg', NULL, 'Ranthambore, located in the Sawai Madhopur district of Rajasthan, is one of Indiaâ€™s most renowned national parks and tiger reserves. Known for its majestic Bengal tigers, Ranthambore National Park is spread across 1,334 square kilometers and features a diverse landscape of dry deciduous forests, lakes, and ancient ruins. At the heart of the park stands the historic Ranthambore Fort, a UNESCO World Heritage Site, offering panoramic views and a glimpse into the region\'s royal history.\r\n\r\nWildlife enthusiasts and photographers are drawn to Ranthambore for its rich biodiversity, which includes leopards, sloth bears, hyenas, crocodiles, and over 300 species of birds. ', '10 Days / 9 Nights', '1', ' Arrival in Ranthambore ,Safari + Ranthambore Fort, Lakes & Birdwatching, Safari + Ruins Exploration, Departure', 'Arrive Delhi', 'Delhi', 'Delhi- Jaipur( 269 Kms 05 Hrs)', 'Jaipur', 'Jaipur-Ranthambore( 156 Kms - 03 Â½ Hrs Drive)', 'Ranthambore', 'Ranthambore National Park- Agra', 'Agra-Unchagaon( 180 Kms 04-05 Hrs drive)', 'Corbett Natioanal Park', 'Corbett-Delhi (280 Kms, 05-06 Hrs Drive)', '', '', '', '', '', '', '', 'On your arrival at Delhi, you will be met by our representatives and transferred to a hotel. Rest of the day at leisure. Overnight stay will be in the hotel at Delhi.', 'Full Day sightseeing tour of Delhi, Incluing the Old Delhi. Visit the world-famous Red Fort, Jama Masjid, and enjoy an exciting Cycle Rickshaw ride in the busy lanes of the Chandni Chowk, the main street of Old Delhi and a lively shopping bazaar.\r\n\r\nAfternoon visit New Delhi (Designed and developed by the famous English architect Sir Edwin Lutyens (1869- 1944), New Delhi is famous for its wide, tree-lined avenues, parks, skylines and historical monuments) including Rashtrapati Bhawan (the official residence of the president of India), India Gate â€“ a 42 m high stone memorial arch, the 12th century Qutub Minar, the mid-16th century Humayunâ€™s Tomb and the famous Lotus Temple in New Delhi. Overnight stay at the hotel in Delhi.', 'Morning drive to â€˜Pink Cityâ€™ as Jaipur is popularly known. Evening free to explore the local market Overnight stay at the hotel.', 'After breakfast, enjoy a full day sightseeing tour of Jaipur. Enjoy an elephant ride up to the famous17th century Amber Fort. Thereafter, visit the enchantingly beautiful City Palace, a fine blend of Rajasthani and Mughal architecture, now housing a museum containing rare armories, manuscripts, and paintings. Later, visit the Hawa Mahal (Palace of Winds), the landmark architecture of Jaipur built of pink sandstone. You will also visit the Jantar Mantar, an Astronomical observatory built by maharaja Jai Singh in 1728. Overnight stay will be at the hotel in Jaipur.', 'Morning drive to Ranthambore,( Ranthambore is one of the finest tiger reserves of India and considered the best place to spot a tiger in his own natural habitat. The park is also popular with the wildlife photographers.). On arrival check in at a wildlife Resort, After having your lunch we will take you for Afternoon safari, Evening free O/N stay at Wildlife Resort.', 'Morning and afternoon safari into the national park, to explore the ricj Flora and Fauna of the Ranthambore National Park. O/N stay at Wildlife Resort.', 'Morning safari into the national park, After breakfast drive to Agra, Enroute visit Fateh pur Sikri, On arrival at Agra check in at hotel, Evening free O/N stay at hotel.', 'Morning Sightseeing tour of Agra, Including Taj Mahal , the most beautiful and extravagant monument ever built in the world.also visit the magnificent Agra Fort, built by Mughal Emperor Akbar in 1565., Later drive Afternoon, leave for Unchagaon. Arrive Unchangaon and check in at Fort Unchagaon â€“ The Fort Unchangaon stands tall as an ideal gateway to Uttaranchal. Home to the Jat rulers who rose in prominence during the decline of Mugal Empire, it was originally made of mud, but its walls were late replaced by brick and old building inside the fort was totally renovated during the 1930â€™s to give it a distinctly colonial look. O/N stay at Hotel.', 'Morning and afternoon, jungle safari inside the park in a private jeep.', 'Morning safari into the national park, After breakfast drive to delhi. Arrive delhi tranfer to international airport for your onward destination.', '', '', '', '', '', '', '', 'Thrilling Jungle Safaris in Ranthambore National Park (Chance to spot Bengal Tigers, leopards, and more)', 'Visit to Ranthambore Fort â€“ A UNESCO World Heritage Site', 'Scenic Lakes: Padam Talao, Malik Talao & Surwal Lake â€“ Perfect for photography and birdwatching', 'Trinetra Ganesh Temple â€“ One of the oldest temples inside a fort', 'Stay in Nature Resorts â€“ Enjoy Rajasthani hospitality amidst nature'),
+(9, 'Golden Triangle with Udaipur Tour', 'assets/img/packages/wallpaperflare.com_wallpaper (30).jpg', NULL, 'Udaipur, fondly known as the \"City of Lakes\", is one of the most romantic and culturally rich destinations in India. Nestled amidst the lush Aravalli Hills in the royal state of Rajasthan, Udaipur is famous for its stunning lakes, majestic palaces, heritage havelis, vibrant bazaars, and deep-rooted Rajput history.\r\n\r\nFounded in 1559 by Maharana Udai Singh II, Udaipur once served as the capital of the historic Mewar Kingdom. The city reflects the royal grandeur of the Rajput era and is dotted with exquisite architecture, tranquil water bodies, and a serene atmosphere that captivates travelers from around the world.\r\n\r\nAt the heart of Udaipur lies Lake Pichola, a breathtaking man-made lake that offers scenic boat rides with views of iconic landmarks like the City Palace, Jag Mandir, and the Taj Lake Palace. Alongside it are other picturesque lakes like Fateh Sagar Lake, Swaroop Sagar, and Udai Sagar, which enhance the cityâ€™s natural charm and provide peaceful escapes from the hustle of modern life.', '8 days 7 nights', '', 'City Palace â€“ A majestic royal palace with museums and lake views, Lake Pichola â€“ Famous for boat rides and sunset views, Jag Mandir â€“ A beautiful palace on an island in Lake Pichola. Fateh Sagar Lake â€“ Ideal for boat rides and water activities, Sajjangarh (Monsoon Palace) â€“ Offers panoramic sunset views, Saheliyon Ki Bari â€“ A royal garden with fountains and lotus pools, Bagore Ki Haveli â€“ Famous for Rajasthani dance shows and museum. Jagdish Temple â€“ A large temple dedicated to Lord Vishnu, Vintage Car Museum â€“ Showcasing royal classic cars, Local Markets â€“ Hathipole, Bada Bazaar for shopping.', 'Arrive Delhi for incredible India tour', 'Delhi Sightseeing tour( Red Fort, Lotus Temple, Humayun Tomb are closed on Monday)', 'Delhi to Agra Local (Taj Mahal is closed on Friday)', 'Agra to Jaipur via Fatehpur Sikri', 'Jaipur City Tour', 'Jaipur to Udaipur (â€‹400kms/ 7hrs ) -En route visit Pushkar', 'Udaipur Local Sightseeing', 'Udaipur Departure', '', '', '', '', '', '', '', '', '', 'On arrival at Delhi international airport on your Golden Triangle tour with Udaipur, after collecting luggage and clearing immigration formalities, meet and greeted by our friendly driver cum representative outside exit gate# 5, After pickup proceed towards your pre-booked hotel in Delhi on your incredible India tours by ghum india ghum, On arrival at hotel check-in and rest of the day free to relax from jetlag. Overnight in Delhi.', 'Today post your delicious buffet breakfast at hotel, Check-out and go for full day Delhi city tour by ghum india ghum, first go for Old Delhi city tour- by visiting Birla temple, the Raj Ghat- place is dedicated memory of Mahatma Gandhi, driving past Red fort, Then may visit Jama Masjid- India Largest Mosque are important places to visit, you may also visit Chandni Chowk, spice market etc. For a better understanding of the Old Delhi tour you may go for a Rickshaw ride tour and ride through the bazaars and streets of Old Delhi (Optional cost). Post Lunch, proceed for a city tour of New Delhi. Starts with a tour of The Qutub Minar which is a UNESCO site in Delhi and Iron pillar inside its complex. Then visit Lotus temple, which is quite similar to Sydney Opera house. It is a worship place for Bahai in Delhi. Also see Iconic India gate which is dedicated to brave Indian soldiers who lost lives during WWI and WWII, Don\'t forget to see huge government buildings in Delhi Like -Rashtrapati bhawan, New and Old Parliament building, Raj path. Post Delhi local tours with Ghum India Ghum drive back to the hotel. Overnight in Delhi.', 'This morning after a healthy breakfast at the hotel  start your 3rd day of Indian Golden Triangle tour by driving to Mughal city Agra and On your arrival in Agra check-into your pre booked hotel. In afternoon our guide will take you to sightseeing tour of Agra city starts with Taj Mahal tour, the visit or time spend to the Taj Mahal will long be remembered by you, Listed among most amazing Seven Wonders of the World, the Taj Mahal is the emblem of eternal love. The Taj Mahal was built in 1653 by late Mughal emperor Shah Jahan. Built with white marble, this monument is on top of UNESCO World Heritage Sites. This epitome of love leaves the visitors speechless with its architectural magnificence. In the presence of moon light, it excels like a flawlessly carved diamond; looking as if instantly out of some magical saga and Later visit the Huge Agra fort or Red fort of Agra a UNESCO world heritage site and 2nd most famous monument of Agra, built by the great Emperor Akbar, this was main residence of Mughal rulers till 1638 buit of Red stand stones. If time permits, you may also visit the Tomb of I\'timÄd-ud-Daulah also known as Baby Taj Mahal. Post finishing place to visit in Agra tour or perfect itinerary for Agra tour or place to see in Agra or things to do in Agra or tour of important tourist attractions in Agra. Drop to Hotel, Relaxing night stay in Agra. Note:- Taj Mahal closed on Friday', 'After a delicious breakfast at the hotel, Start your 4th day of Golden Triangle tour India and drive to Jaipur city popularly known as the pink city India. This is the only city in the world design in such a way it symbolises the nine divisions of the universe through the nine rectangular sectors subdividing it as per Vedic architecture. The historic walled city of Jaipur in Rajasthan was established on the plain unlike other cities of this region which are situated on hilly terrains, It was founded in 1727 AD (18th Cent.) under the rule of Sawai Jai Singh II. Jaipur is known for its exemplary architectural legacy which is based on ancient Hindu, Mughal and western cultures. Pink city Jaipur made its official entry into the UNESCO World Heritage Site list recently in 2019. On arrival in Jaipur check in to your hotel stay overnight in Jaipur hotel.\r\n', 'Post breakfast at hotel, meet your tour guide for full day Jaipur tour, start with first visiting Amber Fort (one need to reach here by 8:30-9:00 am, to avoid rush and heat) fort is situated on one end of city, Amber fort is huge is size and it has unique history, present day Amber fort was built by Raja Man Singh main attractions within Amber fort are Sheesh Mahal, Diwan-e-aam, temples and underground tunnels. Next place to see in Jaipur is Jal Mahal which is a huge palace situated in the middle of Man Sagar lake, from distance the water palace looks like its only one floor palace but in reality is four levels of this palace beneath the water. Post Lunch visit Hawa Mahal or winds palace is a architectural marvel designed by Lal Chand Ustad in 1799, The main purpose was to allow royal family ladies to see marketplace and busy streets from several jharokhas and without being seen, Then visit City palace of Jaipur which is full of architectural wonders and it is official residence of present day Royal family, it is divided into two parts one contains several courtyards along with museums and the other where present day royal family still resides. Also visit Jantar Mantar an astronomical observatory adjoining the City Palace complex, Later in evening you may visit Albert Hall and insta sensation Patrika gate, post fun filled Jaipur city tour by ghum india ghum return back to hotel and overnight in Jaipur.', 'After lavish breakfast at hotel in Jaipur, Checkout and drive to next important destination Udaipur on your Delhi Agra Jaipur with Udaipur and On the way you may visit the holy town of Pushkar. Places to visit in Pushkar are Brahma temple, Pushkar Lake, Man Mahal and Savitri Temple. Post completion of places to see in Pushkar, Later drive to Rajasthan Udaipur which is 3rd biggest city of Rajastha and popularly known as one of the most romantic cities in the world and Also regarded as Venice of East. On  Arrival in Udaipur and transfer to the hotel. Check in at the hotel after a hectic day tour. Overnight at Udaipur hotel.', 'This Morning post yummy buffet breakfast at hotel, Start your sightseeing tour of Udaipur city or Places to visit in Udaipur, this city was built in 1559 A.D. by Maharaja Udai Singh and has been described as the most romantic spot on the subcontinent of India by Col. James Todd. First visit the City Palace museum, The City Palace, described as one of the largest palaces in the world, can be approached through the Bari Pol or the Great Gat with the royal drums and then onto the Tripolia Gate. Tripolia is a triple gate built of marble arches. Between these two gates are eight carved toranas or archways under which the Maharanas were weighed against gold and silver which was later distributed to the poor People. Famous entertainment games like elephant fights took place in the court beyond the Tripolia Gate. Bhartiya Lok Kala Mandir also called as Folk art museum the amusing collection displayed by this Indian folk arts museum includes folk dresses, ornaments, puppets, masks, dolls, folk musical instruments, folk deities and paintings. Also visit the very respected Pratap Memorial (Historic site that is dedicated to the gallant Maharana Pratap). A stop at the Moti Magri or Pearl Hill, overlooking the Fateh Sagar Lake is the memorial of the Rajput hero Maharana Pratap with a bronze statue of the Maharana astride his favourite horse\"Chetak\". Post place to see in Udaipur or things to do in Udaipur or tour of important tourist attractions in Udaipur, Return to hotel for Night stay in Udaipur.', 'This is the toughest day on your trip because you need to pack your belonging with reminiscence of your Incredible India journey, post healthy breakfast, Check-out from your hotel in Mumbai and Our driver cum representative will pick you and drop to Udaipur airport as per your return flight time, during airport transfer you can recall all your memories about India and its culture. Go back to your sweet home with a lifelong experience. Don\'t forget to write your review  for Ghum India Ghum which is a leading tour operator in india, travel agency in Delhi, travel agents in Delhi, Tour Operator for Udaipur', '', '', '', '', '', '', '', '', '', 'Majestic City Palace with lake views.', 'Lake Pichola boat ride and Jag Mandir.', 'Sajjangarh Monsoon Palace for stunning views.', 'Visit to the Kumbhalgarh Fort, Ranakpur Jain Temple, and Eklingji Temple.', 'Vintage Car Museum and Shilpgram for cultural experiences.'),
+(10, 'Golden Triangle with Varanasi and Khajuraho Package', 'assets/img/packages/wallpaperflare.com_wallpaper (12).jpg', NULL, 'Varanasi, also known as Kashi or Banaras, is one of the oldest continuously inhabited cities in the world and the spiritual heart of India. Situated on the banks of the holy river Ganga, this sacred city is a melting pot of culture, devotion, tradition, and mysticism. It is believed that a visit to Varanasi and a dip in the Ganges can cleanse oneâ€™s soul and wash away all sins.\r\n\r\nThe city is renowned for its ancient temples, vibrant ghats, and spiritual atmosphere that draws millions of pilgrims, seekers, and tourists every year. The echo of temple bells, the fragrance of incense, and the sight of saffron-clad sadhus give Varanasi a unique and divine charm. The Ganga Aarti at Dashashwamedh Ghat is one of the most mesmerizing spiritual experiences you can witness.', '11 days  10 nights', '', 'Delhi â€“Jaipur - Agra â€“ Orchha - Khajuraho - Varanasi - Delhi', 'Delhi Arrival', 'Delhi Sightseeing', 'Delhi - Jaipur', 'Jaipur Sightseeing', 'Jaipur - Agra', 'Agra - Orchha - Khajuraho', 'Khajuraho Sightseeing', 'Khajuraho - Varanasi', 'Varanasi Sightseeing', 'Varanasi - Delhi', 'Departure From Delhi', '', '', '', '', '', '', 'Upon arrival at the airport, our representative will greet you and help you with the hotel transfer. The evening is leisure or you can visit Sri Bangla Sahib Gurudwara, one of the famous Sikh Gurudwara. Overnight stay at the hotel in Delhi.', 'After breakfast start your Delhi Sightseeing tour visiting  Jama Masjid-the largest mosque in India, built in the 17th century. Next drive past Red Fort and enjoy the Rickshaw Ride to\r\n\r\nChandni Chown. Raj Ghat, India Gate, Rashtrapati Bhawan (Presidential Palace), the Parliament House and other colonial buildings. \r\n\r\nLater, you\'ll drive past the New Delhi area to visit the Qutub Minar, Humayun\'s Tomb and the Lotus Temple. Overnight stay at the hotel in Delhi.', 'After breakfast, drive toward Jaipur, Pink City, this drive will take approximately 5 hours. Upon arrival check into the hotel and the rest of the day is leisure. Night stay at the hotel or you can explore the nearby area or local market.', 'After breakfast, visit Hawa Mahal (Palace of Winds) to see its beautiful facade and snap a few photos before continuing to the famous Amber Fort, 7 miles (11 km) outside of Jaipur. You\'ll spend a few hours touring this hilltop fort, then go back to Jaipur stopping at Jal Mahal for some good photos. Next is City Palace, which is a perfect example of blended Rajasthani and Mughal architecture. Next, you\'ll visit nearby Jantar Mantar, also called the Solar Observatory. In the evening visit local markets of Jaipur for some shopping time. Overnight stay at the hotel.', 'Today post breakfast, check out and drive to Agra, the Taj City.  Enroute visit Fatehpur Sikri-a red sandstone city and Abhaneri Step Wells.  Upon arrival check into the hotel and rest for an hour. Later you\'ll head to Agra Fort also known as Red Fort of Agra, built in the 16th century, Itmad-Ud- Daulah and Mehtab Bagh for a sunset view of the Taj. Overnight stay at the hotel.', 'Early in the morning, get ready and leave for the famous Taj Mahal. Visit this big white marble mausoleum that was built by Shah Jahan for his beloved wife Mumtaz Mahal. This is one of the most famous monuments in the world.\r\n\r\nThen return to the hotel for breakfast and check out. Drive to Agra Railway Station to take a train to Jhansi, upon arrival our driver will pick you up and drive you to Khajuraho en route to visit Orchha. Here you visit Jahangir Mahal, Raj Mahal and Laxmi Narayan Temple. After that, get back on the road to Khajuraho. Upon arrival check into the hotel and rest. The rest of the day is leisure on your own. Night stay at the hotel in Khajuraho.  \r\n\r\nNote: The Taj Mahal is closed on Friday', 'Enjoy a morning breakfast at the hotel and leave for the Khajuraho Sightseeing. Visit the Eastern & western groups of temples and erotic sculptures that show a vision of eternal, spiritual and physical love. \r\n\r\nAfter lunch, drive approximately 2 hours to visit the Panna National Park, where you can enjoy a Jeep Safari and experience wildlife (Optional Activity). Overnight stay at the hotel in Khajuraho.', 'Post breakfast, transfer to the Khajuraho Airport to board a flight for Varanasi. Upon arrival, our representative will welcome you and transfer you to the hotel. Check-in at the hotel and the rest. After lunch, drive to Sarnath, located 10 km northeast of Varanasi. Where you visit the Buddhist temple and the Bodhi Tree. Return to your hotel for a night\'s stay.', 'After breakfast, take a boat ride on the Ganges River and make a ferry pilgrimage from one ghat to another. Manikarnika and Harishchandra are the two cremation ghats, where the funeral pyre burns day and night. Every devout Hindu knows that cremation on the Ganges banks and death in Kashi represents an escape from the cycle of life and death. Spend the night in Varanasi.', 'After breakfast check out from the hotel and drive to the Varanasi Airport to take a flight for Delhi. Upon arrival our representative will pick you up and transfer to the hotel. Rest of the day is free for your own activity. Night stay at the hotel.', 'This is the last day of your tour with Elefantastic, after breakfast drive to Delhi Airport to take a flight for your onward journey.', '', '', '', '', '', '', 'âœ… Sacred Kashi Vishwanath Temple\r\nMesmerising Ganga Aarti at Dashashwamedh Ghat', 'âœ… Sunrise Boat Ride on the Ganges\r\nFull-day spiritual visit to Sarnath (Buddhist site)', 'âœ… Explore ancient temples and heritage ghats Discover Banarasi silk weaving at Sarai Mohana', 'âœ… Cultural evening of classical music and dance\r\nWalking tour of old Banaras lanes & street food', 'âœ… Optional day trips to Chunar Fort or Vindhyachal\r\nExperience the spiritual soul of India'),
+(11, 'Golden Triangle Tour with Varanasi  Package', 'assets/img/packages/66f3ec4c9bc0db4e53ca2cc2_1727261772999.jpg', NULL, 'The Golden Triangle Tour with Varanasi offers a perfect blend of Indiaâ€™s rich cultural heritage and spiritual essence. Covering Delhi, Agra, and Jaipurâ€”the iconic Golden Triangleâ€”this journey showcases grand Mughal architecture, royal palaces, and vibrant bazaars. The tour extends to Varanasi, one of the worldâ€™s oldest living cities, known for its sacred Ganges River ghats and soul-stirring Ganga Aarti. Witness the contrast between bustling cities and serene spiritual traditions. Ideal for first-time visitors, this tour provides a comprehensive experience of Indiaâ€™s history, architecture, and deep-rooted spirituality, making it a truly unforgettable journey through time and faith.', '9 Days/8 Nights', '', 'Delhi â€“ Jaipur â€“ Agra â€“ Varanasi-Delhi', 'Arrival at Delhi', 'Delhi Sightseeing', 'Delhi- Jaipur (272 km- approximately 6 hours)', 'Jaipur Sightseeing', 'Jaipur- Agra (240 km- 4 hours) Taj Mahal in Golden Triangle Tour with Varanasi', 'Agra- Sightseeing ', 'Agra-Varanasi by semi high speed Indian Train (Vande Bharat Train)', 'Varanasi-Delhi, overnight train journey in Golden Triangle Tour with Varanasi Tour ', 'Arrive Delhi-Flight back home', '', '', '', '', '', '', '', '', 'Your arrival at the Delhi airport would mark the beginning of the Golden Triangle Tour with Varanasi. The enthusiastic team of TDIPT would welcome you at the arrival hall and would guide you towards the VIP parking. After settling in the car, you will proceed towards the hotel which would be booked by us in advance.\r\n\r\nOn your arrival at the hotel, Traditional Indian style welcome. The vermilion on your forehead and with Aartis. Indian Travel Waves representative will facilitate your check-in at the hotel. Enjoy your first night of Golden Triangle Tour with Varanasi. Rejuvenate yourself after the long journey. Stay overnight at Delhi hotel.', 'You can begin the second day at your own comfortable timing. After a sumptuous breakfast at the hotel, you will meet the government-approved guide that we have especially shortlisted.\r\n\r\nExploring Delhi sightseeing places will surely turn out to be an adventurous experience for you. Delhi is undoubtedly one of the fastest-growing cities in India. A perfect blend of the historic past with a vibrant present. The city is ideally divided into two parts Old Delhi and New Delhi.\r\n\r\nBegin your sightseeing tour with Old Delhi.  Which has changed with time but the impression of the past remains clearly visible. You will be taken to the majestic Red Fort, a marvel in red sandstone.\r\nLater proceed to the largest mosque in India known as the Jama Masjid. visit the by lanes of Old Delhi and experience a rickshaw ride on the bumpy roads passing through the silver streets of Chandni Chowk. Which would turn out to be really enjoyable. People like to visit Agrasen Ki Baoli in Delhi.\r\n\r\nYou can pamper your taste buds with the authentic North Indian mouth-watering cuisines. You can choose one of the famous restaurants in Delhi. After lunch, you proceed towards New Delhi. Visit the Rashtrapati Bhawan, India Gate, Laxmi Narayan Temple which was built by the Birlaâ€™s. Other important places to visit Humayunâ€™s Tomb and Qutub Minar.\r\n\r\nThe major attraction would be the light and sound show at the Red Fort in the evening. This will be followed by a sumptuous dinner at a famous Indian restaurant. You will be taken back to the hotel once again to rejuvenate yourself. Stay overnight at Delhi hotel.', 'On the third day, after breakfast, you will drive to your next destination Jaipur. On arrival at the Pink City, you will be transferred to the hotel which has been pre-booked. A traditional Rajasthani Welcome to you. TDIPT representative will arrange your check-in at the room.\r\n\r\nYou can comfortably relax at the hotel after a hectic journey. In the evening you have the option to take a cycle rickshaw ride. Pass through the busy streets of the city to get a feel of the city. Or just visit Patrika gate to click some photos. . Return back to the hotel and have your dinner at good restaurant. You can visit Albert Hall Museum for pictures in Golden Triangle Tour with Varanasi. Stay overnight at Jaipur hotel.', 'Get up at and breakfast, meet the guide to you who will take care of all your sightseeing tours in Jaipur. Explore the Pink City of India beginning with an excursion to the Amber Fort. Where you can enjoy elephant rides. You will spend your afternoon at the City Palace Museum, which is a blend of Mughal and Rajasthani architecture. Later visit Jantar Mantar which is the largest of the five observatories. Also, visit the famous Hawa Mahal. A traditional lunch at a famous Rajasthani restaurant in Jaipur. It will surely turn out to be a fine dining experience for you. The evening is reserved for visiting the markets of textiles, handicrafts, carpets, and gems. Travelers also like to visit Gatore Ki Chhatariya (Cremation ground of Royal Family). There are many theme restaurants in Jaipur where tourists go for dinner with Gazal or folk dance. Stay overnight at Jaipur hotel.', 'In the morning after breakfast, you check-out from the hotel. Proceed to Agra where on the way visit two important sites: 1- Chand Baoli ( Deep step well) in Abhaneri village 2. Fatehpur Sikri is the old deserted town of the Mughal dynasty. At  Fatehpur Sikri visit famous Buland Darwaja (the longest gate of India). On arrival at the Agra city, drive to your hotel which has been already booked by us. Our representative will take care of your check-in formalities. Hotel staff will welcome in the traditional Indian style. Agra is an important part of your Golden Triangle Tour with Varanasi. In the evening we can arrange ( on pre-information) Kalakariti Show tickets. People like to visit Sadar Bazar in Agra for street foods and Indian Sweets. Stay overnight at Agra hotel.', 'Get up early before sunrise, with our Guide visit Taj Mahalâ€“ one of the Seven Wonders of the World. Surely the most extravagant expression of love ever created. 20,000 men labored for over 17 years to build this memorial for Shah Jahanâ€™s beloved wife. At first light of dawn, when a cool breeze fills the air and the morning sun shines on the palace.  Taj Mahal is at its height of beauty. Set against the azure skyline, it looks like a mirage in a desert. Surely the greatest monument of love. Better to book online Taj Mahal tickets with Mausoleum to avoid queue at Taj entrance gate.\r\n\r\nAfter lunch, your tour continues with a visit to the Agra Fort. From where you can get the most moving view of the Taj which is followed by a visit to the Pearl Mosque. You must visit the Tomb of Itamad- ud- Daula, built by the empress Noor Jahan in memory of her father. In the evening, you can visit the markets of Agra. Visit the famous Marble Industries where you will find the craftsman working on marble. See the demonstration work will really help you understand the fine art. Stay overnight at Agra hotel.', 'Morning at 06:00 hrs you are transferred to the Agra Cantt railway station to board on train for Varanasi. You will enjoy onboard on newly introduced Vande Bharat train. Arrive Varanasi by 01:00 PM, total 7 hrs travel by train Agra to Varanasi. We offer you a warm reception at the Varanasi railway station. Based on your choice we will book a hotel in Varanasi. We take you straight to the hotel, where you get to check in with cordially welcome. Check-in at respective rooms in the hotel. Varanasi is the Holy city of India and known for its fine quality silks and mouth freshener â€˜Paanâ€™. It is also the most popular pilgrimage point of the Hindus.\r\n\r\nAfter lunch, our representative will introduce you to an experienced guide. We have shortlisted guides who make the trip memorable. Must take a visit to the famous Banaras Hindu University. Where we will arrange a special interactive session with the lecturer. Visit  Mankarnika and Harishchandra Ghaat at the bank of holy river Ganges. Later proceed to the Ghats in the evening to watch the Aarti ceremony. Surely which would definitely be a soothing experience for you. People like to visit Ramnagar Fort in Varanasi.  Drive back to the hotel and enjoy dinner at the hotel. Stay overnight at Varanasi.', 'Early morning with the driver you will be taken for a boat ride at the Holy Ganges River. It will be a lifetime experience for you. You will see religious rituals, taking a holy bath at the Ghats. On one end for the prosperity of life and at the other end bodies are burnt on the same ghats. Visit the Kashi Vishwanath mandir in Kashi Varanasi. After breakfast, we arrange an excursion to Sarnath Museum. Varanasi tour is incomplete if you do not visit the Sarnath. It is at a distance of 10 kilometers from Varanasi city. Lord Buddha delivered his first sermon at Sarnath city after attaining enlightenment.\r\n\r\nYou can also explore the Museum and drive back to the hotel to pack your bags. On your scheduled time we take you to the railway station to board the train for Delhi. Overnight journey by a comfortable train.', 'On your arrival at Delhi, the team of TOURIST DRIVERS INDIA PRIVATE TOURS would escort you directly to the hotel. There is a short stay for your refreshment after the long journey ahead back home. You can relax at the hotel after a tiring journey. Or do some last-minute shopping in the nearest local markets to buy souvenirs for your friends and family. Our representatives will provide an airport transfer for your flight back home\r\n\r\nGolden Triangle with Varanasi would assure you that we will cater to all your needs. You would never wish that this tour comes to an end. But unfortunately, we will have to convey our regards and wish you a nice and comfortable journey. Surly you back home with memories of India. Thank you for Journey for Golden Triangle Tour with Varanasi.', '', '', '', '', '', '', '', '', 'Visit of World Heritage Sites in Delhi, Jaipur, Agra, and Varanasi. The most beautiful citys in north India ', 'Rickshaw ride in the narrow streets of Chandni Chowk- Old Delhi ', 'Visit of  museum in Delhi', 'Elephant ride at Amber Fort in Jaipur a UNESCO World Heritage site', 'Visit of Local Markets and factory in all the citys '),
+(12, 'Delhi Agra Jaipur Srinagar Tour ', 'assets/img/packages/golden_triangle_1767009564_9324.webp', '[]', 'combined tour of Delhi, Agra, Jaipur (the Golden Triangle) and Kashmir is a popular option for tourists visiting India. It offers a mix of historical sites, cultural experiences, and natural beauty and Discovery Dreams are examples of tour operators offering such packages', '7 N 8 D', '', 'Delhi Jaipur Agra Kashmir ', 'New Delhi Arrival', 'Delhi  Jaipur Drive', 'Jaipur Private Tour', 'Jaipur Fatehpur Sikri Agra Drive', 'Tajmahal Visit - Agra Delhi Drive', 'Delhi Kashmir Srinagar Flight', 'Srinagar Tour', 'Srinagar Delhi Flight ', '', '', '', '', '', '', '', '', '', 'Arrival at New Delhi Airport , meet our representative and proceed to Hotel for Check in. Delhi is a city built and re-built seven times over several centuries. The capital city today marries the quaint and unique elements of different historical eras with the pace of the bustling, growing economy. At every turn of the road, the past and the present coexist. Overnight at Hotel. ', 'After Breakfast drive to Jaipur. Arrive and check in at hotel. Jaipur: Beautiful palaces, forts and colourful bazaars speak of the pink cityâ€™s glorious regal past. Modernity walks hand-in-hand with history in Jaipur. This largest city of Rajasthan, founded by Maharaja Sawai Jai Singh, is famous for its magnanimous hospitality. Later tour of the Pink city visiting the imposing hawa Mahal, Jantar Manter & City Palace now a museum, the ancient Observatory, The exotic Palace of the Winds & the picturesque bazaars of the walled city. Overnight at Hotel. ', 'After Breakfast , Visit Amber - the ancient capital of the Rajput Empire reaching the fort on elephant back. It is a deserted palace surrounded by majestic ramparts & the magnificent public & private room\'s evidence the splendor of the rulers of 16th & 17th century Rajasthan. Jaigarh Fort- Situated on the majestic Chilh-ka-Tola or the hill of eagles, the lofty walls of the Jaigarh Fort spread over a vast expansion of three kilometers. This impregnable fort of the Rajput was built purely for the defense activities. Nahargarh fort- Nahargarh Fort is located on the sheer rugged ridge of Aravali Hills and it forms an impressive northern backdrop of Jaipur. It looks most classy when floodlit at night. The fort overlooks the city and presents a glittering view of the city lights. It was built in 1734 and extended in 1868. Nahargarh meaning abode of the tigers was built by Jai Singh to bolster the defence of Amber. Evening explore the local bazzar. Overnight at Hotel. ', 'After breakfast drive to Agra En-route Fatehpur Sikri - the extraordinary city built by Akbar the Great, deserted 14 years later, but which, during its brief span, exceeded London in both grandeur and population. After visit continue drive to Agra. Arrive and check in at Hotel. Akbarabad, as Agra was known during the Mughal era, is home to some of the most magnificent Mughal architectures. Situated on the banks of river Yamuna, the monumental beauty of Agra has inspired countless people around the world. This third largest city of the state of Uttar Pradesh is home to three UNESCO world heritage sites. Overnight at Hotel. ', 'After Breakfast breakfast Proceed to visit to the world - famous Taj Mahal - or literally \"Crown of Palaces\" was built by Shah Jehan to immortalize the memory of his beloved wife Mumtaz Mahal who died tragically in 1631. After that visit, the Red Fort built by three generations of Mughal Emperors between 1565 and 1573. It housed both the presidential Palaces of the Royal family, and the military quarters. Itmad-ud-Daulah It is believed that the glorious Taj Mahal was also probably inspired from another monument in Agra called the Itmad-ud-Daulah. And so this Mughal mausoleum is also called the â€˜Baby Tajâ€™. This beautiful tomb definitely calls for a visit. The tomb, built between 1622 and 1628 has walls made of white marble from Rajasthan, encrusted with semi-precious stone decorations. Afternoon drive to Delhi. Arrive Delhi and proceed for city Tour of NEW DELHI - drive past the stately government buildings of the British Era designed by Lutyenâ€™s, including the Indian Gate & the Presidential Palace. Continue onto the beautiful Humayunâ€™s tomb of the Mughal era & thereafter visit the towering minaret of Qutab Minar. Arrive and check in at hotel. Overnight at Hotel ', 'After breakfast proceed to Delhi Airport and take flight for Srinagar. On your arrival at the Srinagar International Airport, you will be taken for a 35 minutes drive through the heart of New Srinagar city, passing the Abdullah bridge which connects the banks of the Jhelum river check in hotel. Visit local market in evening leisure. Overnight at hotel. ', 'After breakfast, proceed towards Gulmarg. En-route you get to see the beautiful Tangmarg town and drive ahead on a scenic drive of 14 kilometers to Gulmarg. Later, begin a short tour, boarding the Gondola cable car system (the 08 minutes ropeway). Descend back to Gulmarg after an hour and later indulge in some horse-riding. Evening drive back to Srinagar. Overnight at hotel. ', 'After breakfast check-out from hotel and enjoy Shikara ride in world famous dal lake, later proceed to Airport to board your flight for your onwards destination. ', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `himachal_packages`
+--
+
+CREATE TABLE `himachal_packages` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `gallery_images` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `duration` varchar(100) DEFAULT NULL,
+  `persons` varchar(100) DEFAULT NULL,
+  `places_covered` text DEFAULT NULL,
+  `itinery_heading_1` varchar(255) DEFAULT NULL,
+  `itinery_heading_2` varchar(255) DEFAULT NULL,
+  `itinery_heading_3` varchar(255) DEFAULT NULL,
+  `itinery_heading_4` varchar(255) DEFAULT NULL,
+  `itinery_heading_5` varchar(255) DEFAULT NULL,
+  `itinery_heading_6` varchar(255) DEFAULT NULL,
+  `itinery_heading_7` varchar(255) DEFAULT NULL,
+  `itinery_heading_8` varchar(255) DEFAULT NULL,
+  `itinery_heading_9` varchar(255) DEFAULT NULL,
+  `itinery_heading_10` varchar(255) DEFAULT NULL,
+  `itinery_heading_11` varchar(255) DEFAULT NULL,
+  `itinery_heading_12` varchar(255) DEFAULT NULL,
+  `itinery_heading_13` varchar(255) DEFAULT NULL,
+  `itinery_heading_14` varchar(255) DEFAULT NULL,
+  `itinery_heading_15` varchar(255) DEFAULT NULL,
+  `itinery_heading_16` varchar(255) DEFAULT NULL,
+  `itinery_heading_17` varchar(255) DEFAULT NULL,
+  `itinery_description_1` text DEFAULT NULL,
+  `itinery_description_2` text DEFAULT NULL,
+  `itinery_description_3` text DEFAULT NULL,
+  `itinery_description_4` text DEFAULT NULL,
+  `itinery_description_5` text DEFAULT NULL,
+  `itinery_description_6` text DEFAULT NULL,
+  `itinery_description_7` text DEFAULT NULL,
+  `itinery_description_8` text DEFAULT NULL,
+  `itinery_description_9` text DEFAULT NULL,
+  `itinery_description_10` text DEFAULT NULL,
+  `itinery_description_11` text DEFAULT NULL,
+  `itinery_description_12` text DEFAULT NULL,
+  `itinery_description_13` text DEFAULT NULL,
+  `itinery_description_14` text DEFAULT NULL,
+  `itinery_description_15` text DEFAULT NULL,
+  `itinery_description_16` text DEFAULT NULL,
+  `itinery_description_17` text DEFAULT NULL,
+  `highlight_1` text DEFAULT NULL,
+  `highlight_2` text DEFAULT NULL,
+  `highlight_3` text DEFAULT NULL,
+  `highlight_4` text DEFAULT NULL,
+  `highlight_5` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `himachal_packages`
+--
+
+INSERT INTO `himachal_packages` (`id`, `title`, `image`, `gallery_images`, `description`, `duration`, `persons`, `places_covered`, `itinery_heading_1`, `itinery_heading_2`, `itinery_heading_3`, `itinery_heading_4`, `itinery_heading_5`, `itinery_heading_6`, `itinery_heading_7`, `itinery_heading_8`, `itinery_heading_9`, `itinery_heading_10`, `itinery_heading_11`, `itinery_heading_12`, `itinery_heading_13`, `itinery_heading_14`, `itinery_heading_15`, `itinery_heading_16`, `itinery_heading_17`, `itinery_description_1`, `itinery_description_2`, `itinery_description_3`, `itinery_description_4`, `itinery_description_5`, `itinery_description_6`, `itinery_description_7`, `itinery_description_8`, `itinery_description_9`, `itinery_description_10`, `itinery_description_11`, `itinery_description_12`, `itinery_description_13`, `itinery_description_14`, `itinery_description_15`, `itinery_description_16`, `itinery_description_17`, `highlight_1`, `highlight_2`, `highlight_3`, `highlight_4`, `highlight_5`) VALUES
+(1, 'Delhi Shimla Manali Delhi Tour Package 6 Days ', 'assets/img/himachal-tour-images/shimla-manali-5days.jpg', NULL, 'Experience the beauty of Himachal Pradesh with our Manali Shimla Tour. Explore the snow-capped mountains, lush valleys, and charming colonial architecture. Begin your journey in Shimla, known for its scenic Mall Road, Jakhoo Temple, and historic landmarks. Continue to Manali, where you can visit Solang Valley, Rohtang Pass, and Hadimba Temple, and enjoy thrilling adventures like paragliding and river rafting. Perfect for couples, families, and nature lovers, this tour offers a perfect blend of relaxation and excitement amidst the serene Himalayan landscapes. Book now for an unforgettable mountain getaway.\r\n', '05 Nights - 06 Nights', '', 'Delhi - Shimla - Manali - Manali Sightseeing - Delhi', 'Delhi - Shimla (380 kms)', 'Shimla', 'Shimla - Manali', 'Manali Sightseeing', 'Manali Sightseeing', 'Manali - Delhi (Departure)', '', '', '', '', '', '', '', '', '', '', '', 'Morning on arrival at Delhi we transfer you to Shimla (343 kms / 8 hrs). Shimla is the capital city of Himachal Pradesh is set amidst the Snow capped Shivalik Mountains, Which offer some of the most beautiful view of the Himalayas and the astounding natural beauty. On arrival our representative assists and transfers you to the hotel. Enjoy overnight stay and delicious dinner at the hotel in Shimla.\r\n\r\n', 'Morning after breakfast enjoy at leisure. Afternoon go for a half day city tour visiting Indian Institute of Advanced Studies, Sankat Mochan Temple and Jakhu Temple. Evening enjoy a stroll in the Mall and The Ridge and enjoy lots of shop ping, taste the delicious delicacies and surf the cool romantic air viewing the panoramic snow capped Mountains. Dinner and overnight stay will be at the hotel in Shimla.', 'Enjoy the early morning breakfast at the hotel and later get ready to proceed to Manali (320 kms/8 hrs). Manali is a beautiful hill station outstanding blessed with scenic and captivating view of the snow capped mountains, scenic natural vistas and outstanding sightseeing spots. On arrival check in at pre-booked hotel, freshen up and take rest at the comfort of your room. Later at night dinner and overnight stay will be at the hotel in Manali.', 'After morning breakfast go for a city tour of Manali visiting Hadimba Devi Temple, Manu Temple, Tibetan Monastery and Vashisht Village. Afternoon enjoy rest of the time at leisure. Overnight stay and dinner will be at the hotel in Manali.', 'Morning after go for a full day excursion visiting Kothi Gorge, Gulaba, Marhi and Rothang Pass ( a picturesque location and an ideal gateway to Lahual Sipti region). Rothang Pass is the most visited Himalayan spot which receives snowfall round the year. After visiting Solang Valley return back on time to the hotel for Dinner and overnight stay.( in Winter Car will be going only up to the Snow point).\r\n\r\n', 'Enjoy the relaxed morning breakfast at the hotel. Later our representative drive you on wheel back to Delhi 570 K M (11 hrs). In this way delights and surprises packed in Shimla Manali tour package ends offer you remarkable experience to cherish.', '', '', '', '', '', '', '', '', '', '', '', 'Scenic Mall Road & Ridge in Shimla Stroll through Shimla\'s iconic shopping and leisure hub.', 'Jakhoo Temple & Christ Church Visit Shimla\'s spiritual and architectural landmarks.', 'Solang Valley Adventures Enjoy paragliding, skiing, and other thrilling activities in Manali.', 'Rohtang Pass Excursion Witness snow covered peaks and panoramic Himalayan views.\r\n\r\n', 'Hadimba Temple & Local Culture  Explore Manali\'s ancient temples and vibrant local traditions.'),
+(3, 'Delhi Shimla  Delhi  Tour Package 5 Days', 'assets/img/himachal-tour-images/shimla.jpg', NULL, 'Experience the beauty of the Himalayas with our 5-day Shimla Tour. Begin your journey from Delhi and enjoy a scenic drive to Shimla, the Queen of Hills. Explore popular attractions like The Ridge, Mall Road, Jakhoo Temple, Kufri, and Chail. Breathe in the fresh mountain air, take in stunning views of snow-capped peaks, and relax in peaceful surroundings. Perfect for families, couples, and nature lovers, this tour offers a blend of sightseeing, leisure, and adventure. Create unforgettable memories with this charming escape to Shimlaï¿½s serene landscapes.', '05 Days / 04 Nights', '', 'Delhi - Shimla - Kasauli - Delhi', 'Delhi - Shimla (380 kms)', 'Shimla', 'Shimla - Kasauli (80 Kms/2 hours)', 'Kasauli', 'Departure(Kasauli-Delhi)', '', '', '', '', '', '', '', '', '', '', '', '', 'On Arrival in Delhi we will meet you and transfer by to Shimla (343 kms / 8 hrs).Shimla is capital of himachal former capital of Britishers also set amidst, the snow copper, shaivalik,mountains which offer some of the most beautifull view of himalaya Reach there and check in hotel Dinner and overnight at Simla.', 'After breakfast,go out for a sightseeing trip to Kufri(14 kms/1 hour). Afternoon half day city tour visiting Indian Institute Of Advanced Studies, Sankat Mochan Temple and Jakhu Temple, Evening free to stroll in the famous shopping place of Shimla town - The Mall & The Ridge. Dinner and Overnight at hotel.', 'After breakfast,transfer to Kasauli.Kasauli is a small,unspoiled hill station in Solan district of Himachal Pradesh,it is far away from the maddening crowds which you find in other cities and hill stations.Day at leisure and dinner and overnight stay at hotel in Kasauli.', 'After breakfast,go for local sightseeing in the town and near by areas,evening at leisure,one can spend evening tolling in the mall and shopping.Dinner and overnight stay at hotel in Kasauli.', 'After breakfast,depart for Delhi(320 kms/7 hours).Tour Ends.', '', '', '', '', '', '', '', '', '', '', '', '', 'Scenic Drive to Shimla Enjoy a picturesque journey through the Shivalik mountains to the Queen of Hills.', 'Excursion to Kufri Visit the serene hill station of Kufri known for panoramic Himalayan views and adventure activities.\r\n\r\n', 'Shimla City Tour Explore Indian Institute of Advanced Studies, Jakhu Temple, and stroll through Mall Road & The Ridge.\r\n\r\n', 'Relaxing Stay in Kasauli Unwind in a peaceful, crowd-free hill station surrounded by pine forests.\r\n\r\n', 'Local Sightseeing & Leisure Time Enjoy local attractions and shopping at your own pace in Kasauli.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n'),
+(5, 'Delhi Manali Delhi Tour Package 5 Days', 'assets/img/himachal-tour-images/manali.jpg', NULL, 'Embark on a mesmerizing 5-day Manali tour and experience the breathtaking beauty of Himachal Pradesh. Begin your journey from Delhi to Manali, driving through scenic valleys and mountains. Enjoy local sightseeing at Hadimba Devi Temple, Vashisht Kund, and Manu Temple. Experience the thrill of adventure at Solang Valley with activities like paragliding and skiing. Explore the enchanting Rohtang Pass (subject to availability) and capture the snow-covered charm. Indulge in shopping at the vibrant Mall Road and enjoy cozy evenings in the hills. A perfect getaway for nature lovers and thrill-seekers.\r\n', '05 Days/04 Nights', '', 'Delhi - Manali - Manali Excursion - Manikaran via Kullu - Manali - Delhi', 'Delhi - Manali', 'Manali Sightseeing', 'Manali Excursion', 'Manali - Manikaran via Kullu - Manali', 'Manali - Delhi', '', '', '', '', '', '', '', '', '', '', '', '', 'On arrival at Delhi, our representative meets you and assists to transfer you to Manali 570 km/ 11 hrs. On arrival check in at hotel, freshen up and enjoy rest of the time at leisure. At night enjoy delicious dinner and overnight stay t the hotel in Manali.', 'Morning after breakfast get ready for city tour to visit some of the magnificent attractions including Hadimba Devi Temple, Tibetan Monastery, Manu Temple and Vashisht Village. Afternoon enjoy at leisure. Dinner and overnight stay will be at the hotel in Manali.', 'Enjoy the early morning breakfast at the hotel. Later visit to Kothi Gorge, Marhi, Rothang pass and Marhi. Rothang Pass is an important tourist spot with alluring view of the snow capped Himalayas, picturesque lakes and scintillating tranquil surrounding. After visiting to Solang Valley, return back to the hotel on time and enjoy delicious dinner and overnight stay. .( in Winter Car will be going only up to the Snow point).', 'Morning after breakfast, check out from the hotel and drive to Manikaran 75 kms /4 hours, enroute visiting Kullu. Manikaran is located in Parvati valley amidst the river Vyaas and Parvati in the Kullu district of Himachal Pradesh. Manikaran is holy centre of both Hindu and Sikh religion. It is believed that Manu created human life again in Manikaran after the devastating flood, making the place centre of pilgrimage. After visit to Manikaran transfer to Kullu valley (45 kms/2 hours) for a half day sightseeing tour and panoramic view of the natural beauty and snow capped himalayas. Return to Manali by evening for dinner and overnight stay at the hotel.', 'Morning after breakfast, check out from the hotel and transfer to Delhi 520 K M (10 hrs).', '', '', '', '', '', '', '', '', '', '', '', '', 'Manali Local Sightseeing Explore Hadimba Devi Temple, Manu Temple, Vashisht Village & Tibetan Monastery.', 'Solang Valley & Rohtang Pass Excursion Experience adventure activities and breathtaking Himalayan views (weather permitting).', 'Manikaran Visit via Kullu Discover the sacred Hindu and Sikh pilgrimage site in the serene Parvati Valley.', 'Panoramic Kullu Valley Views Witness natural beauty, lush greenery, and snow-capped mountains.', 'Comfortable Travel & Accommodation Smooth transfers, quality hotel stay, and daily meals included.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meta_tags`
+--
+
+CREATE TABLE `meta_tags` (
+  `id` int(11) NOT NULL,
+  `page` varchar(255) NOT NULL,
+  `meta_title` varchar(255) NOT NULL,
+  `meta_description` text NOT NULL,
+  `meta_keywords` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `meta_tags`
+--
+
+INSERT INTO `meta_tags` (`id`, `page`, `meta_title`, `meta_description`, `meta_keywords`) VALUES
+(2, 'index', 'Best India Travel Company - Tourist Drivers India Private Tours', 'Explore India with our exclusive private tour packages. Golden Triangle Tours, Rajasthan Tours, Taj Mahal Tours, Himachal Packages with professional drivers.', 'India tours, private tours India, Golden Triangle tour, Taj Mahal tour, Rajasthan tour, Himachal tour'),
+(3, 'tour-packages', 'Tour Packages - Tourist Drivers India', 'Browse our exclusive India tour packages including Golden Triangle, Rajasthan, Himachal Pradesh, and Pilgrimage tours.', 'tour packages India, India travel packages, golden triangle package'),
+(4, 'contact', 'Contact Us - Tourist Drivers India', 'Get in touch with Tourist Drivers India for booking inquiries and custom tour packages.', 'contact tourist drivers India, India tour booking'),
+(5, 'about', 'About Us - Tourist Drivers India', 'Learn about Tourist Drivers India - Your trusted partner for exploring incredible India.', 'about tourist drivers India, India tour company'),
+(6, 'gallery', 'Gallery - Tourist Drivers India', 'View our photo gallery showcasing beautiful destinations across India.', 'India travel photos, tour gallery'),
+(7, 'vehicle', 'Our Vehicles - Tourist Drivers India', 'Explore our fleet of comfortable and well-maintained vehicles for your India tour.', 'tour vehicles India, luxury cars India');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `other_services`
+--
+
+CREATE TABLE `other_services` (
+  `id` int(65) NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `package_name` varchar(255) DEFAULT NULL,
+  `package_image` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_at` varchar(255) DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `other_services`
+--
+
+INSERT INTO `other_services` (`id`, `category`, `package_name`, `package_image`, `description`, `created_at`) VALUES
+(3, 'Home Appliances', 'Ac Services', 'assets/img/packages/AC.jpg', 'WRIE Industries offers expert AC service for all brands and models, including split and window units. Our skilled technicians clean filters, check gas, inspect components, and boost performance. Stay cool with our reliable, quick, and affordable service.', '2025-04-05 17:59:54'),
+(4, 'Services', 'Ro ', 'assets/img/packages/1743856570_ro.webp', 'Ensure safe drinking water with WRIE Industries\' RO service. We service all top brands, offering filter changes, membrane replacements, and pump repairs. Get reliable, affordable, doorstep service with deep cleaning and full customer satisfaction.', '2025-04-05 18:00:28'),
+(5, 'Electrical ', 'Geyser Service', 'assets/img/packages/geyser.png', 'Stay warm with WRIE Industriesâ€™ expert geyser service. We check thermostats, replace elements, inspect wiring, and fix leaks. From instant to storage models, we handle all brands. Enjoy safe, efficient heating with reliable, on-time service .', '2025-04-05 18:07:44'),
+(6, 'Appliances', 'Washing Machine', 'assets/img/packages/washing-machine.jpg', 'WRIE Industries offers expert washing machine service for all brandsâ€”top-load, front-load, and semi-auto. From drainage issues to motor faults, we fix it all using genuine parts. Get fast, reliable, doorstep service for smooth laundry days.', '2025-04-05 18:08:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pilgrimage_package`
+--
+
+CREATE TABLE `pilgrimage_package` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `gallery_images` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `duration` varchar(100) DEFAULT NULL,
+  `persons` varchar(100) DEFAULT NULL,
+  `places_covered` text DEFAULT NULL,
+  `itinery_heading_1` varchar(255) DEFAULT NULL,
+  `itinery_heading_2` varchar(255) DEFAULT NULL,
+  `itinery_heading_3` varchar(255) DEFAULT NULL,
+  `itinery_heading_4` varchar(255) DEFAULT NULL,
+  `itinery_heading_5` varchar(255) DEFAULT NULL,
+  `itinery_heading_6` varchar(255) DEFAULT NULL,
+  `itinery_heading_7` varchar(255) DEFAULT NULL,
+  `itinery_heading_8` varchar(255) DEFAULT NULL,
+  `itinery_heading_9` varchar(255) DEFAULT NULL,
+  `itinery_heading_10` varchar(255) DEFAULT NULL,
+  `itinery_heading_11` varchar(255) DEFAULT NULL,
+  `itinery_heading_12` varchar(255) DEFAULT NULL,
+  `itinery_heading_13` varchar(255) DEFAULT NULL,
+  `itinery_heading_14` varchar(255) DEFAULT NULL,
+  `itinery_heading_15` varchar(255) DEFAULT NULL,
+  `itinery_heading_16` varchar(255) DEFAULT NULL,
+  `itinery_heading_17` varchar(255) DEFAULT NULL,
+  `itinery_description_1` text DEFAULT NULL,
+  `itinery_description_2` text DEFAULT NULL,
+  `itinery_description_3` text DEFAULT NULL,
+  `itinery_description_4` text DEFAULT NULL,
+  `itinery_description_5` text DEFAULT NULL,
+  `itinery_description_6` text DEFAULT NULL,
+  `itinery_description_7` text DEFAULT NULL,
+  `itinery_description_8` text DEFAULT NULL,
+  `itinery_description_9` text DEFAULT NULL,
+  `itinery_description_10` text DEFAULT NULL,
+  `itinery_description_11` text DEFAULT NULL,
+  `itinery_description_12` text DEFAULT NULL,
+  `itinery_description_13` text DEFAULT NULL,
+  `itinery_description_14` text DEFAULT NULL,
+  `itinery_description_15` text DEFAULT NULL,
+  `itinery_description_16` text DEFAULT NULL,
+  `itinery_description_17` text DEFAULT NULL,
+  `highlight_1` text DEFAULT NULL,
+  `highlight_2` text DEFAULT NULL,
+  `highlight_3` text DEFAULT NULL,
+  `highlight_4` text DEFAULT NULL,
+  `highlight_5` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `pilgrimage_package`
+--
+
+INSERT INTO `pilgrimage_package` (`id`, `title`, `image`, `gallery_images`, `description`, `duration`, `persons`, `places_covered`, `itinery_heading_1`, `itinery_heading_2`, `itinery_heading_3`, `itinery_heading_4`, `itinery_heading_5`, `itinery_heading_6`, `itinery_heading_7`, `itinery_heading_8`, `itinery_heading_9`, `itinery_heading_10`, `itinery_heading_11`, `itinery_heading_12`, `itinery_heading_13`, `itinery_heading_14`, `itinery_heading_15`, `itinery_heading_16`, `itinery_heading_17`, `itinery_description_1`, `itinery_description_2`, `itinery_description_3`, `itinery_description_4`, `itinery_description_5`, `itinery_description_6`, `itinery_description_7`, `itinery_description_8`, `itinery_description_9`, `itinery_description_10`, `itinery_description_11`, `itinery_description_12`, `itinery_description_13`, `itinery_description_14`, `itinery_description_15`, `itinery_description_16`, `itinery_description_17`, `highlight_1`, `highlight_2`, `highlight_3`, `highlight_4`, `highlight_5`) VALUES
+(1, 'Chardham Yatra Package from Delhi', 'assets/img/pilgrimage-photos/chardham-image.png', NULL, 'Chardham Yatra Tours is a sacred pilgrimage journey covering the four holy shrines of Yamunotri, Gangotri, Kedarnath, and Badrinath nestled in the majestic Himalayas. This spiritually enriching tour offers a perfect blend of devotion, adventure, and natural beauty. Pilgrims embark on a divine path through serene rivers, ancient temples, and breathtaking landscapes. From the holy Ganga Aarti in Haridwar to the tranquil vibes of Badrinath and Kedarnath, every step of this journey brings peace to the soul. Chardham Yatra is not just a tripï¿½it\'s a transformative experience that renews your spirit and deepens your connection with the divine.\r\n', '11 Nights / 12 Days', '', 'Delhi, Haridwar, Mussoorie, Kempty Falls, Barkot, Yamunotri, Hanumanchatti, Janki Chatti, Uttarkashi, Gangotri, Guptkashi, Phata, Kedarnath, Sersi, Joshimath, Badrinath, Mana Village, Vasudhara Falls, Satopanth Lake, Bhim Pul, Saraswati Temple, Vyas Gufa, Rudraprayag, Vishnuprayag, Nandprayag, Karnprayag, Dhari Devi Temple, Devprayag, Rishikesh, Ram Jhula, Laxman Jhula, Triveni Ghat.', 'Pick up from Delhi airport transfer to Haridwar.', ' Haridwar Barkot (approx 215km / 07 hrs. drive)', 'Barkot  Yamunotri Barkot (approx 42 km DRIVE / 06 km TREK)', 'Barkot  Uttarkashi (approx DRIVE 82 km, / 04 hrs. DRIVE)', ' Uttarkashi  Gangotri Uttarkashi (approx 100 km. PER WAY)', 'Uttarkashi  Guptkashi / Phata (approx 223 kms / 09 hrs DRIVE)', 'Guptkashi/Phata  Kedarnath (approx 27 km DRIVE + 19 km TREK)', 'Kedarnath Guptkashi / Phata (approx 27 km DRIVE + 19 km TREK)', 'Guptkashi/ Phata  Pandukeshwar / Badrinath (185 kms / 7 hrs )', 'Badrinath  Rudraprayag', ' Rudraprayag  Rishikesh', ' Rishikesh- Delhi', '', '', '', '', '', 'Highlights - Ganga Aarati at Har ki Pauri\r\n\r\nMeet our assistance on arrival as per your predefined schedule and further proceed to Haridwar.\r\nUpon arrival check into the hotel and further you can proceed for Ganga Aarti at Har Ki Pouri on\r\nyour own if possible with available time and conditions. So here Har Ki pouri is the center point\r\nof Haridwar and there are several local transports available for this sight. We kept you free to\r\nexplore the local Haridwar and edge of Ganges. Overnight stay in Haridwar.\r\n', 'Highlights - Mussoorie & Kempty Fall\r\n\r\nThis morning, you depart for Barkot. Barkot is a beautiful hill station which is located on the foot\r\nof Yamunotri. As you drive through Mussoorie, you can visit the famous Kempty Falls on your\r\nway. On arrival at Barkot, check-in to your hotel/camp. Rest of the day is free to relax and store\r\nyour energy for the hiII Yatra of Yamunotri Overnight stay at Barkot.\r\n', 'Highlights - Yamunotri Temple\r\n\r\nAfter breakfast, depart for Hanumanchatti (40 Km), Janki Chatti (8 km). Here you will begin the\r\nFirst hill Yatra of Yamunotri (6 Km trek). You have an option of hiring Palki or a horse for your\r\ntrek. (Cost Not Included).\r\nThe trek passes through lush green valley, a profusion of conifers, rhododendrons, cacti and\r\nseveral species of Himalayan shrubs.\r\n', 'Highlights - Vishwanath Temple\r\n\r\nAfter breakfast check out from the Barkot hotel and drive to Uttarkashi. En route visit the famous\r\nVishwanath Temple on Uttarkashi. On arrival check in into the hotel. Uttarkashi is situated on the\r\nbanks of river Bhagirathi and is famous for its historical monuments, Temples & Ashrams. .\r\nOvernight stay at Uttarkashi.\r\n', 'Highlights - Gangotri Temple\r\n\r\nEarly morning breakfast at the hotel and drive to Gangotri. Upon arrival at Gangotri take a holy\r\ndip in the sacred river Ganges which is also called Bhagirathi at its origin. Visit the Gangotri\r\nTemple. The 18th century\'s temple dedicated to Goddess Ganga is located near a sacred stone\r\nwhere King Bhagirathi worshiped Lord Shiva. Ganga is believed to have touched earth at this\r\nspot. The temple is an exquisite 20 ft. high structure made of white granite. After performing\r\nPooja, afternoon drive back to Uttarkashi. Overnight stay at Uttarkashi.\r\n', 'Highlights - Shree Kashi Vishwanath Temple and Ardhnareshwar Temple\r\n\r\nLeave for your next destination, Guptkashi after having your breakfast early in the morning. On\r\nreaching, check-in to the hotel. Guptkashi is located at a distance of 47 km from the holy shrine,\r\nKedarnath. The town holds immense religious importance as it houses famous ancient temples\r\nlike Shree Kashi Vishwanath Temple and Ardhnareshwar Temple. overnight in the hotel/camp.', 'Highlights - Kedarnath Temple, Adi Shankaracharya Temple\r\n\r\nEarly morning after breakfast drive to the helipad from where, you will start to fly to Kedarnath\r\nby helicopter. Mandakini, one of the main tributaries of the Ganges originates at Kedarnath and\r\nflows through Gaurikund. \"Jai Bholenath\" chants echo in the mountains. The mists envelop the\r\nmountains and slowly lift away. When you can view the picturesque beauty you are left\r\nmesmerized. Overnight stay at Kedarnath.\r\n', 'Early morning after breakfast you can come back to the helipad to fly to the Sersi / Phata by\r\nhelicopter. The vehicles are waiting for you in the helipad and youï¿½ll drive to the hotel and\r\nOvernight at Guptkashi.\r\n', 'Highlights - Chopta Peak\r\n\r\nAfter having your breakfast in the morning, check out of the hotel and start driving towards your\r\nnext destination, Badrinath via Joshimath. Badrinath is an important pilgrimage site which holds\r\nimmense importance for both Hindus and Buddhists. Badrinath temple is dedicated to Lord\r\nVishnu and is set at a height of 3133 meter. On arrival check into the hotel. After some rest and\r\nrefreshments you are all set to go to Badrinath Temple for darshan in the evening. But first you\r\nhave to go to Tapt Kund (Hot Spring), take a bath and then go to the temple. Dedicated to Lord\r\nVishnu. Later back to hotel. Overnight stay at hotel.\r\n', 'Highlights - Mana Village - Vasudhara Falls, Satopanth Lake, Bhim Pul, Saraswati Temple,\r\nGanesh Gufa & Vyas Gufa\r\nAlso see Vishnuprayag, Nandprayag, Karnprayag\r\n\r\nThis morning if we had not visited Badrinath Temple, we could visit for Darshan. Later return to\r\nthe hotel for breakfast. After breakfast check out from the hotel and proceed to Mana Village\r\nwhich is known as the last village of India. Places to visit in Mana Village - Bhim Pool, Vyas\r\nGufa and Vasudhara Falls. Later you drive for Rudraprayag. En-route you can see\r\nVIshnuprayag, Nandprayag, Karanprayag. On reaching Rudraprayag, check-in to the hotel. You\r\ncan relax for the rest of the day.stay overnight at the hotel.', 'Highlights - Rudraprayag, Dhari Devi Temple, Dev Prayag, Ram Jhula, Laxman Jhula\r\n\r\nEarly morning, after breakfast, you drive downhill to Rishikesh, a spiritual city and the Yoga\r\ncapital of the world. Enroute you can visit Mata Dhari Devi Temple. On reaching Rishikesh, go\r\nout for sightseeing. Visit Ram Jhula and Laxman Jhula. Evening you can visit Ganga Aarati at\r\nTriveni Ghat. drop to Hotel. overnight stay in hotel', 'After breakfast check out from the hotel and drive to Delhi', '', '', '', '', '', 'Ganga Aarti at Har Ki Pauri, Haridwar', 'Trek to Yamunotri Temple', 'Darshan at Kedarnath Temple via Helicopter', 'Visit to Badrinath Temple & Mana Village (last Indian village)', 'Ganga Aarti at Triveni Ghat, Rishikesh'),
+(3, 'Varanasi Prayagraj Ayodhya Package', 'assets/img/pilgrimage-photos/ayodhya-temple.webp', NULL, 'Explore the spiritual heart of India with our Varanasi, Prayagraj, and Ayodhya tour package. Begin your journey in Varanasi, the city of temples and ghats, where you can witness the mesmerizing Ganga Aarti. Next, visit Prayagraj, known for the sacred Triveni Sangam, where the Ganga, Yamuna, and Saraswati rivers meet. Conclude your pilgrimage in Ayodhya, the birthplace of Lord Rama, and visit the grand Ram Janmabhoomi temple. This thoughtfully curated package offers comfortable travel, guided tours, and spiritual experiences that connect you to Indiaï¿½s divine heritage. Book now for a soulful journey through these sacred cities.', '5 Nights / 6 Days', 'Person', 'Varanasi, Prayagraj  Ayodhya Package', 'Arrival in Varanasi', 'Sarnath & Varanasi Temples Tour', 'Varanasi to Prayagraj (Allahabad)', 'Prayagraj to Ayodhya', 'Ayodhya Tour', 'Departure from Ayodhya', '', '', '', '', '', '', '', '', '', '', '', 'Pickup: Arrive at Varanasi Airport and transfer to your hotel.\r\nActivities: In the evening, attend the Ganga Aarti at Dashashwamedh Ghat and enjoy a Ghat\r\nDarshan.\r\nOvernight Stay: Varanasi', 'Morning: Visit Sarnath, where Buddha delivered his first sermon. Explore the Dhamek Stupa,\r\nChaukhandi Stupa, and Sarnath Museum.\r\nAfternoon: Visit prominent Varanasi temples such as Kashi Vishwanath Temple, Annapurna\r\nTemple, and Sankat Mochan Hanuman Temple.\r\nOvernight Stay: Varanasi', 'Morning: Check out from your hotel and drive to Prayagraj (approximately 3 hours).\r\nActivities: Visit Triveni Sangam (confluence of Ganga, Yamuna, and Saraswati), Anand\r\nBhavan, and Allahabad Fort.\r\nOvernight Stay: Prayagraj\r\n', 'Morning: Check out from your hotel and drive to Ayodhya (approximately 4 hours).\r\nActivities: Visit Ram Janam Bhoomi, the birthplace of Lord Rama.\r\nOvernight Stay: Ayodhya\r\n', 'Activities: Explore other significant sites in Ayodhya, such as Hanuman Garhi, Kanak\r\nBhawan, and Sita Ki Rasoi.\r\nOvernight Stay: Ayodhya', 'Check Out: Check out from your hotel.\r\nTransfer: Drop off at Ayodhya Railway Station or Airport for your next destination.', '', '', '', '', '', '', '', '', '', '', '', 'Varanasi (Kashi) - The Spiritual Capital of India- ', 'Sacred Ganga Aarti at Dashashwamedh Ghat', 'Holy dip at Triveni Sangam (confluence of Ganga, Yamuna & Saraswati)', 'Visit to the Ram Janmabhoomi Mandir', 'Sacred Hanuman Garhi Temple'),
+(7, 'Delhi Haridwer Rishikesh Delhi 5 Days Package ', 'assets/img/packages/download.jpg', NULL, 'According to astrologers, the â€˜Kumbh Fairâ€™ takes place when the planet Jupiter enters Aquarius and the Sun enters Aries. According to mythology, â€˜Devasâ€™ (Gods) and â€˜Asurasâ€™ (Demons) churned the ocean to obtain Nectar and when the coveted â€˜Kumbhaâ€™ (pitcher) of Nectar (Amrita) which gave immortality was obtained from the depths of ocean, one of the â€˜Devasâ€™ whisked away the â€˜Kumbhaâ€™ from the â€˜Asurasâ€™ and evading from the â€˜Asurasâ€™, stopped at four places viz. Haridwar, Allahabad (Prayag), Nasik and Ujjain before he finally arrived into the safety of heaven. A few drops of Nectar are supposed to have spilled over on the water at these four places and sages, saints and pilgrims started periodically to flock to each of these â€˜Tirthasâ€™ to celebrate the divine event. In fact , it is a unique event that blends religious and social features alike', '4 Nights 5 Days', '', 'Delhi Haridwer Rishikesh Delhi', 'Delhi â€“ Haridwar', 'Haridwar â€“ Rishikesh', 'Rishikesh Delhi', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'ickup from Delhi Railway Station, Meet & Assist further drive to Haridwar. Check in Hotel. In the evening visit Har-ki-Pauri to view the holy Ganges Aarti. This is the place where the main bathing takes place. The place is called Brahma Kund, the myths says this is the place where the nectar can dissolved in the holy water of river Ganges. If wish, have a dip here later after viewing Aarti visit the market near the place. Later back to your Hotel for night stay.', 'Morning visit Haridwar Local Sight Seeing i.e Daksh Prajapati Temple, Ananand Mai Ashram, Parad (Mercury) Shivling in Kankhal Region, Mansa Devi and Chandi Devi (both by ropeway), Maya Devi, Pawan Dham, Bhuma Niketan, Parmarth, Bharat Mata Mandir, Shanti Kunj, Saptrishi Ashram and others.\r\n\r\nLater drive to Rishikesh another ancient place which is famous for its Ashrams and for grand viewing of Ganges. Visit Ashrams, some of which are internationally recognized as centre of Philosophical studies, yoga and meditation. Check in Hotel. In the evening visit Triveni Ghat to view the holy Ganges Aarti. Later back to your Hotel for night stay.\r\n\r\nTriveni Ghat: A sacred bathing spot on the bank of the river Ganga where devotees take holy dips and offer prayers. Devotees bathe here with the belief that the water has the power to purify them. Triveni Ghat is also called because it is believed to be the confluence of the Ganga, the Yamuna and the legendary Saraswati river. It is an interesting place to be at dawn when people make offerings of milk to the river and feed the fish. After sunset, as a part of the Aarti ceremony, lamps are floated on the water and provide a spectacular view.', 'After Breakfast, Visit Rishikesh Local Sight Seeing. Later drive to Delhi. Drop at Airport for your onward destination.', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Rajaji National Park, Har Ki Pauri, Haridwar, Triveni Ghat', 'Triveni Ghat, Parmarth Niketan Ashram, Ram Jhula', 'Ganga Arti Morning', 'Evening Ganga Arati', 'Temples '),
+(8, 'Buddha Tours Package India', 'assets/img/packages/download.jpg', NULL, 'Buddhism is based on the wisdom of Siddhartha Gautam borne like a prince of kapilavastu situated in Lumbini, Nepal. Gautam Buddha attained illumination sitting under the tree of Pipal.\r\n\r\nThis Buddhist tour will get you to the lots of significant Buddhist sites of India and we submit this tour the same as footsteps of Buddha. The major sites to be visiting through this tour are Bodhgaya, Patna, Kushinagar, Balrampur and Lumbini', '10 Nights / 11 Days', '', 'Delhi â€“ Lucknow â€“ Sravasti â€“ Lumbini â€“ Kushinagar â€“ Varanasi â€“ Bodhgaya â€“ Varanasi-Delhi', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Sravasti-Shravasti is primarily famous for its significance in Buddhism, particularly as a location where the Buddha performed miracles and taught many of his sermons. It\'s also a key site for Jainism, and was once the capital of the ancient kingdom of Kosala. \r\n', 'Lumbini- Siddhartha Gautama, the Lord Buddha, was born in 623 B.C. in the famous gardens of Lumbini, which soon became a place of pilgrimage. Among the pilgrims was the Indian emperor Ashoka, who erected one of his commemorative inscribed Ashoka pillars there. The inscription on the pillar is the oldest in Nepal', 'Kushinagar-Kushinagar is a famous Buddhist pilgrimage site because it\'s believed to be the location where Gautama Buddha attained Mahaparinirvana, or the final liberation, after his death. This makes it one of the four most important Buddhist holy places worldwide', 'Varanasi - Varanasi is famously known as a sacred city in Hinduism, with the Kashi Vishwanath Temple being a major pilgrimage site. It\'s also renowned for its ghats (steps leading to the Ganges River), where rituals and ceremonies are performed, and the beautiful silk Banarasi sarees', 'Bodhgaya- Bodh Gaya is most famous as the place where Gautama Buddha is said to have attained enlightenment, becoming the Buddha. It\'s a major pilgrimage site for Buddhists and is home to the Mahabodhi Temple, a UNESCO World Heritage site, which marks the location of the Bodhi Tree, where Buddha achieved enlightenment');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rajasthan_tour`
+--
+
+CREATE TABLE `rajasthan_tour` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `gallery_images` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `duration` varchar(100) DEFAULT NULL,
+  `persons` varchar(100) DEFAULT NULL,
+  `places_covered` text DEFAULT NULL,
+  `itinery_heading_1` varchar(255) DEFAULT NULL,
+  `itinery_heading_2` varchar(255) DEFAULT NULL,
+  `itinery_heading_3` varchar(255) DEFAULT NULL,
+  `itinery_heading_4` varchar(255) DEFAULT NULL,
+  `itinery_heading_5` varchar(255) DEFAULT NULL,
+  `itinery_heading_6` varchar(255) DEFAULT NULL,
+  `itinery_heading_7` varchar(255) DEFAULT NULL,
+  `itinery_heading_8` varchar(255) DEFAULT NULL,
+  `itinery_heading_9` varchar(255) DEFAULT NULL,
+  `itinery_heading_10` varchar(255) DEFAULT NULL,
+  `itinery_heading_11` varchar(255) DEFAULT NULL,
+  `itinery_heading_12` varchar(255) DEFAULT NULL,
+  `itinery_heading_13` varchar(255) DEFAULT NULL,
+  `itinery_heading_14` varchar(255) DEFAULT NULL,
+  `itinery_heading_15` varchar(255) DEFAULT NULL,
+  `itinery_heading_16` varchar(255) DEFAULT NULL,
+  `itinery_heading_17` varchar(255) DEFAULT NULL,
+  `itinery_heading_18` varchar(255) DEFAULT NULL,
+  `itinery_description_1` text DEFAULT NULL,
+  `itinery_description_2` text DEFAULT NULL,
+  `itinery_description_3` text DEFAULT NULL,
+  `itinery_description_4` text DEFAULT NULL,
+  `itinery_description_5` text DEFAULT NULL,
+  `itinery_description_6` text DEFAULT NULL,
+  `itinery_description_7` text DEFAULT NULL,
+  `itinery_description_8` text DEFAULT NULL,
+  `itinery_description_9` text DEFAULT NULL,
+  `itinery_description_10` text DEFAULT NULL,
+  `itinery_description_11` text DEFAULT NULL,
+  `itinery_description_12` text DEFAULT NULL,
+  `itinery_description_13` text DEFAULT NULL,
+  `itinery_description_14` text DEFAULT NULL,
+  `itinery_description_15` text DEFAULT NULL,
+  `itinery_description_16` text DEFAULT NULL,
+  `itinery_description_17` text DEFAULT NULL,
+  `itinery_description_18` text DEFAULT NULL,
+  `highlight_1` text DEFAULT NULL,
+  `highlight_2` text DEFAULT NULL,
+  `highlight_3` text DEFAULT NULL,
+  `highlight_4` text DEFAULT NULL,
+  `highlight_5` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `rajasthan_tour`
+--
+
+INSERT INTO `rajasthan_tour` (`id`, `title`, `image`, `gallery_images`, `description`, `duration`, `persons`, `places_covered`, `itinery_heading_1`, `itinery_heading_2`, `itinery_heading_3`, `itinery_heading_4`, `itinery_heading_5`, `itinery_heading_6`, `itinery_heading_7`, `itinery_heading_8`, `itinery_heading_9`, `itinery_heading_10`, `itinery_heading_11`, `itinery_heading_12`, `itinery_heading_13`, `itinery_heading_14`, `itinery_heading_15`, `itinery_heading_16`, `itinery_heading_17`, `itinery_heading_18`, `itinery_description_1`, `itinery_description_2`, `itinery_description_3`, `itinery_description_4`, `itinery_description_5`, `itinery_description_6`, `itinery_description_7`, `itinery_description_8`, `itinery_description_9`, `itinery_description_10`, `itinery_description_11`, `itinery_description_12`, `itinery_description_13`, `itinery_description_14`, `itinery_description_15`, `itinery_description_16`, `itinery_description_17`, `itinery_description_18`, `highlight_1`, `highlight_2`, `highlight_3`, `highlight_4`, `highlight_5`) VALUES
+(4, '15 Days Rajasthan Tour Package', 'assets/img/packages/wallpaperflare.com_wallpaper (36).jpg', NULL, 'Embark on an unforgettable journey through the majestic land of Rajasthan with our 15 Days Rajasthan Tour Package. Explore the vibrant culture, royal palaces, historic forts, desert landscapes, and colorful markets across the state. This tour is a perfect blend of heritage, adventure, and relaxation, covering iconic cities such as Jaipur, Udaipur, Jodhpur, Jaisalmer, Bikaner, and more. Whether you\'re a history enthusiast, culture lover, or photography buff, this package offers the best of Rajasthan in two weeks.', '15 days 14 nights', '', 'Delhi Agra Jaipur Pushkar Udaipur Jodhpur Ranakpur Jaisalmer Bikaner Mandava Delhi', ' Sight Seeing of Delhi', ' Delhi- Mandawa Drive', 'Mandawa â€“ Bikaner Drive', 'Bikaner â€“ Jaisalmer Drive', 'Jaisalmer -Jodhpur Drive', 'Jodhpur Tour', 'Jodhpur -Udaipur Drive', 'Udaipur Tour', 'Udaipur-Pushkar Drive', 'Pushkar-Jaipur Drive', 'Jaipur- Ranthambore Drive', 'Ranthambhore Forest Tour', 'Ranthambore-Agra Drive', 'Agra Delhi Delhi', 'Delhi Airport transfer', '', '', NULL, 'Welcome to the Pink City! Upon arrival, you\'ll be greeted and transferred to your hotel. After check-in, explore local markets or enjoy a short sightseeing tour including Birla Mandir and Nahargarh Fort for a sunset view.', 'Check in Hotel and get ready for afternoon sightseeing tour in the fort town of Mandawa, famous for its heritage Havelis and fresco art. Thousands of tourists come here to see the Mandawa Castle, which was an important station in the silk route. Now Castle Mandawa has been converted into a beautiful heritage hotel. Night halt at Bikaner', 'Lalgarh-palaceCheck in Hotel & enjoy the afternoon sightseeing tour. A leisurely afternoon visit includes are the major attractions like the Lalgarh Palace, the Junagarh fort, Ganga Golden Jubilee Museum, the Bhandasar Jain Temple, The Gajner Palace, the Shiv Bari Temple including Kalibangan, a famous Harappan civilization site. Night halt at Bikaner', 'At Jaisalmer morning sightseeing tour of Jaisalmer, covering beautiful locations like the 12th century Jaisalmer Fort, Gadsisar Lake, Nathmalji-ki-Haveli, Patwon -ki-Haveli, Salim Singh-ki-Haveli and Jain Temple & in the afternoon an exciting trip to Sand dunes and camel safari, night Halt at Jaisalmer.', 'Drive to Jodhpur and check-in at a hotel. Jodhpur has several major tourist attractions like Umaid Bhawan Palace, Girdikot and Sardar Market famous for a wide range of handicrafts. Night halt at Jodhpur.', 'Mehrangarh-Fort Sightseeing of Jodhpur including Mehrangarh Fort and Jaswant Thada built in 1899 A.D. in memory of Maharaja Jaswant Singh II. An afternoon sightseeing trip will cover all these destinations. Night halt at Jodhpur.', 'While driving to Udaipur enroute visit Ranakpur Temples, This huge temple complex is located just 90 km from Udaipur city. These are the most extensive of Jain temples in India, covering an area of around 40,000 square feet. Check-in at the hotel for overnight.', 'Jag-MahalCity sightseeing tour, Major tourist attractions in Udaipur are Lake Pichola, the largest and the most beautiful of Udaipurâ€™s lakes, City Palace, on the banks of the Lake Pichola, island palaces like Jag Mahal and Jag Niwas, Jagdish Temple, Sahelion Ki Bari, Gulab Bagh (Rose garden) and the 18th century monsoon palace, Sajjangarh. Spend leisure time during afternoon.', 'Sightseeing of the holy city of Pushkar, You will get an opportunity to see various religious traditions and rituals practiced in India. Pushkar has several beautiful temples like Brahma Temple, Rangaji Temple, and Savitri Temple, holy ghats and lakes like the famous Pushkar Lake and Night stay in Pushkar.', 'Sightseeing tour of Jaipur, visiting sprawling Havelis, serene temples and well laid out gardens of Jaipur, enjoy the architectural excellence of Amber Fort, City Palace, Jantar Mantar, Hawa Mahal and shop for the unique handicrafts of local people. Night halt at Jaipur Drive to Ranthambhore, afternoon jeep safari to view Wildlife. Ranthambore National Park is spread over in an area of 392 sq. kilometrtes.Night stay in Jaipur.', 'After Jaipur sightseen you drive to Ranthambore National Park , check-inn in the hotel and night stay in ranthambore city.', 'Ranthambore-National-ParkMorning & afternoon jeep safari to view wildlife, Ranthambore National Park is home of variety of animals like Tiger, sambhar, cheetal, wild boar, leopard, sloth bear, and jackal. Night halt at Ranthambhore.', 'Taj-MahalSightseeing tour of Agra, visiting Taj Mahal, Agra Fort, Jehangir Mahal, Diwan-i-Khas, Diwan-i-Am and Moti Masjid experience the traditional art and craft of Agra like the famous fine marble inlay work and other handicraft products. Night halt at Agra.', 'Reaching Delhi after a 204 km long comfortable drive & night stay in Delhi.', 'Next day after breakfast we will transfer to Airport/Railway station.\r\nPlease note that this is all flexible tour itinerary according to your comfort if you want any change or tailor made itinerary , its will be possible.\r\n', '', '', NULL, 'ðŸ•Œ Explore Rajasthanâ€™s Grand Forts & Palaces â€“ Including Amber Fort, Mehrangarh Fort, and Udaipurâ€™s City Palace.', 'ðŸª Desert Safari in Jaisalmer â€“ Enjoy camel rides, cultural performances, and camping under the stars.', 'ðŸ… Wildlife Safari in Ranthambore National Park â€“ Spot tigers and other wildlife in their natural habitat.', 'ðŸ›¶ Romantic Boat Ride on Lake Pichola â€“ Witness the beauty of Udaipur from the waters.', 'ðŸ›• Spiritual Visits â€“ Discover sacred sites like Pushkarâ€™s Brahma Temple and Mount Abuâ€™s Dilwara Temples.'),
+(8, '15 to 18 Days-Rajasthan-Varanasi -Tajmahal Tour Package', 'assets/img/packages/110554_4c648aa8.jpg', NULL, 'Places Covered :Delhi â€“ Bikaner â€“ Jaisalmer â€“ Jodhpur â€“ Ranakpur â€“ Udaipur â€“ Pushkar â€“ Jaipur â€“ Agra  â€“ Khajuraho â€“ Varanasi â€“ Delhi', '15  to 18 Days', '', 'Places Covered :Delhi â€“ Bikaner â€“ Jaisalmer â€“ Jodhpur â€“ Ranakpur â€“ Udaipur â€“ Pushkar â€“ Jaipur â€“ Agra  â€“ Khajuraho â€“ Varanasi â€“ Delhi', 'Delhi Airport Arrival ', 'Delhi â€“Bikaner ', ' Bikaner Jaislmer ', 'Jaislmer Sightseen', 'Jaislmer Jodhpur ', 'Jodhpur Ranakpur', 'Ranakpur Udaipur', 'Udaipur Sightseen', 'Udaipur Pushkar ', 'Pushkar Jaipur ', 'Jaipur Sightseen', 'Jaipur Ranthambore-National Game Park', 'Ranthambore-National Game Park Safaris', 'Ranthambore-Agra via fatepur sikri', 'Tajmahal Visit and drive to Khajuraho', 'Khajuraho Tour', 'Khajuraho Varanasi Flight', NULL, 'Meet and assist by our representative upon your arrival at the airport and drive to hotel, Rest after Delhi Private Trip-\r\n\r\nRed Fort-Old Delhi-Rajghat-India Gate-Humyun tomb-lotus temple-Qutab miner', 'After breakfast in drive to Bikaner via Mandawa, visit Mandawa and see the local village life-stay in Bikaner', 'After breakfast drive to Jaislmer city is one of India most beautiful, colorful & fascinating place. Arrive Jaislmer check in at Hotel. Stay Jaislmer', 'After a relaxed breakfast proceed for full day sightseeing tour of The Golden City â€“ Jaislmer. It is in the heart of the Great Indian Desert. Its temple, fort and palaces are all built of yellow stone. The city is a mass of intricately carved buildings, facades and elaborate balconies. visit the Jaislmer fort-oldest living fort , Desert Camel ride etc-Stay Jaislmer ', 'After breakfast drive to Jodhpur the Gateway to the Thar Desert. Arrive Jodhpur check in at hotel. After visit Jaswant Thada and Meharangarh-Stay Jodhpur', 'After breakfast drive to Ranakpur visit world famous 500 years old incredible jain temple with 1444 pillar, all pillar are different then each other. After jain temple visit to natural lake with very nice view of sun set-Stay Ranakpur', 'After Ranakpur drive to Udaipur â€“the city of the lakes , arrive and stay in Udaipu', 'This morning after breakfast visit Udaipur and see the nice lakes and life etc-Stay in Udaipur', 'After breakfast drive to Pushkar edge of the desert lies the tiny tranquil town of Pushkar along the bank of the picturesque Pushkar Lake. This is an important pilgrimage spot for the Hindus, which has the only temple of Lord Brahma in the country and one of the few in the world. Stay Pushkar\r\n\r\n', 'After breakfast proceed to Jaipur the capital of Rajasthan, arrive Jaipur and check-inn and after the city tour.\r\n\r\n', 'Drive  to the Hawa Mahal, Jantar Mantar, City Palace , wind Palce amber fort  and the in-house Museum. Walk along the bazaars of the â€œPink Cityâ€ and enjoy the colorful life of the city. You will be amazed at the sight of the men and the women folk dressed in the most colorful way, especially ladies adorned with heavy silver jewelry-Stay Jaipur', 'After breakfast drive to Ranthambore national park, arrive afternoon and relex-stay Ranthambore', 'This morning visit game park 6:00 am â€“11:00 am Jeep safari and 2nd safari 14:00 pm to 18:00 Pm â€“\r\n\r\nHere you have chance to see many animal and Indians tigers-night stay in Ranthambore\r\n\r\n', 'After breakfast check out from the hotel and drive to city of marble Agra via fatepursikri-Stay Agra\r\n\r\n', 'Visit Tajmahal morning (sunrise) after breakfast and drive to Kamasutra city Khajuraho-Stay Khajuraho.', 'After breakfast in hotel proceed to explore beautiful town Khajuraho. Khajuraho known for its temples built from 950 A.D to 1150 AD, by the Candela Dynasty. The group of thirty temples urahois an example of Indian architectural excellence The Western group of temples are best known for their erotic sculptures. Stay Khajuraho\r\n\r\n', 'Driver drop you Khajuraho airport and flight to Varanasi , pickup Varanasi airport and move to the hotel\r\n\r\n After we take you to banks of the river Ganges where we board a boat to see the morning ablutions of the Hindus from the security of our boat.See the Kashi Vishwanath temple and the Gyanvyapi kund and the mosque attached to it. Also visit the Benares Hindu University the largest residential university in India with more than 3000 residential students\r\n\r\n', NULL, 'Rajasthan the land of the Kings', 'Varanasi the oldest city in the worlds', 'Tajmahal - ', 'Wildlife', 'Culture - Local Foods - Shopping  '),
+(9, 'Delhi Agra Rajasthan & Mumbai Tours', 'assets/img/packages/download.jpg', NULL, 'A tour combining Delhi, Agra, Rajasthan (Jaipur, Jaisalmer, Udaipur), and Mumbai offers a diverse experience of India\'s history, culture, and modernity. You can explore historical sites like the Taj Mahal and Red Fort, enjoy vibrant bazaars and palaces, and experience the energy of Mumbai\'s urban landscape', 'Felixable Days ', 'Please advice', 'Delhi Agra Rajasthan Mumbai Bollywood ', 'Arrival Delhi Airport', 'Delhi â€“ Agra ', 'Agra â€“ Jaipur ', 'aipur â€“ Bikaner', 'Bikaner â€“ Jaisalmer', 'Jaisalmer â€“ Khuri', 'Khuri â€“ Jaisalmer', 'Jaisalmer â€“ Jodhpur', 'Jodhpur', 'Jodhpur â€“ Udaipur ', 'Udaipur', 'Udaipur â€“ Mumbai Flight', 'Mumbai ', 'Bollywood Tours', 'Drop Mumbai Airport ', '', '', NULL, ' You will be met at the airport by one of our representatives upon arrival in Delhi, who will pick you up and give you a warm welcome. Check in at the hotel after the transfer. Enjoy a walking tour of Old Delhi local market once you\'ve had a chance to freshen yourself. We will visit Sis Ganj Sikh Temple, Jama Masjid and the spice market.\r\n \r\nOvernight stay in Delhi.', ' After breakfast, get driven to Agra. On arrival and check in, visit Agra Fort. Later, enjoy some Mughal cuisine lunch and then visit the lovely Taj Mahal. \r\n \r\nReturn back to the hotel after a long day for overnight stay.', 'oday after breakfast we will drive to the â€˜Pink Cityâ€™- Jaipur. Enroute explore the ghost city of Fatehpur Sikri. On arrival, check into the hotel and relax. Later, head out to witness the majestic Amer Fort with a photo stop at Hawa Mahal and Jal Mahal.\r\n \r\nOvernight stay in Jaipur.', 'oday after breakfast we will have another exciting journey towards Bikaner. After arrival and check in, explore the Junagarh Fort and Karni Mata Temple in Deshnok. \r\n \r\nReturn back to the hotel for overnight stay. ', ' After having breakfast we will head off to the golden sand city of Jaisalmer. Once checked in, visit Bada Bagh at sunset. Rest of the day at leisure.\r\n \r\nOvernight stay in Jaisalmer', ' Drive to Khuri village and check into the resort after breakfast. Enjoy a desert camel safari in Thar. Dinner served in the evening with a customary traditional dance programme.\r\n \r\nStay for the night in Khuri.', ' Get driven back to Jaisalmer after breakfast. After arrival and check in, visit the grand golden fort and revisit the history.\r\n \r\nAnother overnight stay in Jaisalmer.', ' Take a drive to Jodhpur after breakfast. When you get to Jodhpur, check into your hotel. Visit the Spice Market, Jaswant Thada, and Mehrangarh Fort afterwards.\r\n \r\nOvernight stay in Jodhpur.', ' Enjoy a full day tour in Jodhpur after breakfast. Visit Umaid Bhawan Palace and enjoy a jeep safari to Bishnoi village and learn about local culture.\r\n \r\nReturn to the hotel for overnight stay.', ' This morning after breakfast, get driven to â€˜City of Lakesâ€™- Udaipur. After check in, relax and enjoy the rest of the time as you may please.\r\n \r\nOvernight stay in Udaipur.', ' Full day is dedicated to sightseeing after breakfast. Visit City Palace, Jagdish temple, Gem Museum, Sahelion ki Baari and enjoy a boat ride in Lake Pichola.\r\n \r\nStay for another night in Udaipur.', ' After breakfast, board a flight to Mumbai- the commercial capital of India. On arrival, check in and head out to seek blessings at Siddhi Vinayak temple and spend the rest of the time at Juhu Beach.\r\n \r\nOvernight stay in Mumbai', 'his morning a visit to Elephanta caves is planned. After breakfast, drive to witness the Gateway of India from where we will also embark on a ferry for Elephanta Island. Once you arrive, enjoy the scenic short hike and explore the ancient caves. Return to the mainland after exploration and spend the rest of the time at leisure.\r\n \r\nHotel stay in Mumbai.', ' Enjoy breakfast and Visit Bollywood the movie shooting etc \r\n \r\nStay for another night in Mumbai.', 'After breakfast driver drop to Mumbai Airport ', '', '', NULL, 'Delhi & New Delhi - Delhi Red fort -Old Delhi Walk- Rajghat - India Gate Qutab Miner - Iotas Temple\r\n\r\n', 'Agra - Tajmahal and Agra Fort Fathepur sikri ', 'Rajasthan- The Land of the Kings and Culture ', 'Local Food Experience ', 'Shopping time in Jaipur Rajasthan and Visit Bollywood city Mumbai '),
+(6, '12 Days Rajasthan  Private Tours ', 'assets/img/packages/wallpaperflare.com_wallpaper (35).jpg', NULL, 'Uncover the royal legacy of Rajasthan in 12 unforgettable days filled with historic forts, royal palaces, desert adventures, and spiritual journeys. This thoughtfully curated tour offers the perfect blend of cultural richness, scenic beauty, and local experiences across iconic destinations like Jaipur, Udaipur, Jodhpur, Jaisalmer, and more. Ideal for families, couples, and culture lovers, this journey captures the true spirit of Rajasthan in less than two weeks.', '12 days 11 nights', '', 'Delhi Agra Jaipur Pushkar Udaipur Jodhpur Jasilmer Bikaner Mandawa Delhi', ' Pickup from airport /train station', 'Delhi â€“Agra Drive', 'Agra-Fathepur Sikri-Jaipur Drive', 'Jaipur Tour', 'Jaipur-Pushkar Driver', 'Pushkar-Udaipur Drive', ' Udaipur â€“Jodhpur Drive', 'Jodhpur-Jaislmer Drive', 'Jaislmer-Kuri Tour', 'Kuri-Bikaner Drive', 'Bikaner-Mandwa Drive', 'Delhi-Mandwa Drive', '', '', '', '', '', NULL, 'Pickup from airport /train station and transfer to hotel, Refresh than after start Delhi tour by car and visit sight Old Delhi â€“Red Fort-Jama Masjid-RajGhat-Humayan tomb-India Gate-President House of India-Qutab Miner & night stay in Delhi', 'Pickup from hotel and drive to Agra, check-in in the hotel and refresh after visit Agra fort & Taj Mahal and some local area walking tour â€“Night stay in Agra.', 'Pick from hotel and drive to Jaipur en-route visit world heritage site fathepur sikri and after continue drive to Jaipur-night stay in Jaipur.', 'This morning after breakfast you visit Amber fort-Water palace-city palace-wind palace-monkey temple and some walking in bazaar-night stay in Jaipur.', 'This day after breakfast you drive to next holy city Pushkar, arrived in Pushkar and check-in the hotel, in evening you enjoy the Pushkar city and night stay in Pushkar.', 'Pickup from hotel and drive to Lake City Udaipur, reach around in evening and some evening tour in the city- night stay in Udaipur.', 'This morning after breakfast check-out and start sight seen and visit fathe Sagar Lake and city palace, Jagdish temple and after lunch drive to next city Jodhpur â€“night stay in jodhpur.', 'Breakfast and Check-out after visit Jodhpur fort and some more sight seen after lunch drive to Next city Jaislmer-night stay in Jaislmer.', 'This morning after breakfast check-out and sight seen in the city, visit most famous attraction after drive to Kuri Desert. Arrive in desert and after start desert tour by camel and night stay in desert camp.', 'After breakfast you drive to next city Bikaner, check inn in the hotel and after in evening you visit Bikaner fort â€“Night stay in Bikaner.', 'Drive to heritage village Mandwa and reach in evening-night stay in Mandwa.\r\n', 'Visit Mandwa walking tour and see the many old Havali, Houses after sight seen- Night stay in Delhi.', '', '', '', '', '', NULL, 'ðŸ•Œ Explore Rajasthanâ€™s Grand Forts & Palaces â€“ Including Amber Fort, Mehrangarh Fort, and Udaipurâ€™s City Palace.', 'ðŸª Desert Safari in Jaisalmer â€“ Enjoy camel rides, cultural performances, and camping under the stars.', 'ðŸ… Wildlife Safari in Ranthambore National Park â€“ Spot tigers and other wildlife in their natural habitat.', 'ðŸ›¶ Romantic Boat Ride on Lake Pichola â€“ Witness the beauty of Udaipur from the waters.', 'ðŸ›• Spiritual Visits â€“ Discover sacred sites like Pushkarâ€™s Brahma Temple and Mount Abuâ€™s Dilwara Temples.'),
+(7, '10 Days Rajasthan Private Tours ', 'assets/img/packages/rathambore fort.webp', NULL, 'Experience the majestic charm of Rajasthan in just 10 days with this carefully crafted tour that takes you through the land of kings, forts, and desert wonders. From the royal palaces of Jaipur to the golden sands of Jaisalmer, the blue houses of Jodhpur, and the serene lakes of Udaipur â€” every city tells a tale of its glorious past and vibrant culture. Ideal for those looking to explore the highlights of Rajasthan within a limited time, this tour offers history, heritage, adventure, and unforgettable local experiences.', '10 Days / 9 Nights', '', 'Delhi Agra Jaipur Udaipur Jodhpur Jaislmer Mandawa Delhi', 'Sight Seeing of Delhi', 'Delhi â€“Agra Drive', 'Agra-Fathepur Sikri-Jaipur Drive:', 'Jaipur Tour', 'Jaipur-Udaipur Drive', 'Udaipur â€“Jodhpur Drive', 'Jodhpur-Jaislmer Drive', 'Jaislmer-Kuri Tour', 'Kuri-Jaislmer-Mandwa-Drive', ' visit Mandwa', '', '', '', '', '', '', '', NULL, 'Red-FortThis morning is at leisure. Enjoy a whole daylong extravaganza of visiting New Delhi and Old Delhi. Enjoy the delicious cuisine and visit magnificent monuments like Qutab Miner, Red Fort, India Gate, Jama Masjid, Rajghat Night halt in Delhi.', 'Pickup from hotel and drive to Agra, check-in in the hotel and refresh after visit Agra fort & Taj Mahal and some local area walking tour â€“Night stay in Agra.', 'Pick from hotel and drive to Jaipur en-route visit world heritage site fathepur sikri and after continue drive to Jaipur-night stay in Jaipur.', 'Hawa-Mahalthis morning after breakfast you visit Amber fort-Water palace-city palace-wind palace-monkey temple and some walking in bazaar-night stay in Jaipur.', 'Pickup from hotel and drive to Lake City Udaipur, reach around in evening and some evening tour in the city- night stay in Udaipur.', 'This morning after breakfast check-out and start sight seen and visit fate Sagar Lake and city palace, Jagdish temple and after lunch drive to next city Jodhpur â€“night stay in jodhpur.', 'Breakfast and Check-out after visit Jodhpur fort and some more sight seen after lunch drive to Next city Jaislmer-night stay in Jaislmer.', 'This morning after breakfast check-out and sight seen in the city ,visit most famous attraction after drive to Kuri Desert. Arrive in desert and after start desert tour by camel and night stay in desert camp.', 'Drive to heritage village Mandwa and reach in evening-night stay in Mandwa.', 'Walking tour and see the many old Havali, Houses after sight seen drive to New Delhi and night stay in Delhi.', '', '', '', '', '', '', '', NULL, 'ðŸ•Œ Explore Rajasthanâ€™s Grand Forts & Palaces â€“ Including Amber Fort, Mehrangarh Fort, and Udaipurâ€™s City Palace.', 'ðŸª Desert Safari in Jaisalmer â€“ Enjoy camel rides, cultural performances, and camping under the stars.', 'ðŸ… Wildlife Safari in Ranthambore National Park â€“ Spot tigers and other wildlife in their natural habitat.', 'ðŸ›¶ Romantic Boat Ride on Lake Pichola â€“ Witness the beauty of Udaipur from the waters.', 'ðŸ›• Spiritual Visits â€“ Discover sacred sites like Pushkarâ€™s Brahma Temple and Mount Abuâ€™s Dilwara Temples.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tajmahal_tours`
+--
+
+CREATE TABLE `tajmahal_tours` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `gallery_images` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `duration` varchar(100) DEFAULT NULL,
+  `persons` varchar(255) DEFAULT NULL,
+  `places_covered` text DEFAULT NULL,
+  `itinery_heading_1` varchar(255) DEFAULT NULL,
+  `itinery_heading_2` varchar(255) DEFAULT NULL,
+  `itinery_heading_3` varchar(255) DEFAULT NULL,
+  `itinery_heading_4` varchar(255) DEFAULT NULL,
+  `itinery_heading_5` varchar(255) DEFAULT NULL,
+  `itinery_heading_6` varchar(255) DEFAULT NULL,
+  `itinery_heading_7` varchar(255) DEFAULT NULL,
+  `itinery_heading_8` varchar(255) DEFAULT NULL,
+  `itinery_heading_9` varchar(255) DEFAULT NULL,
+  `itinery_heading_10` varchar(255) DEFAULT NULL,
+  `itinery_heading_11` varchar(255) DEFAULT NULL,
+  `itinery_heading_12` varchar(255) DEFAULT NULL,
+  `itinery_heading_13` varchar(255) DEFAULT NULL,
+  `itinery_heading_14` varchar(255) DEFAULT NULL,
+  `itinery_heading_15` varchar(255) DEFAULT NULL,
+  `itinery_heading_16` varchar(255) DEFAULT NULL,
+  `itinery_heading_17` varchar(255) DEFAULT NULL,
+  `itinery_description_1` text DEFAULT NULL,
+  `itinery_description_2` text DEFAULT NULL,
+  `itinery_description_3` text DEFAULT NULL,
+  `itinery_description_4` text DEFAULT NULL,
+  `itinery_description_5` text DEFAULT NULL,
+  `itinery_description_6` text DEFAULT NULL,
+  `itinery_description_7` text DEFAULT NULL,
+  `itinery_description_8` text DEFAULT NULL,
+  `itinery_description_9` text DEFAULT NULL,
+  `itinery_description_10` text DEFAULT NULL,
+  `itinery_description_11` text DEFAULT NULL,
+  `itinery_description_12` text DEFAULT NULL,
+  `itinery_description_13` text DEFAULT NULL,
+  `itinery_description_14` text DEFAULT NULL,
+  `itinery_description_15` text DEFAULT NULL,
+  `itinery_description_16` text DEFAULT NULL,
+  `itinery_description_17` text DEFAULT NULL,
+  `highlight_1` text DEFAULT NULL,
+  `highlight_2` text DEFAULT NULL,
+  `highlight_3` text DEFAULT NULL,
+  `highlight_4` text DEFAULT NULL,
+  `highlight_5` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tajmahal_tours`
+--
+
+INSERT INTO `tajmahal_tours` (`id`, `title`, `image`, `gallery_images`, `description`, `duration`, `persons`, `places_covered`, `itinery_heading_1`, `itinery_heading_2`, `itinery_heading_3`, `itinery_heading_4`, `itinery_heading_5`, `itinery_heading_6`, `itinery_heading_7`, `itinery_heading_8`, `itinery_heading_9`, `itinery_heading_10`, `itinery_heading_11`, `itinery_heading_12`, `itinery_heading_13`, `itinery_heading_14`, `itinery_heading_15`, `itinery_heading_16`, `itinery_heading_17`, `itinery_description_1`, `itinery_description_2`, `itinery_description_3`, `itinery_description_4`, `itinery_description_5`, `itinery_description_6`, `itinery_description_7`, `itinery_description_8`, `itinery_description_9`, `itinery_description_10`, `itinery_description_11`, `itinery_description_12`, `itinery_description_13`, `itinery_description_14`, `itinery_description_15`, `itinery_description_16`, `itinery_description_17`, `highlight_1`, `highlight_2`, `highlight_3`, `highlight_4`, `highlight_5`) VALUES
+(2, 'Tajmahal Sunrise Tours', 'assets/img/packages/tajmahal.jpg', NULL, 'The Taj Mahal Sunrise Tour is a magical journey that lets you witness the iconic monument in the soft glow of early morning light. As the sun rises, the white marble of the Taj Mahal shimmers with golden hues, offering a serene and unforgettable view. This early visit allows you to avoid large crowds and enjoy the peaceful ambiance of one of the world\'s most beautiful architectural wonders.', 'Same Day Tour', '', 'Taj Mahal', '02:30 AM: - Pickup from Delhi', '06:00 AM: -Arrival in Agra', '06:30 AM: - Visit the Taj Mahal', '08:00 AM: - Breakfast Stop', '09:00 AM: - Journey to the Agra Fort', '10:30 AM: - Trip to the Local Bazaars', '12 PM- Return to Delhi', '', '', '', '', '', '', '', '', '', '', 'You will be picked up from your hotel in Delhi or any other convenient location to begin your Taj Mahal tour. Drive to Agra (243.4 km) along the Yamuna Expressway.', 'Reach Agra and then get ready for your visit to the Taj Mahal after a quick pit stop for some tea and refreshments.\r\n\r\n', 'This is the highlight of your sunrise Taj Mahal tour, as you enter the historic monument that was built between 1631 and 1648 in Agra by Mughal Emperor Shah Jahan as a tribute to his wife Mumtaz Mahal. The key highlight of your visit is that you can see the UNESCO World Heritage Site at sunrise as the rays fall on the ivory-white marble faï¿½ade and create an unforgettable experience.', 'After youï¿½re done exploring the Taj Mahal at sunrise, the next pit-stop will be at a local restaurant near the monument for a hearty local breakfast. Savor the rich flavors of Agra as you dig into a hearty meal here.', 'The next destination on your sunrise Taj Mahal tour from Delhi is the Agra Fort. It was built in 1565 AD by Mughal Emperor Akbar. Explore the sprawling complex which includes the Musamman Burj where Shah Jahan was imprisoned and passed away. This fort was the main residence of the Emperor until the year 1638 when the capital shifted away to Delhi. ', 'Enjoy a unique experience on your sunrise Taj Mahal tour as you stroll through Agraï¿½s famous local bazaars. Purchase handicrafts and souvenirs along with buying the famous Petha sweets to take back home from your trip. You may choose the Sadar Bazaar near the Agra Cantonment railway station and browse leather items, shoes, souvenirs, and street food here. Another option is the Tajganj Market, which is just near the Taj Mahal and offers souvenirs, handicrafts, marble items, and gifts.', 'Wind up your sunrise Taj Mahal tour and get set for the drive back to Delhi, bringing the curtains down on an awe-inspiring experience.', '', '', '', '', '', '', '', '', '', '', 'Explore the Beauty of 16th Century\'s Iconic Monument The Taj Mahal', 'Enjoy Delicious Breakfast at 5-star Hotel\r\n\r\n', 'Get an Access at the Taj Mahal Before the Crowd For an Intimate Experience\r\n\r\n', 'Explore The Magnificent Agra Fort, A UNESCO World Heritage Monument\r\n\r\n', 'Hassle Free & Private Tour'),
+(3, 'Tajamhal Tour by Train ', 'assets/img/packages/a3.jpg', NULL, 'The Taj Mahal Tour by Train via Gatimaan Express offers a fast, comfortable, and convenient way to explore the beauty of Agra in a single day. Departing from Delhi, the Gatimaan Express is India\'s fastest train, reaching Agra in just 100 minutes. Upon arrival, you\'ll be taken to the majestic Taj Mahal to witness its stunning architecture and learn about its rich history. The tour often includes visits to other iconic sites such as Agra Fort and Mehtab Bagh. With guided support, smooth transfers, and same-day return, this tour is perfect for travelers seeking a hassle-free and memorable experience.\r\n', 'Same Day Tour', '', 'Delhi-Agra-Delhi', '07:30', '08:10', '09:50', '10:15', '12:30', '14:00', '15:00', '16:30', '17:00', '17:50', '19:30', '', '', '', '', '', '', 'Our car will pick up you from hotel in Delhi and transfer to H Nizamuddin Railway station to board superfast air conditioned train to Agra. Our chauffer will assist you at railway station. We will E-mail you an E-ticket after booking confirmation.\r\n\r\n', 'Gatimaan Express ( Train No 12050 ) fully air conditioned train departs H Nizamuddin Railway Station for Agra Cantt railway station\r\n\r\n1) Breakfast included in Train fare\r\n2)Distance Travelled between Delhi & Agra by train in 1 : 40 Hrs.', 'Arriving Agra Cantt railway station. Your Tour Guide & Driver will receive you from Railway Station in Agra. Tour Start with drive to Taj Mahal by air conditioned car.\r\n\r\n', 'Taj Mahal is a cynosure of India in global tourism arena. The monument, constructed in 16th Century hold a grand history of true love and affection of 5th Mughal King Shah Jahan towards his beloved wife Mumtaj Mahal. This edifice is finest example of Indo Islamic architecture style situated on right bank of river Yamuna.\r\n\r\n', 'AGRA FORT After Taj Mahal drive to Agra Fort.The Fort made of red sand stone depicting glorious rule of the mighty Mughals with their lavish lifestyle. It was built in 15th century by third Mughal king Akbar. Encircled with two huge walls, this Fort has some impressive buildings like Jasmine Tower ,Khas Mahal , Diwan I Am , Diwan I Khas etc.\r\n\r\n', 'LUNCH BREAK You reserve right to recommend restaurant of your choice in Agra on direct payment otherwise your tour guide will take you to clean & hygenic AC Restaurant .\r\n\r\n', 'ITMAD - UD - DAULAH ( BABY TAJ ) After Lunch proceed to Itmad-Ud-Daulah tomb. Due to some of its resemblance with Taj Mahal.This edifice is popularly known as \'\'Baby Taj\'\'.This tomb is elaborately carved with pure marble & exhibit Indo Islamic architecture style. Empress Noor Jahan ordered this tomb in memory of her father, Mirza Ghiyas Beg in 1622.\r\n\r\n', 'OPTIONAL After Baby Taj you can visit handicraft gallery of Marble inlay souvenirs in Agra city. Free to explore Agra City known for exporting marble inlay handicraft.\r\n\r\n', 'Transfer to Railway Station to board train to Delhi..\r\n\r\n', 'Gatimaan Express( Train No 12049 ) departs for Delhi.. Dinner served in Train.\r\n\r\n', 'Arriving H Nizamuddin Railway Station. Our cab will transfer you back to your Hotel in Delhi. Tour End', '', '', '', '', '', '', 'Reach Agra from Delhi in just 100 minutes via the Gatimaan Express.', 'Enjoy a same-day round trip with a full-day Agra tour.', 'Explore the Taj Mahal with a professional, knowledgeable guide.', 'Visit Agra Fort, a UNESCO World Heritage Site.', 'Experience a hassle-free journey with pre-booked train tickets and AC transport.'),
+(5, 'Tajmahal Tour with Varanasi', 'assets/img/packages/taj-mahal-with-varanasi.png', NULL, 'The Taj Mahal Tour with Varanasi combines the grandeur of Mughal architecture with the spiritual essence of India. Begin your journey in Agra with a visit to the iconic Taj Mahal, a timeless symbol of love and architectural brilliance. Then travel to Varanasi, one of the world\'s oldest living cities, to experience the sacred Ganga Aarti, explore ancient temples, and take a serene boat ride on the Ganges. This tour offers a perfect blend of history, culture, and spirituality, giving you an unforgettable glimpse into India\'s rich and diverse heritage.\r\n', '09 Days / 08 Nights', '', 'Delhi - Jaipur - Agra - Varanasi - Delhi- 09 Days  Flexible Tour Package', ' Arrive at Delhi', ' Delhi Guiding Tour', 'Delhi - Jaipur. (260 km 6 hrs)', 'Jaipur', 'Jaipur:- Agra (200 Kms / 04 hrs)', 'Agra - Varanasi', ' Varanasi Arrival & City Tour', ' Varanasi City Tour', 'Varanasi Departure', '', '', '', '', '', '', '', '', 'As per your flight schedule our represntative pickup you from Delhi Airport and transfer you to Delhi hotel. over night rest in Delhi hotel.', 'After Breakfast for full day side sightseeing like the Red Fort, Chandni Chowk Bazaar and Khari Baoli spice market on your way to visit Jama Masjid. One of the largest mosques in the world and the largest in India, it was built by Shah Jahan to dominate the city. Then, make your way to Raj Ghat, a memorial built to commemorate the site of Mahatma Gandhi\'s cremation. Also visit the UNESCO World Heritage-listed Qutub Minar, India\'s tallest minaret, made of red sandstone and marble and inscribed with verses from the Qur\'an.', 'After breakfast depart from Delhi to Jaipur around 6 hour drive. evening check in Jaipur hotel.\r\nOver night rest in Jaipur hotel.', 'today proceeds to \'Pink City\' Jaipur. After Breakfast, Visit Amber - the ancient capital of the Rajput Empire reaching the fort on elephant back. It is a deserted palace surrounded by majestic ramparts & the magnificent public & private room\'s evidence the splendor of the rulers of 16th & 17th century Rajasthan. Also visit City Place, Janter Mantar and Hawa Mahal in evening leisure. Overnight at Hotel.', 'After breakfast drive to Agra en-route visit Fatehpur Sikri. Later continue drive to Agra. Arrive and check in at Hotel. Akbarabad, as Agra was known during the Mughal era, is home to some of the most magnificent Mughal architectures. Situated on the banks of river Yamuna, the monumental beauty of Agra has inspired countless people around the world. This third largest city of the state of Uttar Pradesh is home to three UNESCO world heritage sites. Overnight at Hotel.', 'On day 06 of Delhi Agra Jaipur Varanasi Tour, Early morning at the time of sun rise visit the Taj mahal (best time to visit the Taj Mahal). after the Taj mahal back to the hotel for breakfast and visit the Agra Fort (world heritage site, baby Taj. Sikandra (tomb of Akbar). late evening catch the night train from Agra to Varanasi.', 'Arrive at Varanasi station. Meet and transfer to hotel for check in. Dating back to more than 3000 years, Varanasi is said to be the oldest city of the world. There are temples at every few steps here Hinduism it is believed that those who breathe their last in this city attain nirvana and get an instant gateway to liberation from the cycle of births and re-births. After Lunch proceed for tour planned for second half of the day We begin the tour of the city with the famous Banaras Hindu University. ', 'Early morning proceed to morning Cruise on Ganges. The \'Ghats of Ganga\' dotted with temples or more than 100 ghats (banks) alongside the Ganges in Varanasi. The best way to cover them all is acruise. A morning cruise on the Ganges presents a very beautiful view of the ghats bathed in crimson light. After Lunch half day excursion to Sarnath. Evening explore the city. A walk through old Varanasi will be memorable experience.\r\n', 'Morning catch the train or flight from Varanasi to Delhi. driver pickup you from Delhi Train station/Airport. If you left some sight in Delhi you can visit today. evening driver transfer you Airport to catch your Early morning flight from Delhi. Tour to Varanasi ends.\r\n', '', '', '', '', '', '', '', '', 'Visit the majestic Taj Mahal, a symbol of eternal love and Mughal brilliance.', 'Explore Agra Fort, a UNESCO World Heritage Site rich in history.', 'Witness the mesmerizing Ganga Aarti ceremony on the ghats of Varanasi.', 'Enjoy a peaceful sunrise boat ride on the sacred River Ganges.', 'Discover the spiritual and cultural heritage of one of the worldï¿½s oldest cities, Varanasi.'),
+(7, 'Tajmahal with Jaipur  Tour', 'assets/img/packages/taj and Jaipur.jpg', NULL, 'Agra Jaipur a famous destinations in north India- Explore Tajmahal Agra Fort  Amber fort City Place water palace wind place and monkey temple ', '02 Nights/ 03 Days', '', 'Delhi Agra Jaipur', 'Day 01: Arrive in Delhi ', 'Day - 02 Agra - Jaipur ', 'Day 03: Jaipur- Delhi', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'As per your flight schedule driver pickup you from Delhi Airport. And depart from Delhi to Agra. around 3 hours drive so late evening check in Agra hotel. overnight in Agra hotel.', 'Early morning at the time of Sunrise visit the Taj Mahal. (best time to visit the Taj). after the Taj Mahal tour back to the hotel for breakfast. and visit the Agra fort and depart from Agra to Jaipur around 4 hour drive, on the Way visit Fatehpur sikri Fort (Capital city of Akbar). evening check in Jaipur hotel over night rest in Jaipur hotel. overnight in Jaipur Hotel.', 'After breakfast start your Guiding tour of Capital city of Rajasthan Jaipur.\r\n\r\nVisit:- Amber Fort, City Palace. Hawa Mahal, Jal Mahal, Jantar Mantar,\r\nafter the guiding tour of Jaipur visit Jaipur Bazaar and around 4 pm Depart from Jaipur to Delhi, Around 4/5 hour drive, evening around 9 pm driver transfer you to Delhi Airport/ Hotel/ Railway Station.', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tour_packages`
+--
+
+CREATE TABLE `tour_packages` (
+  `id` int(11) NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `package_name` varchar(255) NOT NULL,
+  `package_image` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `rating` int(11) NOT NULL CHECK (`rating` between 1 and 5),
+  `booking_link` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tour_packages`
+--
+
+INSERT INTO `tour_packages` (`id`, `category`, `package_name`, `package_image`, `description`, `rating`, `booking_link`, `created_at`) VALUES
+(24, 'Jagran', 'Event Organisers For Jagran', 'assets/img/packages/eventorg.webp', 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', 5, '', '2025-04-26 10:11:53'),
+(25, 'Jagran', 'Mata Ki Chowki Organisers', 'assets/img/packages/matakichowki.webp', 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', 5, '', '2025-04-26 10:22:47'),
+(26, 'Jagran', 'Bhajan Singers', 'assets/img/packages/bhajan-singer.webp', 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', 5, '', '2025-04-26 10:23:40'),
+(27, 'Jagran', 'Mata Ki Chowki Organisers', 'assets/img/packages/event-org.jpg', 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', 5, '', '2025-04-26 10:25:01'),
+(28, 'Jagran', 'Sundar Kand Paath', 'assets/img/packages/ban6.jpeg', 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', 5, '', '2025-04-26 10:25:45'),
+(29, 'Jagran', 'Khatu Shyam Bhajan Sandhya And Singer', 'assets/img/packages/khatu-shyam.jpeg', 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', 5, '', '2025-04-26 10:26:37'),
+(30, 'Jagran', 'Event Organisers For Navratri', 'assets/img/packages/navratri-event.webp', 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', 5, '', '2025-04-26 10:27:37'),
+(31, 'Jagran', 'Sai Bhajan Sandhya Organisers', 'assets/img/packages/sai-sandhya.webp', 'Some quick example text to build on the card title and make up the bulk of the card\'s content.', 5, '', '2025-04-26 10:28:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tour_packages_row2`
+--
+
+CREATE TABLE `tour_packages_row2` (
+  `id` int(11) NOT NULL,
+  `package_name` varchar(255) NOT NULL,
+  `package_image` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `rating` int(11) DEFAULT NULL CHECK (`rating` between 1 and 5),
+  `booking_link` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tour_packages_row2`
+--
+
+INSERT INTO `tour_packages_row2` (`id`, `package_name`, `package_image`, `description`, `rating`, `booking_link`, `created_at`) VALUES
+(1, 'Nainital Tour', 'assets/img/packages/nainital.webp', 'Explore the charming hill station of Nainital, known for its scenic beauty, Naini Lake, and surrounding hills.', 5, '#', '2025-04-01 05:26:18'),
+(2, 'Mussoorie & Dhanaulti PKG', 'assets/img/packages/mussorie-dhanaulti.jpg', 'Discover the beauty of Mussoorie and Dhanaulti, offering breathtaking views, cool weather, and a peaceful escape.', 5, '#', '2025-04-02 10:05:22'),
+(3, 'Rishikesh Rafting Trip', 'assets/img/packages/Rishikesh-rafting.avif', 'Experience the thrill of rafting on the Ganges in Rishikesh, amidst the scenic backdrop of the Himalayan foothills.', 5, '#', '2025-04-02 10:06:19'),
+(4, 'Munshyari Tour PKG', 'assets/img/packages/Munshyari.jpg', 'Immerse yourself in the peaceful surroundings and natural beauty of Munshyari, a hidden gem in Uttarakhand.', 5, '#', '2025-04-02 10:07:48'),
+(5, 'Vaishno Devi & Patnitop Tour PKG', 'assets/img/packages/Vaishno-Devi.webp', 'Embark on a divine journey to Vaishno Devi and Patnitop, experiencing both spiritual solace and scenic landscapes.', 5, '#', '2025-04-02 10:08:37'),
+(6, 'Amritsar Tour PKG', 'assets/img/packages/golden-temple-amritsar.webp', 'Discover the spiritual beauty of Amritsar, home to the sacred Golden Temple and vibrant culture.', 5, '#', '2025-04-02 10:09:18'),
+(7, 'Mathura & Agra Tour PKG', 'assets/img/packages/mathura-agra.jpg', 'Visit the birthplace of Lord Krishna in Mathura and explore the majestic Taj Mahal in Agra.', 5, '#', '2025-04-02 10:10:18'),
+(8, 'Ayodhya & Varanasi Tour PKG', 'assets/img/packages/ayodhya.webp', 'Explore the holy cities of Ayodhya and Varanasi, rich in history, spirituality, and culture.', 5, '#', '2025-04-02 10:11:21'),
+(9, 'Jaipur & Ajmer Tour PKG', 'assets/img/packages/jaipur-trip.jpg', 'Visit the royal city of Jaipur and the revered Dargah Sharif in Ajmer for a mix of culture and history.', 5, '#', '2025-04-02 10:12:09'),
+(10, 'Udaipur & Jaisalmer Tour PKG', 'assets/img/packages/Udaipur-jaisalmer.jpg', 'Explore the lakes and palaces of Udaipur and the golden fort of Jaisalmer for an unforgettable experience.', 5, '#', '2025-04-02 10:12:45'),
+(11, 'Ujjain Mahakal Tour PKG', 'assets/img/packages/Mahakal-ujjain.jpg', 'Visit the revered Mahakaleshwar temple in Ujjain and experience the spiritual significance of this Jyotirlinga.', 5, '#', '2025-04-02 10:14:06'),
+(12, 'Delhi to All India Taxi Service 24*7', 'assets/img/packages/all-india.jpg', 'Enjoy hassle-free travel with our 24/7 taxi service across India, starting from Delhi to all major cities.', 5, '#', '2025-04-02 10:14:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `email` text DEFAULT NULL,
+  `password` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`) VALUES
+(1, 'admin12345@gmail.com', '12345');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `videos`
+--
+
+CREATE TABLE `videos` (
+  `id` int(11) NOT NULL,
+  `video_url` varchar(255) NOT NULL,
+  `video_type` varchar(255) DEFAULT NULL,
+  `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `videos`
+--
+
+INSERT INTO `videos` (`id`, `video_url`, `video_type`, `uploaded_at`) VALUES
+(6, 'assets/video/video-1.mp4', 'bhawan video', '2025-04-26 12:13:43'),
+(7, 'assets/video/video-2.mp4', 'bhawan video', '2025-04-26 12:17:45'),
+(8, 'assets/video/video-3.mp4', 'bhawan video', '2025-04-26 12:17:53'),
+(9, 'assets/video/video-4.mp4', NULL, '2025-04-26 12:24:47'),
+(10, 'assets/video/video-5.mp4', NULL, '2025-04-26 12:25:10'),
+(11, 'assets/video/video-6.mp4', NULL, '2025-04-26 12:25:14'),
+(12, 'assets/video/video-7.mp4', NULL, '2025-04-26 12:25:20');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cars`
+--
+ALTER TABLE `cars`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `client_reviews`
+--
+ALTER TABLE `client_reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contact_info`
+--
+ALTER TABLE `contact_info`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `footer_content`
+--
+ALTER TABLE `footer_content`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gallery`
+--
+ALTER TABLE `gallery`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `golden_triangle`
+--
+ALTER TABLE `golden_triangle`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `himachal_packages`
+--
+ALTER TABLE `himachal_packages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `meta_tags`
+--
+ALTER TABLE `meta_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `other_services`
+--
+ALTER TABLE `other_services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pilgrimage_package`
+--
+ALTER TABLE `pilgrimage_package`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rajasthan_tour`
+--
+ALTER TABLE `rajasthan_tour`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tajmahal_tours`
+--
+ALTER TABLE `tajmahal_tours`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tour_packages`
+--
+ALTER TABLE `tour_packages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tour_packages_row2`
+--
+ALTER TABLE `tour_packages_row2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `videos`
+--
+ALTER TABLE `videos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cars`
+--
+ALTER TABLE `cars`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `client_reviews`
+--
+ALTER TABLE `client_reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `contact_info`
+--
+ALTER TABLE `contact_info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `footer_content`
+--
+ALTER TABLE `footer_content`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `gallery`
+--
+ALTER TABLE `gallery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `golden_triangle`
+--
+ALTER TABLE `golden_triangle`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `himachal_packages`
+--
+ALTER TABLE `himachal_packages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `meta_tags`
+--
+ALTER TABLE `meta_tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `other_services`
+--
+ALTER TABLE `other_services`
+  MODIFY `id` int(65) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `pilgrimage_package`
+--
+ALTER TABLE `pilgrimage_package`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `rajasthan_tour`
+--
+ALTER TABLE `rajasthan_tour`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tajmahal_tours`
+--
+ALTER TABLE `tajmahal_tours`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tour_packages`
+--
+ALTER TABLE `tour_packages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `tour_packages_row2`
+--
+ALTER TABLE `tour_packages_row2`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `videos`
+--
+ALTER TABLE `videos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
