@@ -153,7 +153,7 @@
     top: 35px !important;
 }
 .navbar-nav .nav-item {
-    margin: 0px !important;
+    margin: 10px !important;
 }
 /*------------------------------------------------------------------
 [Master Stylesheet]
@@ -1463,7 +1463,7 @@ text-align: center;
     margin-left: 0 !important;
 }
 .footer-con .copyright p{
-    font-size: 12px;
+    font-size: 15px;
     line-height: 12px;
     font-weight: 400;
     padding: 25px 0;

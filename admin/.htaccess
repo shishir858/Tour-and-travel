@@ -1,0 +1,16 @@
+
+RewriteEngine On
+RewriteBase /touristdriversindiaprivatetours/admin/
+
+# Hide .php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^/]+)$ $1.php [L]
+
+# Redirect /admin/login to /admin/includes/login.php
+RewriteRule ^login$ includes/login.php [L]
+
+# Redirect /admin/dashboard to /admin/dashboard.php
+RewriteRule ^dashboard$ dashboard.php [L]
+
+# Add more rules as needed for other admin pages

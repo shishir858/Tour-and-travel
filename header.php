@@ -1,12 +1,77 @@
-<?php  include('admin/html/connection.php')?>
+<?php
+// Use the correct path to the connection/config file
+include(__DIR__ . '/admin/includes/config.php');
+
+// Get current page name
+$current_page = basename($_SERVER['PHP_SELF'], '.php');
+
+// Check if it's a detail page with ID parameter
+$is_detail_page = isset($_GET['id']) && in_array($current_page, ['golden-triangle-detail-page', 'himachal-detail-page', 'rajasthan-detail-page', 'tajmahal-detail-page', 'pilgrimage-detail-page']);
+
+if ($is_detail_page) {
+    // Fetch tour data for meta tags
+    $tour_id = intval($_GET['id']);
+    $table_map = [
+        'golden-triangle-detail-page' => 'golden_triangle',
+        'himachal-detail-page' => 'himachal_packages',
+        'rajasthan-detail-page' => 'rajasthan_tour',
+        'tajmahal-detail-page' => 'tajmahal_tours',
+        'pilgrimage-detail-page' => 'pilgrimage_package'
+    ];
+    
+    $table = $table_map[$current_page];
+    $tour_query = $conn->prepare("SELECT title, description FROM $table WHERE id = ?");
+    $tour_query->bind_param("i", $tour_id);
+    $tour_query->execute();
+    $tour_result = $tour_query->get_result();
+    $tour_data = $tour_result->fetch_assoc();
+    
+    if ($tour_data) {
+        $meta_title = htmlspecialchars($tour_data['title']) . ' - Tourist Drivers India';
+        $meta_description = substr(strip_tags($tour_data['description']), 0, 160);
+        $meta_keywords = htmlspecialchars($tour_data['title']) . ', India tour, private tour India, ' . str_replace('-', ' ', $current_page);
+    } else {
+        // Fallback if tour not found
+        $meta_title = 'Tour Details - Tourist Drivers India';
+        $meta_description = 'Explore our exclusive India tour packages with professional drivers.';
+        $meta_keywords = 'India tours, private tours India';
+    }
+} else {
+    // Fetch meta tags for static pages from database
+    $meta_query = $conn->prepare("SELECT * FROM meta_tags WHERE page = ?");
+    $meta_query->bind_param("s", $current_page);
+    $meta_query->execute();
+    $meta_result = $meta_query->get_result();
+    $meta_data = $meta_result->fetch_assoc();
+
+    // Default meta tags if page not found in database
+    $meta_title = $meta_data['meta_title'] ?? 'Best India Travel Company - Tourist Drivers India Private Tours';
+    $meta_description = $meta_data['meta_description'] ?? 'Explore India with our exclusive private tour packages. Golden Triangle Tours, Rajasthan Tours, Taj Mahal Tours, Himachal Packages and more with professional drivers.';
+    $meta_keywords = $meta_data['meta_keywords'] ?? 'India tours, private tours India, Golden Triangle tour, Taj Mahal tour, Rajasthan tour, Himachal tour, India travel packages';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Best India Travel Company - Tourist Drivers India Private Tours</title>
-    <!-- /SEO Ultimate -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    
+    <!-- Dynamic Meta Tags -->
+    <title><?php echo htmlspecialchars($meta_title); ?></title>
+    <meta name="description" content="<?php echo htmlspecialchars($meta_description); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($meta_keywords); ?>">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<?php echo htmlspecialchars($meta_title); ?>">
+    <meta property="og:description" content="<?php echo htmlspecialchars($meta_description); ?>">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo htmlspecialchars($meta_title); ?>">
+    <meta name="twitter:description" content="<?php echo htmlspecialchars($meta_description); ?>">
     <link rel="icon" type="image/png" sizes="192x192" href="./admin/html/<?php echo $headerrow['logo']; ?>">
     <link rel="icon" type="image/png" sizes="32x32" href="./admin/html/<?php echo $headerrow['logo']; ?>">
     <link rel="icon" type="image/png" sizes="96x96" href="./admin/html/<?php echo $headerrow['logo']; ?>">
@@ -103,7 +168,7 @@ $headerrow = $result->fetch_assoc();
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <a class="navbar-brand" href="index.php">
-                        <figure class="logo mb-0"><img src="admin/html/<?php echo $headerrow['logo']; ?>" alt="image" class="img-fluid">
+                        <figure class="logo mb-0"><img src="admin/<?php echo $headerrow['logo']; ?>" alt="image" class="img-fluid">
                         </figure>
                     </a>
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
@@ -134,13 +199,13 @@ $headerrow = $result->fetch_assoc();
                                 <a class="nav-link" href="index.php">Home</a>
                             </li>
 
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="about.php">About Us</a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link"href="tour-packages.php">Tour Packages</a>
-                            </li>
+                            </li> -->
 
                             <!-- Golden Triangle Dropdown -->
                             <li class="nav-item dropdown">

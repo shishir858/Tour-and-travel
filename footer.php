@@ -12,7 +12,7 @@ $footerrow = $result->fetch_assoc();
                     <div class="upper_portion">
                         <a href="index.html">
                             <figure class="footer-logo mb-0"><img class="img-fluid bg-white"
-                                    src="admin/html/<?php echo $headerrow['logo']; ?>" alt="image"></figure>
+                                    src="admin/<?php echo $headerrow['logo']; ?>" alt="image"></figure>
                         </a>
                         <p class="text-size-18 mb-0">Sign up for the newsletter:</p>
 
@@ -70,7 +70,7 @@ $footerrow = $result->fetch_assoc();
         </div>
     </div>
     <div class="footer_lowerportion position-relative">
-        <div class="container">
+        <div class="container-fluid">
             <div class="middle_portion">
                 <div class="row">
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">

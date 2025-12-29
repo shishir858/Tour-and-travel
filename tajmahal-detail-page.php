@@ -1,289 +1,504 @@
-
 <?php include('header.php'); ?>
 <?php
-$id = $_GET['id'];
-$sql = "SELECT * FROM tajmahal_tours WHERE id = $id";
+// Get tour data - adjust table name based on page
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$current_page = basename($_SERVER['PHP_SELF'], '.php');
+
+// Map pages to tables
+$table_map = [
+    'golden-triangle-detail-page' => 'golden_triangle',
+    'himachal-detail-page' => 'himachal_packages',
+    'rajasthan-detail-page' => 'rajasthan_tour',
+    'tajmahal-detail-page' => 'tajmahal_tours',
+    'pilgrimage-detail-page' => 'pilgrimage_package'
+];
+
+$table = $table_map[$current_page] ?? 'golden_triangle';
+$itinerary_count = ($table == 'rajasthan_tour') ? 18 : 17;
+
+$sql = "SELECT * FROM $table WHERE id = $id";
 $result = $conn->query($sql);
-$goldentrianglerow = $result->fetch_assoc();
+$tour = $result->fetch_assoc();
+
+if (!$tour) {
+    header('Location: index.php');
+    exit;
+}
 ?>
 
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
-<script src="whatsapp-form.js"></script>
-
-
-
-
-
-
-
-  
-
-<section class="hero-section position-relative" style="height: 420px; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%), url('admin/html/<?php echo htmlspecialchars($goldentrianglerow['image']); ?>') center center/cover no-repeat;">
-  <div class="container h-100 position-relative">
-    <div class="row h-100 align-items-center">
-      <div class="col-lg-8 col-md-10 col-12 mx-auto text-center text-white" style="z-index:2;">
-        <h1 class="display-4 fw-bold mb-3" style="text-shadow:0 2px 16px rgba(0,0,0,0.4)"><?php echo htmlspecialchars($goldentrianglerow['title']); ?></h1>
-        <p class="lead mb-4" style="text-shadow:0 2px 8px rgba(0,0,0,0.3)">Explore the Taj Mahal with us.</p>
-        <a href="#enquiry-form" class="btn btn-lg btn-primary px-5 py-2 shadow">Enquire Now</a>
-      </div>
-    </div>
-    <div class="position-absolute top-0 start-0 w-100 h-100" style="background:rgba(0,0,0,0.25);"></div>
-  </div>
-</section>
-
-<!-- Quick Info Bar -->
-<section class="quick-info-bar py-3 position-relative" style="margin-top:-40px; z-index:10;">
-  <div class="container">
-    <div class="row g-3 justify-content-center text-center">
-      <div class="col-6 col-md-3">
-        <div class="info-card-glass p-3 rounded-4 h-100 shadow-sm">
-          <div class="icon-circle mb-2 bg-primary bg-gradient text-white mx-auto"><i class="fa fa-clock fa-lg"></i></div>
-          <div class="fw-bold text-secondary">Duration</div>
-          <div class="fs-5 fw-semibold mt-1"><?php echo htmlspecialchars($goldentrianglerow['duration']); ?></div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="info-card-glass p-3 rounded-4 h-100 shadow-sm">
-          <div class="icon-circle mb-2 bg-success bg-gradient text-white mx-auto"><i class="fa fa-user fa-lg"></i></div>
-          <div class="fw-bold text-secondary">Persons</div>
-          <div class="fs-5 fw-semibold mt-1"><?php echo htmlspecialchars($goldentrianglerow['persons']); ?></div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="info-card-glass p-3 rounded-4 h-100 shadow-sm">
-          <div class="icon-circle mb-2 bg-info bg-gradient text-white mx-auto"><i class="fa fa-globe fa-lg"></i></div>
-          <div class="fw-bold text-secondary">Tour Type</div>
-          <div class="fs-5 fw-semibold mt-1">Private Tour</div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <a href="https://wa.me/<?php echo isset($headerrow['whatsapp']) ? htmlspecialchars($headerrow['whatsapp']) : ''; ?>" target="_blank" class="info-card-glass p-3 rounded-4 h-100 d-block text-decoration-none shadow-sm">
-          <div class="icon-circle mb-2 bg-success bg-gradient text-white mx-auto"><i class="fab fa-whatsapp fa-lg"></i></div>
-          <div class="fw-bold text-secondary">WhatsApp</div>
-          <div class="fs-5 fw-semibold mt-1 text-success">Let's Talk</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
 <style>
-.quick-info-bar {
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(8px);
-  border-radius: 1.5rem;
-  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+.tour-hero {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('admin/<?= htmlspecialchars($tour['image']) ?>');
+    background-size: cover;
+    background-position: center;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    position: relative;
 }
-.info-card-glass {
-  background: rgba(255,255,255,0.85);
-  border: 1px solid rgba(200,200,200,0.18);
-  transition: transform 0.2s, box-shadow 0.2s;
+.breadcrumb {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 8px 20px;
+    display: inline-flex;
 }
-.info-card-glass:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
+.breadcrumb-item a {
+    color: #fff;
+    text-decoration: none;
 }
-.icon-circle {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+.breadcrumb-item.active {
+    color: #ffd700;
 }
-@media (max-width: 767px) {
-  .quick-info-bar { border-radius: 0.75rem; }
-  .info-card-glass { border-radius: 1rem; }
+.info-badge {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin: -60px 0 30px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+.info-item {
+    text-align: center;
+    padding: 15px;
+}
+.info-item i {
+    font-size: 28px;
+    color: #f26d52;
+    margin-bottom: 10px;
+}
+.nav-tabs .nav-link {
+    color: #666;
+    font-weight: 600;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 15px 25px;
+}
+.nav-tabs .nav-link.active {
+    color: #f26d52;
+    border-bottom-color: #f26d52;
+    background: transparent;
+}
+.day-item {
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+.day-item:hover {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+.day-header {
+    background: #f8f9fa;
+    padding: 18px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+}
+.day-header:hover {
+    background: #fff5f2;
+}
+.day-header .fa-chevron-down {
+    transition: transform 0.3s ease;
+}
+.day-header[aria-expanded="true"] .fa-chevron-down {
+    transform: rotate(180deg);
+}
+.day-number {
+    background: linear-gradient(135deg, #f26d52 0%, #ff8a73 100%);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 15px;
+}
+.day-body {
+    padding: 20px;
+    background: white;
+}
+.highlight-card {
+    border-left: 3px solid #f26d52;
+    padding: 15px 20px;
+    background: #fff5f2;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+.booking-widget {
+    position: sticky;
+    top: 100px;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+.price-tag {
+    font-size: 32px;
+    font-weight: bold;
+    color: #f26d52;
+}
+.sidebar-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+.related-tours li a {
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+.related-tours li a:hover {
+    background: #f8f9fa !important;
+    border-left-color: #f26d52;
+    transform: translateX(5px);
+}
+.related-tours li a i {
+    color: #f26d52;
+    margin-right: 10px;
+}
+.sidebar-section h5 i {
+    margin-right: 10px;
+}
+.btn i {
+    margin-right: 8px;
+}
+h3 i {
+    margin-right: 10px;
+}
+.highlight-card h6 i {
+    margin-right: 8px;
+}
+.tab-content .lead {
+    color: #000 !important;
+    font-size: 1.15rem !important;
+}
+.hover-bg-light:hover {
+    background: #f8f9fa !important;
+}
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+.gallery-item img:hover {
+    opacity: 0.9;
 }
 </style>
 
-
-    <!-- Main Content with Left-Right Layout -->
-    <section class="py-5">
-      <div class="container">
+<!-- Hero Section -->
+<section class="tour-hero">
+    <div class="container">
         <div class="row">
-          <!-- Left: Main Tour Content -->
-          <div class="col-lg-8 col-12 mb-4 mb-lg-0">
-            <div class="card shadow-sm border-0 mb-4">
-              <img style="height:350px; width:100%; object-fit:cover;" src="admin/html/<?php echo htmlspecialchars($goldentrianglerow['image']); ?>" alt="Tour Image" class="card-img-top rounded-top">
-              <div class="card-body">
-                <h1 class="card-title mb-3"><?php echo htmlspecialchars($goldentrianglerow['title']); ?></h1>
-                <div class="d-flex flex-wrap mb-3">
-                  <div class="me-4 mb-2"><i class="fa fa-clock text-primary me-1"></i> <?php echo htmlspecialchars($goldentrianglerow['duration']); ?></div>
-                  <div class="me-4 mb-2"><i class="fa fa-user text-primary me-1"></i> <?php echo htmlspecialchars($goldentrianglerow['persons']); ?></div>
-                  <div class="mb-2"><i class="fa fa-map-marker-alt text-primary me-1"></i> <?php echo htmlspecialchars($goldentrianglerow['places_covered']); ?></div>
-                </div>
-                <p class="card-text mb-3"><?php echo nl2br(htmlspecialchars($goldentrianglerow['description'])); ?></p>
-                <a href="https://wa.me/<?php echo isset($headerrow['whatsapp']) ? htmlspecialchars($headerrow['whatsapp']) : ''; ?>" class="btn btn-success mb-3" target="_blank"><i class="fab fa-whatsapp"></i> Let's Talk on WhatsApp</a>
-              </div>
+            <div class="col-12">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
+                        <li class="breadcrumb-item"><a href="tour-packages.php">Tours</a></li>
+                        <li class="breadcrumb-item active"><?= htmlspecialchars($tour['title']) ?></li>
+                    </ol>
+                </nav>
+                <h1 class="text-white display-4 fw-bold mb-3"><?= htmlspecialchars($tour['title']) ?></h1>
+                <p class="text-white lead mb-0"><i class="fas fa-map-marker-alt me-2"></i><?= htmlspecialchars($tour['places_covered']) ?></p>
             </div>
-            <!-- Itinerary Section -->
-            <div class="card shadow-sm border-0 mb-4">
-              <div class="card-body">
-                <h4 class="mb-4 text-primary">Itinerary</h4>
-                <div class="accordion" id="customItinerary">
-                  <?php
-                  for ($i = 1; $i <= 17; $i++) {
-                    $headingKey = "itinery_heading_" . $i;
-                    $descKey = "itinery_description_" . $i;
-                    if (!empty($goldentrianglerow[$headingKey])) {
-                      echo '<div class="accordion-item mb-3 border rounded">';
-                      echo '<h2 class="accordion-header" id="heading' . $i . '">';
-                      echo '<button class="accordion-button d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapse' . $i . '" aria-expanded="' . ($i === 1 ? 'true' : 'false') . '" aria-controls="collapse' . $i . '">';
-                      echo '<div class="me-3 px-3 py-1 bg-orange text-white fw-bold rounded-start" style="min-width: 100px;">Day ' . str_pad($i, 2, '0', STR_PAD_LEFT) . ' :</div>';
-                      echo '<div class="fw-semibold text-dark">' . htmlspecialchars($goldentrianglerow[$headingKey]) . '</div>';
-                      echo '</button>';
-                      echo '</h2>';
-                      echo '<div id="collapse' . $i . '" class="accordion-collapse collapse ' . ($i === 1 ? 'show' : '') . '" data-bs-parent="#customItinerary">';
-                      echo '<div class="accordion-body">' . nl2br(htmlspecialchars($goldentrianglerow[$descKey])) . '</div>';
-                      echo '</div>';
-                      echo '</div>';
-                    }
-                  }
-                  ?>
-                </div>
-              </div>
-            </div>
-            <!-- Included and Excluded -->
-            <!-- <div class="card shadow-sm border-0 mb-4">
-              <div class="card-body">
-                <h5 class="mb-3 text-primary">Included and Excluded</h5>
-                <div class="row">
-                  <div class="col-md-6">
-                    <h6 class="fw-bold mb-3">Inclusions</h6>
-                    <ul class="list-unstyled">
-                      <li class="mb-2 text-muted"><i class="text-success me-2 fa fa-check"></i>Convenient residence in hotels or other special lodging facilities.</li>
-                      <li class="mb-2 text-muted"><i class="text-success me-2 fa fa-check"></i>Transport between holidays in buses, cars and trains.</li>
-                      <li class="mb-2 text-muted"><i class="text-success me-2 fa fa-check"></i>Tours to popular tourist sites and attractions</li>
-                      <li class="mb-2 text-muted"><i class="text-success me-2 fa fa-check"></i>Planned trips to experience the local culture and learn about landmarks in a region.</li>
-                      <li class="mb-2 text-muted"><i class="text-success me-2 fa fa-check"></i>Dinner and Breakfast (As per the itinerary to be served at hotel or other services).</li>
-                    </ul>
-                  </div>
-                  <div class="col-md-6">
-                    <h6 class="fw-bold mb-3">Exclusions</h6>
-                    <ul class="list-unstyled">
-                      <li class="mb-2 text-muted"><i class="text-danger me-2 fa fa-times"></i>Other tours or experiences besides those facilitated by a package.</li>
-                      <li class="mb-2 text-muted"><i class="text-danger me-2 fa fa-times"></i>Personal Expenses (Anything which is not mentioned)</li>
-                      <li class="mb-2 text-muted"><i class="text-danger me-2 fa fa-times"></i>Only offers coverage for emergencies, health and trip cancellations.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <!-- Enquiry Form -->
-            <div class="card shadow-sm border-0 mb-4" id="enquiry-form">
-              <div class="card-body">
-                <h3 class="mb-4 text-center text-primary">📩 Send an Enquiry</h3>
-                <form action="inner-page-mail.php" method="POST">
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <input type="text" name="fname" class="form-control form-control-lg" placeholder="Your Name" required>
-                    </div>
-                    <div class="col-md-6">
-                      <input type="email" name="email" class="form-control form-control-lg" placeholder="Your Email" required>
-                    </div>
-                    <div class="col-md-6">
-                      <input type="tel" name="phone" class="form-control form-control-lg" placeholder="Your Phone" required>
-                    </div>
-                    <div class="col-md-6">
-                      <input type="text" name="subject" class="form-control form-control-lg" placeholder="Subject">
-                    </div>
-                    <div class="col-12">
-                      <textarea name="msg" class="form-control form-control-lg" rows="4" placeholder="Your Message" required></textarea>
-                    </div>
-                    <div class="col-12 text-center mt-3">
-                      <button type="submit" class="btn btn-primary btn-lg px-5">Submit Enquiry</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- Right: Recommended Packages -->
-          <div class="col-lg-4 col-12">
-            <div class="sticky-top" style="top: 100px;">
-              <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white">
-                  <h5 class="mb-0">Recommended Packages</h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <?php
-                  $sql = "SELECT id, title, image, duration FROM tajmahal_tours WHERE id != $id ORDER BY RAND() LIMIT 4";
-                  $result = $conn->query($sql);
-                  while ($row = $result->fetch_assoc()) {
-                    echo '<li class="list-group-item d-flex align-items-center">';
-                    echo '<img src="admin/html/' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['title']) . '" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; margin-right: 15px;">';
-                    echo '<div>';
-                    echo '<a href="tajmahal-detail-page.php?id=' . $row['id'] . '" class="fw-bold text-decoration-none text-dark">' . htmlspecialchars($row['title']) . '</a><br>';
-                    echo '<span class="text-muted"><i class="fa fa-clock me-1"></i> ' . htmlspecialchars($row['duration']) . '</span>';
-                    echo '</div>';
-                    echo '</li>';
-                  }
-                  ?>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Carousel of Other Taj Mahal Packages -->
-    <section class="py-5 bg-light">
-      <div class="container">
-        <h2 class="mb-4 text-center">Other Taj Mahal Packages</h2>
-        <div class="owl-carousel owl-theme">
-          <?php
-          $sql = "SELECT id, title, image, duration, persons, places_covered, description FROM tajmahal_tours WHERE id != $id ORDER BY RAND() LIMIT 8";
-          $result = $conn->query($sql);
-          while ($row = $result->fetch_assoc()) {
-            $desc_words = explode(' ', strip_tags($row['description']));
-            $desc_limited = htmlspecialchars(implode(' ', array_slice($desc_words, 0, 12)));
-            echo '<div class="item">';
-            echo '<div class="card h-100 shadow-sm">';
-            echo '<img src="admin/html/' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['title']) . '" class="card-img-top" style="height:200px; object-fit:cover;">';
-            echo '<div class="card-body">';
-            echo '<h5 class="card-title">' . htmlspecialchars($row['title']) . '</h5>';
-            // echo '<p class="card-text">' . $desc_limited . '</p>';
-            echo '<div class="mb-2"><i class="fa fa-clock me-1"></i> ' . htmlspecialchars($row['duration']) . ' | <i class="fa fa-user me-1"></i> ' . htmlspecialchars($row['persons']) . '</div>';
-            // echo '<div class="mb-2"><i class="fa fa-map-marker-alt me-1"></i> ' . htmlspecialchars($row['places_covered']) . '</div>';
-            echo '<a href="tajmahal-detail-page.php?id=' . $row['id'] . '" class="btn btn-outline-primary btn-sm mt-2">View Details</a>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-          }
-          ?>
+<!-- Info Badges -->
+<div class="container">
+    <div class="info-badge">
+        <div class="row g-3">
+            <div class="col-md-3 col-6">
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <h6 class="mb-0 text-muted small">Duration</h6>
+                    <p class="mb-0 fw-bold"><?= htmlspecialchars($tour['duration']) ?></p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="info-item">
+                    <i class="fas fa-users"></i>
+                    <h6 class="mb-0 text-muted small">Group Size</h6>
+                    <p class="mb-0 fw-bold"><?= htmlspecialchars($tour['persons']) ?></p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="info-item">
+                    <i class="fas fa-globe"></i>
+                    <h6 class="mb-0 text-muted small">Tour Type</h6>
+                    <p class="mb-0 fw-bold">Private Tour</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="info-item">
+                    <i class="fas fa-car"></i>
+                    <h6 class="mb-0 text-muted small">Transport</h6>
+                    <p class="mb-0 fw-bold">Private Vehicle</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
+</div>
 
-    <!-- Owl Carousel JS (ensure jQuery is loaded before this) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="assets/js/owl.carousel.js"></script>
-    <script>
-    $(document).ready(function(){
-      if ($.fn.owlCarousel) {
-        $(".owl-carousel").owlCarousel({
-          loop:true,
-          margin:20,
-          nav:true,
-          dots:true,
-          responsive:{
-            0:{items:1},
-            600:{items:2},
-            1000:{items:3}
-          }
-        });
-      } else {
-        console.error('OwlCarousel plugin not loaded.');
-      }
-    });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <?php include('footer.php'); ?>
-            
+<!-- Main Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Left Content -->
+            <div class="col-lg-8">
+                <!-- Tour Title -->
+                <h2 class="mb-4" style="font-size: 35px; font-weight: 600; color: #333;"><?= htmlspecialchars($tour['title']) ?></h2>
+                
+                <!-- Gallery Section -->
+                <?php if(!empty($tour['gallery_images'])): 
+                    $gallery = json_decode($tour['gallery_images'], true);
+                    if(is_array($gallery) && count($gallery) > 0):
+                ?>
+                <div class="gallery-section mb-4">
+                    <div class="row g-2">
+                        <?php foreach($gallery as $index => $img): ?>
+                        <div class="col-md-3 col-6">
+                            <div class="gallery-item">
+                                <img src="<?= htmlspecialchars($img) ?>" alt="Gallery Image" class="img-fluid rounded" style="width: 100%; height: 150px; object-fit: cover; cursor: pointer;" onclick="openGalleryModal(<?= $index ?>)">
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php endif; endif; ?>
+                
+                <!-- Overview Block -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="mb-4"><i class="fas fa-info-circle me-2"></i>Tour Overview</h3>
+                        <p class="lead" style="line-height: 1.8; color: #000 !important; font-size: 1.15rem;">
+                            <?= nl2br(htmlspecialchars($tour['description'])) ?>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Itinerary Block -->
+                <div class="mb-4">
+                    <h3 class="mb-4"><i class="fas fa-route me-2"></i>Day-by-Day Itinerary</h3>
+                    <div class="accordion" id="itineraryAccordion">
+                        <?php
+                        for ($i = 1; $i <= $itinerary_count; $i++) {
+                            $headingKey = "itinery_heading_" . $i;
+                            $descKey = "itinery_description_" . $i;
+                            if (!empty($tour[$headingKey])):
+                        ?>
+                        <div class="day-item">
+                            <div class="day-header" data-bs-toggle="collapse" data-bs-target="#day<?= $i ?>" aria-expanded="false" aria-controls="day<?= $i ?>">
+                                <div class="day-number"><?= $i ?></div>
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-0"><?= htmlspecialchars($tour[$headingKey]) ?></h5>
+                                </div>
+                                <i class="fas fa-chevron-down text-muted"></i>
+                            </div>
+                            <div class="collapse day-body" id="day<?= $i ?>" data-bs-parent="#itineraryAccordion">
+                                <p class="mb-0 text-muted"><?= nl2br(htmlspecialchars($tour[$descKey])) ?></p>
+                            </div>
+                        </div>
+                        <?php
+                            endif;
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Highlights Block -->
+                <div class="mb-4">
+                    <h3 class="mb-4"><i class="fas fa-star me-2"></i>Tour Highlights</h3>
+                        <div class="row">
+                            <?php
+                            $highlight_num = 1;
+                            for ($i = 1; $i <= 5; $i++) {
+                                $highlightKey = "highlight_" . $i;
+                                if (!empty($tour[$highlightKey])):
+                            ?>
+                            <div class="col-md-6 mb-3">
+                                <div class="highlight-card">
+                                    <h6 class="mb-2"><i class="fas fa-check-circle text-success me-2"></i><?= htmlspecialchars($tour[$highlightKey]) ?></h6>
+                                </div>
+                            </div>
+                            <?php
+                                endif;
+                            }
+                            ?>
+                        </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="col-lg-4">
+                <!-- Golden Triangle Tours -->
+                <div class="sidebar-section">
+                    <h5 class="mb-3"><i class="fas fa-compass me-2"></i>Special Golden Triangle Tours</h5>
+                    <ul class="list-unstyled related-tours">
+                        <?php 
+                        $gt_sql = "SELECT id, title FROM golden_triangle ORDER BY id DESC LIMIT 10";
+                        $gt_result = $conn->query($gt_sql);
+                        while($gt = $gt_result->fetch_assoc()): 
+                        ?>
+                        <li class="mb-2">
+                            <a href="golden-triangle-detail-page.php?id=<?= $gt['id'] ?>" class="text-decoration-none text-dark d-block py-2 px-3 rounded hover-bg-light">
+                                <i class="fas fa-angle-right me-2 text-primary"></i><?= htmlspecialchars($gt['title']) ?>
+                            </a>
+                        </li>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
+
+                <!-- Himachal Tours -->
+                <div class="sidebar-section">
+                    <h5 class="mb-3"><i class="fas fa-compass me-2"></i>Special Himachal Tours</h5>
+                    <ul class="list-unstyled related-tours">
+                        <?php 
+                        $hm_sql = "SELECT id, title FROM himachal_packages ORDER BY id DESC LIMIT 10";
+                        $hm_result = $conn->query($hm_sql);
+                        while($hm = $hm_result->fetch_assoc()): 
+                        ?>
+                        <li class="mb-2">
+                            <a href="himachal-detail-page.php?id=<?= $hm['id'] ?>" class="text-decoration-none text-dark d-block py-2 px-3 rounded hover-bg-light">
+                                <i class="fas fa-angle-right me-2 text-primary"></i><?= htmlspecialchars($hm['title']) ?>
+                            </a>
+                        </li>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
+
+                <!-- Rajasthan Tours -->
+                <div class="sidebar-section">
+                    <h5 class="mb-3"><i class="fas fa-compass me-2"></i>Special Rajasthan Tours</h5>
+                    <ul class="list-unstyled related-tours">
+                        <?php 
+                        $rj_sql = "SELECT id, title FROM rajasthan_tour ORDER BY id DESC LIMIT 10";
+                        $rj_result = $conn->query($rj_sql);
+                        while($rj = $rj_result->fetch_assoc()): 
+                        ?>
+                        <li class="mb-2">
+                            <a href="rajasthan-detail-page.php?id=<?= $rj['id'] ?>" class="text-decoration-none text-dark d-block py-2 px-3 rounded hover-bg-light">
+                                <i class="fas fa-angle-right me-2 text-primary"></i><?= htmlspecialchars($rj['title']) ?>
+                            </a>
+                        </li>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
+
+                <!-- Taj Mahal Tours -->
+                <div class="sidebar-section">
+                    <h5 class="mb-3"><i class="fas fa-compass me-2"></i>Special Taj Tours</h5>
+                    <ul class="list-unstyled related-tours">
+                        <?php 
+                        $tj_sql = "SELECT id, title FROM tajmahal_tours ORDER BY id DESC LIMIT 10";
+                        $tj_result = $conn->query($tj_sql);
+                        while($tj = $tj_result->fetch_assoc()): 
+                        ?>
+                        <li class="mb-2">
+                            <a href="tajmahal-detail-page.php?id=<?= $tj['id'] ?>" class="text-decoration-none text-dark d-block py-2 px-3 rounded hover-bg-light">
+                                <i class="fas fa-angle-right me-2 text-primary"></i><?= htmlspecialchars($tj['title']) ?>
+                            </a>
+                        </li>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
+
+                <!-- Pilgrimage Tours -->
+                <div class="sidebar-section">
+                    <h5 class="mb-3"><i class="fas fa-compass me-2"></i>Special Pilgrimage Tours</h5>
+                    <ul class="list-unstyled related-tours">
+                        <?php 
+                        $pl_sql = "SELECT id, title FROM pilgrimage_package ORDER BY id DESC LIMIT 10";
+                        $pl_result = $conn->query($pl_sql);
+                        while($pl = $pl_result->fetch_assoc()): 
+                        ?>
+                        <li class="mb-2">
+                            <a href="pilgrimage-detail-page.php?id=<?= $pl['id'] ?>" class="text-decoration-none text-dark d-block py-2 px-3 rounded hover-bg-light">
+                                <i class="fas fa-angle-right me-2 text-primary"></i><?= htmlspecialchars($pl['title']) ?>
+                            </a>
+                        </li>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
+
+                <!-- Need Help -->
+                <div class="sidebar-section bg-primary text-white">
+                    <h5 class="mb-3 text-white">Need Help?</h5>
+                    <p class="mb-3 text-white">Contact our travel experts for personalized assistance</p>
+                    <a href="contact.php" class="btn btn-light w-100"><i class="fas fa-phone me-2"></i>Contact Us</a>
+                </div>
+
+                <!-- Booking Widget -->
+                <div class="booking-widget">
+                    <h4 class="mb-3">Book This Tour</h4>
+                    <form action="inner-page-mail.php" method="POST">
+                        <input type="hidden" name="tour_name" value="<?= htmlspecialchars($tour['title']) ?>">
+                        <div class="mb-3">
+                            <input type="text" name="fname" class="form-control" placeholder="Your Name *" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" name="email" class="form-control" placeholder="Your Email *" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="tel" name="phone" class="form-control" placeholder="Your Phone *" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="date" name="travel_date" class="form-control" placeholder="Travel Date">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="msg" class="form-control" rows="3" placeholder="Special Requirements"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3">
+                            <i class="fas fa-paper-plane me-2"></i>Send Enquiry
+                        </button>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <a href="https://wa.me/<?= htmlspecialchars($headerrow['whatsapp'] ?? '') ?>" target="_blank" class="btn btn-success w-100 py-2">
+                            <i class="fab fa-whatsapp me-2"></i>Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Modal -->
+<div class="modal fade" id="galleryModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Gallery</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalGalleryImg" src="" class="img-fluid" alt="Gallery Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const galleryImages = <?= !empty($tour['gallery_images']) ? $tour['gallery_images'] : '[]' ?>;
+function openGalleryModal(index) {
+    if(galleryImages[index]) {
+        document.getElementById('modalGalleryImg').src = galleryImages[index];
+        const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
+        modal.show();
+    }
+}
+</script>
+
+<?php include('footer.php'); ?>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Test - All Pages</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
+        h1 { color: #333; border-bottom: 3px solid #6c63ff; padding-bottom: 10px; }
+        .section { margin: 30px 0; }
+        .page-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .page-card { border: 2px solid #e0e0e0; padding: 15px; border-radius: 6px; transition: all 0.3s; }
+        .page-card:hover { border-color: #6c63ff; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .page-card a { text-decoration: none; color: #333; font-weight: 600; display: block; }
+        .page-card .icon { font-size: 24px; margin-bottom: 8px; }
+        .status { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; margin-top: 8px; }
+        .status.fixed { background: #4caf50; color: white; }
+        .status.warning { background: #ff9800; color: white; }
+        h2 { color: #6c63ff; margin-top: 30px; }
+        .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Tourist Drivers India Admin Panel - Test Dashboard</h1>
+        
+        <div class="note">
+            <strong>Note:</strong> Click on each page to test if forms are opening properly and CRUD operations work.
+        </div>
+
+        <h2>📊 Core Pages</h2>
+        <div class="page-list">
+            <div class="page-card">
+                <div class="icon">🏠</div>
+                <a href="dashboard.php">Dashboard</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">👥</div>
+                <a href="users.php">Users Management</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+        </div>
+
+        <h2>🎫 Tour Packages</h2>
+        <div class="page-list">
+            <div class="page-card">
+                <div class="icon">📦</div>
+                <a href="tour-packages.php">Main Tour Packages</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🔺</div>
+                <a href="golden-triangle.php">Golden Triangle</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🕌</div>
+                <a href="tajmahal-tours.php">Taj Mahal Tours</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🏰</div>
+                <a href="rajasthan-tour.php">Rajasthan Tours</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🏔️</div>
+                <a href="himachal-packages.php">Himachal Packages</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🙏</div>
+                <a href="pilgrimage-package.php">Pilgrimage Packages</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🎯</div>
+                <a href="other-services.php">Other Services</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+        </div>
+
+        <h2>📸 Media Management</h2>
+        <div class="page-list">
+            <div class="page-card">
+                <div class="icon">🖼️</div>
+                <a href="gallery.php">Gallery</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🎥</div>
+                <a href="videos.php">Videos</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+        </div>
+
+        <h2>⭐ Reviews & Vehicles</h2>
+        <div class="page-list">
+            <div class="page-card">
+                <div class="icon">⭐</div>
+                <a href="reviews.php">Client Reviews</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🚗</div>
+                <a href="cars.php">Cars/Vehicles</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+        </div>
+
+        <h2>⚙️ Settings & Configuration</h2>
+        <div class="page-list">
+            <div class="page-card">
+                <div class="icon">📞</div>
+                <a href="contact-info.php">Contact Information</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">📄</div>
+                <a href="footer-content.php">Footer Content</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+            <div class="page-card">
+                <div class="icon">🏷️</div>
+                <a href="meta-tags.php">Meta Tags</a>
+                <span class="status fixed">FIXED ✓</span>
+            </div>
+        </div>
+
+        <h2>📋 Testing Checklist</h2>
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 6px; margin-top: 20px;">
+            <h3>For Each Page, Verify:</h3>
+            <ul style="line-height: 2;">
+                <li>✓ Page loads without errors</li>
+                <li>✓ Data displays correctly in table</li>
+                <li>✓ "Add New" button opens modal/form</li>
+                <li>✓ Form fields are populated correctly</li>
+                <li>✓ Add operation works (creates new record)</li>
+                <li>✓ Edit button opens modal with existing data</li>
+                <li>✓ Edit operation updates record successfully</li>
+                <li>✓ Delete button shows confirmation and removes record</li>
+                <li>✓ Images display correctly (where applicable)</li>
+            </ul>
+        </div>
+
+        <h2>🔧 Recent Fixes Applied</h2>
+        <div style="background: #e8f5e9; padding: 20px; border-radius: 6px; margin-top: 20px;">
+            <ol style="line-height: 2;">
+                <li><strong>Database Structure Matching:</strong> All pages now use correct database column names</li>
+                <li><strong>Image Paths:</strong> Fixed to use direct database values without path prepending</li>
+                <li><strong>Password Security:</strong> Implemented password_hash() for user passwords</li>
+                <li><strong>Login System:</strong> Updated to support password_verify() for hashed passwords</li>
+                <li><strong>Complex Tour Tables:</strong> Simplified to list views with separate edit pages for 46+ column tables</li>
+                <li><strong>Meta Tags:</strong> Fixed to use 'page' as primary key instead of 'id'</li>
+                <li><strong>Gallery:</strong> Updated to use image_url field</li>
+                <li><strong>Videos:</strong> Updated to use video_url and video_type</li>
+                <li><strong>Reviews:</strong> Added all fields (client_name, profession, location, rating, review)</li>
+                <li><strong>Cars:</strong> Added all fields (car_name, type, price, running, passengers, image, whatsapp)</li>
+                <li><strong>Contact Info:</strong> Added all fields including social media and logo</li>
+                <li><strong>Footer Content:</strong> Added all branch fields and mobile numbers</li>
+                <li><strong>Logic Folder:</strong> Created for better code organization (ready for integration)</li>
+            </ol>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 6px;">
+            <h3>📁 Logic Folder Structure Created</h3>
+            <p>CRUD logic files have been created in <code>/admin/logic/</code> folder for future modular implementation:</p>
+            <ul>
+                <li>users_logic.php</li>
+                <li>tour_packages_logic.php</li>
+                <li>gallery_logic.php</li>
+                <li>reviews_logic.php</li>
+            </ul>
+            <p><em>Note: Currently, logic is embedded in each page. Logic folder files can be integrated later for cleaner code architecture.</em></p>
+        </div>
+    </div>
+</body>
+</html>
