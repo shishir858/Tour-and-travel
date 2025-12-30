@@ -203,17 +203,47 @@ h3 i {
 .hover-bg-light:hover {
     background: #f8f9fa !important;
 }
-.gallery-item {
+.gallery-main-image {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.gallery-main-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
     transition: transform 0.3s ease;
 }
-.gallery-item:hover {
+.gallery-thumbnails {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 5px 0;
+}
+.gallery-thumbnail {
+    flex-shrink: 0;
+    width: 120px;
+    height: 90px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+.gallery-thumbnail.active {
+    border-color: #ff6b35;
     transform: scale(1.05);
 }
-.gallery-item img:hover {
-    opacity: 0.9;
+.gallery-thumbnail:hover {
+    border-color: #ff8c5a;
+    transform: scale(1.05);
+}
+.gallery-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 </style>
 
@@ -287,12 +317,16 @@ h3 i {
                     if(is_array($gallery) && count($gallery) > 0):
                 ?>
                 <div class="gallery-section mb-4">
-                    <div class="row g-2">
+                    <!-- Main Large Image -->
+                    <div class="gallery-main-image">
+                        <img id="mainGalleryImage" src="<?= htmlspecialchars($gallery[0]) ?>" alt="Main Gallery Image" class="img-fluid">
+                    </div>
+                    
+                    <!-- Thumbnail Row -->
+                    <div class="gallery-thumbnails">
                         <?php foreach($gallery as $index => $img): ?>
-                        <div class="col-md-3 col-6">
-                            <div class="gallery-item">
-                                <img src="<?= htmlspecialchars($img) ?>" alt="Gallery Image" class="img-fluid rounded" style="width: 100%; height: 150px; object-fit: cover; cursor: pointer;" onclick="openGalleryModal(<?= $index ?>)">
-                            </div>
+                        <div class="gallery-thumbnail <?= $index === 0 ? 'active' : '' ?>" onclick="changeMainImage('<?= htmlspecialchars($img) ?>', this)">
+                            <img src="<?= htmlspecialchars($img) ?>" alt="Thumbnail <?= $index + 1 ?>">
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -758,6 +792,20 @@ h3 i {
 
 <script>
 const galleryImages = <?= !empty($tour['gallery_images']) ? $tour['gallery_images'] : '[]' ?>;
+
+function changeMainImage(imageSrc, thumbnailElement) {
+    // Update main image
+    document.getElementById('mainGalleryImage').src = imageSrc;
+    
+    // Remove active class from all thumbnails
+    document.querySelectorAll('.gallery-thumbnail').forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    
+    // Add active class to clicked thumbnail
+    thumbnailElement.classList.add('active');
+}
+
 function openGalleryModal(index) {
     if(galleryImages[index]) {
         document.getElementById('modalGalleryImg').src = galleryImages[index];
