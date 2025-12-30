@@ -373,8 +373,9 @@ h3 i {
                 </div>
 
                 <!-- Highlights Block -->
-                <div class="mb-4">
-                    <h3 class="mb-4"><i class="fas fa-star me-2"></i>Tour Highlights</h3>
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="mb-4"><i class="fas fa-star me-2"></i>Tour Highlights</h3>
                         <div class="row">
                             <?php
                             $highlight_num = 1;
@@ -392,6 +393,7 @@ h3 i {
                             }
                             ?>
                         </div>
+                    </div>
                 </div>
             </div>
 
