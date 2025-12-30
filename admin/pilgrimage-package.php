@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle image upload
     $image = $old_image; // Keep existing image by default
     if(isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $upload_dir = '../assets/img/pilgrimage-photos/';
+        $upload_dir = '../assets/img/pilgrimage/';
         if(!is_dir($upload_dir)) {
             mkdir($upload_dir, 0755, true);
         }
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $new_filename = 'pilgrimage_' . time() . '_' . rand(1000,9999) . '.' . $file_ext;
         $target_file = $upload_dir . $new_filename;
         if(move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-            $image = 'assets/img/pilgrimage-photos/' . $new_filename;
+            $image = 'assets/img/pilgrimage/' . $new_filename;
             // Delete old image
             if($id > 0 && !empty($old_image) && file_exists(__DIR__ . '/../' . $old_image)) {
                 unlink(__DIR__ . '/../' . $old_image);

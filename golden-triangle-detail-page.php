@@ -38,7 +38,7 @@ if($related_result) {
 
 <style>
 .tour-hero {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), <?php echo !empty($tour['image']) ? "url('admin/" . htmlspecialchars($tour['image']) . "')" : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"; ?>;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), <?php echo !empty($tour['image']) ? "url('" . htmlspecialchars($tour['image']) . "')" : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"; ?>;
     background-size: cover;
     background-position: center;
     min-height: 450px;
@@ -131,8 +131,18 @@ if($related_result) {
     margin-right: 15px;
 }
 .day-body {
-    padding: 20px;
+    padding: 0 20px;
     background: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.day-body p {
+    font-size: 15px;
+}
+.day-body.show {
+    max-height: 1000px;
+    padding: 20px;
 }
 .highlight-card {
     border-left: 3px solid #f26d52;
@@ -500,7 +510,7 @@ h3 i {
         <div class="tours-grid-container">
         <?php 
             while($related = $related_result->fetch_assoc()): 
-                $rel_img = !empty($related['image']) ? 'admin/' . htmlspecialchars($related['image']) : 'assets/images/placeholder.jpg';
+                $rel_img = !empty($related['image']) ? htmlspecialchars($related['image']) : 'assets/images/placeholder.jpg';
                 $rel_desc = htmlspecialchars(substr(strip_tags($related['description']), 0, 100));
         ?>
             <div class="tour-grid-item">
@@ -755,6 +765,40 @@ function openGalleryModal(index) {
         modal.show();
     }
 }
+
+// Itinerary Accordion functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const dayHeaders = document.querySelectorAll('.day-header');
+    
+    dayHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-bs-target');
+            const targetElement = document.querySelector(targetId);
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            // Close all other accordions
+            document.querySelectorAll('.day-header').forEach(h => {
+                if (h !== this) {
+                    h.setAttribute('aria-expanded', 'false');
+                }
+            });
+            document.querySelectorAll('.day-body').forEach(body => {
+                if (body !== targetElement) {
+                    body.classList.remove('show');
+                }
+            });
+            
+            // Toggle current accordion
+            if (isExpanded) {
+                this.setAttribute('aria-expanded', 'false');
+                targetElement.classList.remove('show');
+            } else {
+                this.setAttribute('aria-expanded', 'true');
+                targetElement.classList.add('show');
+            }
+        });
+    });
+});
 </script>
 
 <?php include('footer.php'); ?>

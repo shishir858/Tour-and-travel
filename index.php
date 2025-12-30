@@ -326,7 +326,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -414,7 +414,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -504,7 +504,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -593,7 +593,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -681,7 +681,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -1176,7 +1176,7 @@ $result = $conn->query($sql);
 
     <div id="TA_certificateOfExcellence480" class="TA_certificateOfExcellence">
         <ul id="Jh3XixJWr" class="TA_links 5SV6Lnt23">
-            <li id="RLAw2pKd5H" class="kx7hY3"><a target="_blank" href="https://www.tripadvisor.in/Attraction_Review-g304551-d2350110-Reviews-Tourist_Drivers_India_Private_Tours-New_Delhi_National_Capital_Territory_of_Delhi.html"><img src="https://static.tacdn.com/img2/travelers_choice/widgets/tchotel_2024_LL.png" alt="TripAdvisor" class="widCOEImg" id="CDSWIDCOELOGO" /></a></li>
+            <li id="RLAw2pKd5H" class="kx7hY3"><a target="_blank" href="https://www.tripadvisor.in/Attraction_Review-g304551-d2350110-Reviews-Tourist_Drivers_India_Private_Tours-New_Delhi_National_Capital_Territory_of_Delhi.html"><img src="https://static.tacdn.com/img2/travelers_choice/widgets/tchotel_2024_LL.png" alt="TripAdvisor" height="100" class="widCOEImg" id="CDSWIDCOELOGO" /></a></li>
         </ul>
     </div>
     <script async src="https://www.jscache.com/wejs?wtype=certificateOfExcellence&amp;uniq=480&amp;locationId=2350110&amp;lang=en_IN&amp;year=2024&amp;display_version=2" data-loadtrk onload="this.loadtrk=true"></script>

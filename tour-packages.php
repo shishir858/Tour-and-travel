@@ -69,7 +69,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -157,7 +157,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -247,7 +247,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -336,7 +336,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">
@@ -424,7 +424,7 @@
                     echo '<div class="item">
             <div class="place-box">
                 <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="admin/html/' . $image . '" alt="image" class="img-fluid">
+                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
                 </figure>
                 <div class="lower_content">
                     <div class="content">

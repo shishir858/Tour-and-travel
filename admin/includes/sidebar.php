@@ -50,12 +50,6 @@
                 <span>Pilgrimage Tours</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="other-services" class="nav-link">
-                <span class="nav-icon">🎯</span>
-                <span>Other Services</span>
-            </a>
-        </li>
         
         <!-- Media Section -->
         <li class="nav-item" style="margin-top: 15px;">
