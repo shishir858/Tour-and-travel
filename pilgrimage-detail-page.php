@@ -24,6 +24,16 @@ if (!$tour) {
     header('Location: index.php');
     exit;
 }
+
+// Fetch related tours (excluding current)
+$related_sql = "SELECT id, title, image, duration, persons, description FROM $table WHERE id != $id ORDER BY RAND() LIMIT 4";
+$related_result = $conn->query($related_sql);
+
+// Debug output
+echo "<!-- Debug: Table=$table, Current ID=$id, Query Result=".($related_result ? 'Success' : 'Failed')." -->";
+if($related_result) {
+    echo "<!-- Debug: Found ".$related_result->num_rows." related tours -->";
+}
 ?>
 
 <style>
@@ -474,6 +484,252 @@ h3 i {
         </div>
     </div>
 </section>
+
+<!-- Similar Tours Section -->
+<section class="similar-packages-section" id="similarToursSection">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2 class="section-title">Similar Tour Packages</h2>
+            <div class="title-underline"></div>
+            <p class="section-subtitle">Discover more amazing destinations</p>
+        </div>
+        
+        <?php 
+        if($related_result && $related_result->num_rows > 0): 
+        ?>
+        <div class="tours-grid-container">
+        <?php 
+            while($related = $related_result->fetch_assoc()): 
+                $rel_img = !empty($related['image']) ? 'admin/' . htmlspecialchars($related['image']) : 'assets/images/placeholder.jpg';
+                $rel_desc = htmlspecialchars(substr(strip_tags($related['description']), 0, 100));
+        ?>
+            <div class="tour-grid-item">
+                <div class="tour-package-card">
+                    <div class="tour-image-wrapper">
+                        <img src="<?= $rel_img ?>" alt="<?= htmlspecialchars($related['title']) ?>" class="tour-package-image" onerror="this.src='assets/images/placeholder.jpg';">
+                        <div class="tour-overlay"></div>
+                    </div>
+                    <div class="tour-content-area">
+                        <h3 class="tour-package-title"><?= htmlspecialchars($related['title']) ?></h3>
+                        <p class="tour-description"><?= $rel_desc ?>...</p>
+                        <div class="tour-meta-info">
+                            <span class="meta-badge duration-badge">
+                                <i class="fas fa-clock"></i> <?= htmlspecialchars($related['duration']) ?>
+                            </span>
+                            <span class="meta-badge group-badge">
+                                <i class="fas fa-users"></i> <?= htmlspecialchars($related['persons']) ?>
+                            </span>
+                        </div>
+                        <a href="?id=<?= $related['id'] ?>" class="tour-details-btn">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php 
+            endwhile;
+        ?>
+        </div>
+        <?php 
+        else: 
+        ?>
+            <div class="no-tours-message">
+                <p>No similar tours available at the moment.</p>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+
+<style>
+/* Similar Tours Section Styles */
+.similar-packages-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+    position: relative;
+}
+.section-header {
+    margin-bottom: 50px;
+}
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+.title-underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    margin: 0 auto 15px;
+    border-radius: 2px;
+}
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+.tours-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+.tour-grid-item {
+    width: 100%;
+}
+.tour-package-card {
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.tour-package-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+.tour-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+}
+.tour-package-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.tour-package-card:hover .tour-package-image {
+    transform: scale(1.15);
+}
+.tour-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.tour-package-card:hover .tour-overlay {
+    opacity: 1;
+}
+.tour-content-area {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.tour-package-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    min-height: 2.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.tour-description {
+    font-size: 0.95rem;
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    min-height: 3.2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.tour-meta-info {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.duration-badge {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+.group-badge {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+.tour-details-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+.tour-details-btn:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    color: #ffffff;
+    transform: translateX(5px);
+}
+.no-tours-message {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 1199px) {
+    .tours-grid-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+}
+@media (max-width: 991px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    .tours-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+@media (max-width: 767px) {
+    .similar-packages-section {
+        padding: 60px 0;
+    }
+    .section-title {
+        font-size: 1.75rem;
+    }
+    .tour-image-wrapper {
+        height: 220px;
+    }
+    .tours-grid-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+</style>
 
 <!-- Gallery Modal -->
 <div class="modal fade" id="galleryModal" tabindex="-1">
