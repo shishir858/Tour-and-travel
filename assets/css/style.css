@@ -1448,6 +1448,7 @@ text-align: center;
 .footer-con .middle_portion .icon .text{
     position: relative;
     margin-bottom: 11px;
+    margin-left: 15px;
     padding-left: 30px;
     display: inline-block;
 }

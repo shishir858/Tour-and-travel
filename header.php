@@ -20,16 +20,17 @@ if ($is_detail_page) {
     ];
     
     $table = $table_map[$current_page];
-    $tour_query = $conn->prepare("SELECT title, description FROM $table WHERE id = ?");
+    $tour_query = $conn->prepare("SELECT title, description, meta_title, meta_description, meta_keywords FROM $table WHERE id = ?");
     $tour_query->bind_param("i", $tour_id);
     $tour_query->execute();
     $tour_result = $tour_query->get_result();
     $tour_data = $tour_result->fetch_assoc();
     
     if ($tour_data) {
-        $meta_title = htmlspecialchars($tour_data['title']) . ' - Tourist Drivers India';
-        $meta_description = substr(strip_tags($tour_data['description']), 0, 160);
-        $meta_keywords = htmlspecialchars($tour_data['title']) . ', India tour, private tour India, ' . str_replace('-', ' ', $current_page);
+        // Use custom meta tags if provided, otherwise generate from tour data
+        $meta_title = !empty($tour_data['meta_title']) ? htmlspecialchars($tour_data['meta_title']) : htmlspecialchars($tour_data['title']) . ' - Tourist Drivers India';
+        $meta_description = !empty($tour_data['meta_description']) ? htmlspecialchars($tour_data['meta_description']) : substr(strip_tags($tour_data['description']), 0, 160);
+        $meta_keywords = !empty($tour_data['meta_keywords']) ? htmlspecialchars($tour_data['meta_keywords']) : htmlspecialchars($tour_data['title']) . ', India tour, private tour India, ' . str_replace('-', ' ', $current_page);
     } else {
         // Fallback if tour not found
         $meta_title = 'Tour Details - Tourist Drivers India';

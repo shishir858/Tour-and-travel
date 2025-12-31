@@ -1,31 +1,41 @@
-
 <?php
-session_start();
-require_once __DIR__ . '/includes/config.php';
+require_once 'includes/config.php';
+
+// If already logged in, redirect to dashboard
+if(isset($_SESSION['admin_id'])) {
+    header('Location: dashboard.php');
+    exit;
+}
 
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-    if ($email && $password) {
-        $stmt = $conn->prepare('SELECT id, password FROM users WHERE email = ? LIMIT 1');
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($row = $result->fetch_assoc()) {
-            // Check password using password_verify for hashed passwords
-            if (password_verify($password, $row['password']) || $password === $row['password']) {
-                $_SESSION['admin_id'] = $row['id'];
-                header('Location: dashboard');
-                exit;
-            } else {
-                $error = 'Invalid password.';
-            }
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = $_POST['password'];
+    
+    $query = "SELECT * FROM admin_users WHERE username = '$username' AND is_active = 1";
+    $result = mysqli_query($conn, $query);
+    
+    if(mysqli_num_rows($result) == 1) {
+        $admin = mysqli_fetch_assoc($result);
+        
+        // Verify password
+        if(password_verify($password, $admin['password'])) {
+            // Set session
+            $_SESSION['admin_id'] = $admin['id'];
+            $_SESSION['admin_name'] = $admin['full_name'] ?: $admin['username'];
+            $_SESSION['admin_role'] = $admin['role'];
+            
+            // Update last login
+            mysqli_query($conn, "UPDATE admin_users SET last_login = NOW() WHERE id = {$admin['id']}");
+            
+            header('Location: dashboard.php');
+            exit;
         } else {
-            $error = 'User not found.';
+            $error = 'Invalid username or password';
         }
     } else {
-        $error = 'Please enter email and password.';
+        $error = 'Invalid username or password';
     }
 }
 ?>
@@ -34,28 +44,185 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Admin Login - Tourist Drivers India</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f6f9; }
-        .login-container { max-width: 400px; margin: 100px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 40px 30px; }
-        .login-title { font-size: 1.7rem; font-weight: 600; margin-bottom: 25px; color: #232f3e; text-align: center; }
-        .error { color: #c0392b; margin-bottom: 18px; text-align: center; }
-        .admin-form input { width: 100%; padding: 10px 12px; margin-bottom: 18px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 1rem; background: #f9f9f9; }
-        .admin-btn { background: #232f3e; color: #fff; border: none; padding: 10px 22px; border-radius: 4px; font-size: 1rem; cursor: pointer; width: 100%; }
-        .admin-btn:hover { background: #1a2226; }
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #004e92;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, var(--primary-color), #ff8c5a);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .login-header i {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .login-header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .login-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .login-body {
+            padding: 40px 30px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 15px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.15);
+        }
+        
+        .input-group-text {
+            background: transparent;
+            border: 2px solid #e9ecef;
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+        }
+        
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary-color), #ff8c5a);
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="login-title">Admin Login</div>
-        <?php if ($error): ?>
-            <div class="error"><?= htmlspecialchars($error) ?></div>
-        <?php endif; ?>
-        <form method="post" class="admin-form">
-            <input type="email" name="email" placeholder="Email" required autofocus>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="admin-btn">Login</button>
-        </form>
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-plane-departure"></i>
+                <h1>Tourist Drivers India</h1>
+                <p>Admin Panel Login</p>
+            </div>
+            
+            <div class="login-body">
+                <?php if($error): ?>
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i> <?php echo $error; ?>
+                </div>
+                <?php endif; ?>
+                
+                <form method="POST" action="">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <input type="text" class="form-control" id="username" name="username" required autofocus>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+            </div>
+            
+            <div class="login-footer">
+                &copy; <?php echo date('Y'); ?> Tourist Drivers India. All rights reserved.
+            </div>
+        </div>
+        
+        <div class="text-center mt-3">
+            <small class="text-white">
+                Default: <strong>admin</strong> / <strong>admin123</strong>
+            </small>
+        </div>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

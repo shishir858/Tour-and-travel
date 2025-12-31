@@ -1,124 +1,97 @@
-<aside id="sidebar-nav">
-    <ul class="nav-menu">
-        <li class="nav-item">
-            <a href="dashboard" class="nav-link active">
-                <span class="nav-icon">📊</span>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="users" class="nav-link">
-                <span class="nav-icon">👥</span>
-                <span>Users</span>
-            </a>
-        </li>
-        
-        <!-- Tour Packages Section -->
-        <li class="nav-item" style="margin-top: 15px;">
-            <a href="tour-packages" class="nav-link">
-                <span class="nav-icon">📦</span>
-                <span>Tour Packages</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="golden-triangle" class="nav-link">
-                <span class="nav-icon">🔺</span>
-                <span>Golden Triangle</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="tajmahal-tours" class="nav-link">
-                <span class="nav-icon">🕌</span>
-                <span>Tajmahal Tours</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="rajasthan-tour" class="nav-link">
-                <span class="nav-icon">🏰</span>
-                <span>Rajasthan Tours</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="himachal-packages" class="nav-link">
-                <span class="nav-icon">🏔️</span>
-                <span>Himachal Packages</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="pilgrimage-package" class="nav-link">
-                <span class="nav-icon">🙏</span>
-                <span>Pilgrimage Tours</span>
-            </a>
-        </li>
-        
-        <!-- Media Section -->
-        <li class="nav-item" style="margin-top: 15px;">
-            <a href="gallery" class="nav-link">
-                <span class="nav-icon">🖼️</span>
-                <span>Gallery</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="videos" class="nav-link">
-                <span class="nav-icon">🎥</span>
-                <span>Videos</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="reviews" class="nav-link">
-                <span class="nav-icon">⭐</span>
-                <span>Client Reviews</span>
-            </a>
-        </li>
-        
-        <!-- Vehicle & Settings -->
-        <li class="nav-item" style="margin-top: 15px;">
-            <a href="cars" class="nav-link">
-                <span class="nav-icon">🚗</span>
-                <span>Cars/Vehicles</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="contact-info" class="nav-link">
-                <span class="nav-icon">📞</span>
-                <span>Contact Info</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="footer-content" class="nav-link">
-                <span class="nav-icon">📄</span>
-                <span>Footer Content</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="meta-tags" class="nav-link">
-                <span class="nav-icon">🏷️</span>
-                <span>Meta Tags</span>
-            </a>
-        </li>
-        
-        <li class="nav-item" style="margin-top: 30px;">
-            <a href="logout" class="nav-link">
-                <span class="nav-icon">🚪</span>
-                <span>Logout</span>
-            </a>
-        </li>
-    </ul>
-</aside>
-
-<script>
-// Highlight active link based on current page
-document.addEventListener('DOMContentLoaded', function() {
-    const currentPage = window.location.pathname.split('/').pop();
-    const links = document.querySelectorAll('#sidebar-nav .nav-link');
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <ul class="sidebar-menu">
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>dashboard.php" class="menu-link <?php echo (basename($_SERVER['PHP_SELF']) == 'dashboard.php') ? 'active' : ''; ?>">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <hr class="my-2 mx-3">
+                <small class="text-muted px-3 d-block mb-2">TOUR MANAGEMENT</small>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>categories/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/categories/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-folder"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>destinations/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/destinations/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Destinations</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>packages/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/packages/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-box"></i>
+                    <span>Tour Packages</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <hr class="my-2 mx-3">
+                <small class="text-muted px-3 d-block mb-2">BOOKINGS & CUSTOMERS</small>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>bookings/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/bookings/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>customers/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/customers/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <hr class="my-2 mx-3">
+                <small class="text-muted px-3 d-block mb-2">CONTENT</small>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>reviews/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/reviews/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-star"></i>
+                    <span>Reviews</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>gallery/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/gallery/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-images"></i>
+                    <span>Gallery</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>vehicles/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/vehicles/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-car"></i>
+                    <span>Vehicles</span>
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <hr class="my-2 mx-3">
+                <small class="text-muted px-3 d-block mb-2">SETTINGS</small>
+            </li>
+            
+            <li class="menu-item">
+                <a href="<?php echo BASE_URL; ?>settings/meta-tags.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/settings/') !== false) ? 'active' : ''; ?>">
+                    <i class="fas fa-cog"></i>
+                    <span>Website Settings</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
     
-    links.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentPage || (currentPage === '' && href === 'dashboard')) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
-    });
-});
-</script>
+    <!-- Main Content -->
+    <main class="admin-content">

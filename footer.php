@@ -72,22 +72,101 @@ $footerrow = $result->fetch_assoc();
     <div class="footer_lowerportion position-relative">
         <div class="container-fluid">
             <div class="middle_portion">
+                <!-- Tours Row -->
                 <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="logo-content">
+                    <!-- Golden Triangle Tours -->
+                    <div class="col-xl col-lg col-md-6 col-sm-6 col-6 mb-4">
+                        <div class="links">
+                            <h5 class="heading">Golden Triangle</h5>
+                            <ul class="list-unstyled mb-0">
+                                <?php
+                                $gt_result = $conn->query("SELECT id, title FROM golden_triangle ORDER BY id LIMIT 5");
+                                while($tour = $gt_result->fetch_assoc()):
+                                ?>
+                                <li class="mb-2"><i class="fa-solid fa-arrow-right me-2"></i><a href="golden-triangle-detail-page.php?id=<?php echo $tour['id']; ?>"><?php echo substr($tour['title'], 0, 25) . (strlen($tour['title']) > 25 ? '...' : ''); ?></a></li>
+                                <?php endwhile; ?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Himachal Tours -->
+                    <div class="col-xl col-lg col-md-6 col-sm-6 col-6 mb-4">
+                        <div class="links">
+                            <h5 class="heading">Himachal Tours</h5>
+                            <ul class="list-unstyled mb-0">
+                                <?php
+                                $hm_result = $conn->query("SELECT id, title FROM himachal_packages ORDER BY id LIMIT 5");
+                                while($tour = $hm_result->fetch_assoc()):
+                                ?>
+                                <li class="mb-2"><i class="fa-solid fa-arrow-right me-2"></i><a href="himachal-detail-page.php?id=<?php echo $tour['id']; ?>"><?php echo substr($tour['title'], 0, 25) . (strlen($tour['title']) > 25 ? '...' : ''); ?></a></li>
+                                <?php endwhile; ?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Rajasthan Tours -->
+                    <div class="col-xl col-lg col-md-6 col-sm-6 col-6 mb-4">
+                        <div class="links">
+                            <h5 class="heading">Rajasthan Tours</h5>
+                            <ul class="list-unstyled mb-0">
+                                <?php
+                                $rj_result = $conn->query("SELECT id, title FROM rajasthan_tour ORDER BY id LIMIT 5");
+                                while($tour = $rj_result->fetch_assoc()):
+                                ?>
+                                <li class="mb-2"><i class="fa-solid fa-arrow-right me-2"></i><a href="rajasthan-detail-page.php?id=<?php echo $tour['id']; ?>"><?php echo substr($tour['title'], 0, 25) . (strlen($tour['title']) > 25 ? '...' : ''); ?></a></li>
+                                <?php endwhile; ?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Taj Mahal Tours -->
+                    <div class="col-xl col-lg col-md-6 col-sm-6 col-6 mb-4">
+                        <div class="links">
+                            <h5 class="heading">Taj Mahal Tours</h5>
+                            <ul class="list-unstyled mb-0">
+                                <?php
+                                $tj_result = $conn->query("SELECT id, title FROM tajmahal_tours ORDER BY id LIMIT 5");
+                                while($tour = $tj_result->fetch_assoc()):
+                                ?>
+                                <li class="mb-2"><i class="fa-solid fa-arrow-right me-2"></i><a href="tajmahal-detail-page.php?id=<?php echo $tour['id']; ?>"><?php echo substr($tour['title'], 0, 25) . (strlen($tour['title']) > 25 ? '...' : ''); ?></a></li>
+                                <?php endwhile; ?>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Pilgrimage Tours -->
+                    <div class="col-xl col-lg col-md-6 col-sm-6 col-6 mb-4">
+                        <div class="links">
+                            <h5 class="heading">Pilgrimage Tours</h5>
+                            <ul class="list-unstyled mb-0">
+                                <?php
+                                $pg_result = $conn->query("SELECT id, title FROM pilgrimage_package ORDER BY id LIMIT 5");
+                                while($tour = $pg_result->fetch_assoc()):
+                                ?>
+                                <li class="mb-2"><i class="fa-solid fa-arrow-right me-2"></i><a href="pilgrimage-detail-page.php?id=<?php echo $tour['id']; ?>"><?php echo substr($tour['title'], 0, 25) . (strlen($tour['title']) > 25 ? '...' : ''); ?></a></li>
+                                <?php endwhile; ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Us Row -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="logo-content text-center">
                             <h5 class="heading">About Us</h5>
-                            <p class="text-size-14 text">
-<?php
-$about = strip_tags($footerrow['about_us']);
-$words = explode(' ', $about);
-if(count($words) > 25) {
-    echo implode(' ', array_slice($words, 0, 25)) . '...';
-} else {
-    echo $about;
-}
-?>
+                            <p class="text-size-14 text mx-auto">
+                                <?php
+                                $about = strip_tags($footerrow['about_us']);
+                                $words = explode(' ', $about);
+                                if(count($words) > 100) {
+                                    echo implode(' ', array_slice($words, 0, 100)) . '...';
+                                } else {
+                                    echo $about;
+                                }
+                                ?>
                             </p>
-                            <ul class="list-unstyled mb-0 social-icons">
+                            <ul class="list-unstyled mb-0 social-icons d-flex justify-content-center gap-3">
                                 <li><a href="<?php echo $headerrow['facebook']; ?>" class="text-decoration-none"><i
                                             class="fa-brands fa-facebook-f social-networks"></i></a></li>
                                 <li><a href="<?php echo $headerrow['instagram']; ?>" class="text-decoration-none"><i
@@ -97,54 +176,45 @@ if(count($words) > 25) {
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-6">
-                        <div class="links">
-                            <h5 class="heading">Quick Links</h5>
-                            <ul class="list-unstyled mb-0">
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="index.php">Home</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="about.php">About Us</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="tour-packages.php">Tour Packages</a>
-                                </li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="vehicles.php">Vehicles</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="contact.php">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6">
-                        <div class="use-link links">
-                            <h5 class="heading">Explore</h5>
-                            <ul class="list-unstyled mb-0">
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="service.php">Tour Packages</a></li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="service.php">Taxi Services</a>
-                                </li>
-                                <li><i class="fa-solid fa-arrow-right"></i><a href="service.php">Car Rentals</a></li>
+                </div>
 
+                <!-- Quick Links Row -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <h5 class="heading mb-3">Quick Links</h5>
+                            <ul class="list-unstyled d-flex justify-content-center flex-wrap mb-0" style="gap: 30px;">
+                                <li><i class="fa-solid fa-circle-chevron-right me-2"></i><a href="index.php" class="text-decoration-none">Home</a></li>
+                                <li><i class="fa-solid fa-circle-chevron-right me-2"></i><a href="about.php" class="text-decoration-none">About Us</a></li>
+                                <li><i class="fa-solid fa-circle-chevron-right me-2"></i><a href="tour-packages.php" class="text-decoration-none">Tour Packages</a></li>
+                                <li><i class="fa-solid fa-circle-chevron-right me-2"></i><a href="gallery.php" class="text-decoration-none">Gallery</a></li>
+                                <li><i class="fa-solid fa-circle-chevron-right me-2"></i><a href="vehicle.php" class="text-decoration-none">Our Vehicles</a></li>
+                                <li><i class="fa-solid fa-circle-chevron-right me-2"></i><a href="contact.php" class="text-decoration-none">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-12">
-                        <div class="icon">
-                            <h5 class="heading">Contact Us</h5>
-                            <ul class="list-unstyled mb-0">
+                </div>
+
+                <!-- Contact Info Row -->
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="icon text-center">
+                            <h5 class="heading mb-3">Contact Info</h5>
+                            <ul class="list-unstyled d-flex justify-content-center flex-wrap gap-5 mb-0">
                                 <li class="text">
-                                    <i class="fa-solid fa-phone"></i>
+                                    <i class="fa-solid fa-phone me-2"></i>
                                     <a href="tel:<?php echo $headerrow['whatsapp']; ?>"
-                                        class="text-decoration-none"><?php echo $headerrow['phone']; ?>
-
-                                    </a>
+                                        class="text-decoration-none"><?php echo $headerrow['phone']; ?></a>
                                 </li>
-
-                                </a>
                                 <li class="text">
-                                    <i class="fa-solid fa-envelope"></i>
+                                    <i class="fa-solid fa-envelope me-2"></i>
                                     <a href="mailto:<?php echo $headerrow['email1']; ?>"
                                         class="text-decoration-none"><?php echo $headerrow['email1']; ?></a>
                                 </li>
                                 <li class="text">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <a href="https://www.google.com/maps/place/21+King+St,+Melbourne+VIC+3000,+Australia/@-37.8199805,144.9529083,18z/data=!4m6!3m5!1s0x6ad65d52754eaecb:0x22f367daf52cbd47!8m2!3d-37.819936!4d144.9570765!16s%2Fg%2F11c2dj2n2c?entry=ttu"
-                                        class="text-decoration-none address mb-0"><?php echo $footerrow['branch1']; ?>
-                                    </a>
+                                    <i class="fa-solid fa-location-dot me-2"></i>
+                                    <a href="https://www.google.com/maps" target="_blank"
+                                        class="text-decoration-none address mb-0"><?php echo $footerrow['branch1']; ?></a>
                                 </li>
                             </ul>
                         </div>
