@@ -61,6 +61,7 @@ include '../includes/sidebar.php';
                     <th>Slug</th>
                     <th width="120">Packages</th>
                     <th width="100">Status</th>
+                    <th width="100">Header Menu</th>
                     <th width="80">Actions</th>
                 </tr>
             </thead>
@@ -103,6 +104,17 @@ include '../includes/sidebar.php';
                                 </a>
                             </td>
                             <td>
+                                <?php if($category['show_in_header']): ?>
+                                    <span class="badge bg-primary" title="Visible in header navigation">
+                                        <i class="fas fa-check"></i> In Header
+                                    </span>
+                                <?php else: ?>
+                                    <span class="badge bg-light text-dark" title="Not shown in header">
+                                        <i class="fas fa-times"></i> Hidden
+                                    </span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
                                 <div class="btn-group btn-group-sm">
                                     <a href="edit.php?id=<?php echo $category['id']; ?>" class="btn btn-warning" title="Edit">
                                         <i class="fas fa-edit"></i>
@@ -119,7 +131,7 @@ include '../includes/sidebar.php';
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="6" class="text-center py-5">
+                        <td colspan="7" class="text-center py-5">
                             <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
                             <p class="text-muted">No categories found. <a href="add.php">Add your first category</a></p>
                         </td>

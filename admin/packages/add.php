@@ -57,38 +57,37 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Insert if no errors
     if(empty($errors)) {
+        // Prepare inclusions and exclusions text
+        $inclusions_text = '';
+        if(isset($_POST['inclusions']) && !empty($_POST['inclusions'])) {
+            $inclusions = array_filter(array_map('trim', $_POST['inclusions']));
+            $inclusions_text = implode("\n", $inclusions);
+        }
+        $inclusions_text = mysqli_real_escape_string($conn, $inclusions_text);
+        
+        $exclusions_text = '';
+        if(isset($_POST['exclusions']) && !empty($_POST['exclusions'])) {
+            $exclusions = array_filter(array_map('trim', $_POST['exclusions']));
+            $exclusions_text = implode("\n", $exclusions);
+        }
+        $exclusions_text = mysqli_real_escape_string($conn, $exclusions_text);
+        
         $insert_query = "INSERT INTO tour_packages (
             category_id, title, slug, duration_days, duration_nights, base_price, 
             short_description, description, featured_image, 
+            inclusions, exclusions,
             meta_title, meta_description, meta_keywords,
             is_active, is_featured, created_at
         ) VALUES (
             $category_id, '$title', '$slug', $duration_days, $duration_nights, $base_price,
             '$short_description', '$description', '$featured_image',
+            '$inclusions_text', '$exclusions_text',
             '$meta_title', '$meta_description', '$meta_keywords',
             $is_active, $is_featured, NOW()
         )";
         
         if(mysqli_query($conn, $insert_query)) {
             $package_id = mysqli_insert_id($conn);
-            
-            // Handle inclusions
-            if(isset($_POST['inclusions']) && !empty($_POST['inclusions'])) {
-                $inclusions = array_filter(array_map('trim', $_POST['inclusions']));
-                foreach($inclusions as $inclusion) {
-                    $inclusion = mysqli_real_escape_string($conn, $inclusion);
-                    mysqli_query($conn, "INSERT INTO package_inclusions (package_id, item) VALUES ($package_id, '$inclusion')");
-                }
-            }
-            
-            // Handle exclusions
-            if(isset($_POST['exclusions']) && !empty($_POST['exclusions'])) {
-                $exclusions = array_filter(array_map('trim', $_POST['exclusions']));
-                foreach($exclusions as $exclusion) {
-                    $exclusion = mysqli_real_escape_string($conn, $exclusion);
-                    mysqli_query($conn, "INSERT INTO package_exclusions (package_id, item) VALUES ($package_id, '$exclusion')");
-                }
-            }
             
             // Handle destinations
             if(isset($_POST['destinations']) && !empty($_POST['destinations'])) {
@@ -110,8 +109,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $desc = mysqli_real_escape_string($conn, trim($descriptions[$i]));
                     
                     if(!empty($title)) {
-                        mysqli_query($conn, "INSERT INTO package_itinerary (package_id, day_number, title, description) 
-                                           VALUES ($package_id, $day, '$title', '$desc')");
+                        mysqli_query($conn, "INSERT INTO package_itinerary (package_id, day_number, title, description, display_order) 
+                                           VALUES ($package_id, $day, '$title_val', '$desc', $day)");
                     }
                 }
             }

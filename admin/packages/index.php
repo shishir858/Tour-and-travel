@@ -31,7 +31,7 @@ if($status_filter !== '') {
 }
 
 if(!empty($search)) {
-    $where .= " AND (title LIKE '%$search%' OR slug LIKE '%$search%') ";
+    $where .= " AND (p.title LIKE '%$search%' OR p.slug LIKE '%$search%') ";
 }
 
 // Get all packages

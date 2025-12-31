@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $icon = mysqli_real_escape_string($conn, $_POST['icon']);
     $display_order = intval($_POST['display_order']);
     $is_active = isset($_POST['is_active']) ? 1 : 0;
+    $show_in_header = isset($_POST['show_in_header']) ? 1 : 0;
     
     // Check if slug already exists
     $check_query = "SELECT id FROM categories WHERE slug = '$slug'";
@@ -22,8 +23,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(mysqli_num_rows($check_result) > 0) {
         $error = 'Slug already exists. Please use a different name or slug.';
     } else {
-        $query = "INSERT INTO categories (name, slug, description, icon, display_order, is_active) 
-                  VALUES ('$name', '$slug', '$description', '$icon', $display_order, $is_active)";
+        $query = "INSERT INTO categories (name, slug, description, icon, display_order, is_active, show_in_header) 
+                  VALUES ('$name', '$slug', '$description', '$icon', $display_order, $is_active, $show_in_header)";
         
         if(mysqli_query($conn, $query)) {
             header('Location: index.php?msg=added');
@@ -114,13 +115,24 @@ include '../includes/sidebar.php';
                     </div>
                 </div>
                 
-                <div class="mb-4">
+                <div class="mb-3">
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
                                <?php echo (isset($_POST['is_active']) || !isset($_POST['name'])) ? 'checked' : ''; ?>>
                         <label class="form-check-label" for="is_active">
                             Active (visible on website)
                         </label>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="show_in_header" name="show_in_header" 
+                               <?php echo (isset($_POST['show_in_header']) || !isset($_POST['name'])) ? 'checked' : ''; ?>>
+                        <label class="form-check-label" for="show_in_header">
+                            <i class="fas fa-bars me-1"></i> Show in Header Menu
+                        </label>
+                        <small class="d-block text-muted mt-1">Display this category in the header navigation dropdown</small>
                     </div>
                 </div>
                 

@@ -1,1191 +1,472 @@
-<?php require('header.php'); ?>
-<!-- Swiper CSS -->
-<style>
-    .places {
-        padding-top: 30px;
-    }
-</style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-
-<!-- Banner -->
-<section class="banner-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-12 mx-auto">
-                <div class="banner_content text-center" data-aos="fade-up">
-                    <h3 class="text-white">Tourist Drivers India Private Tours</h3>
-                    <h1 class="text-white">Explore India with Our Exclusive Private Tour Packages</h1>
-                    <div class="banner-box">
-                        <form action="banner-email.php" method="POST">
-                            <div class="form-group float-left mb-0">
-                                <div class="upper">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <label for="destination">Destination</label>
-                                </div>
-                                <input type="text" class="form_style" id="destination" name="destination" placeholder="Destination">
-                            </div>
-
-                            <div class="form-group float-left mb-0">
-                                <div class="upper">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <label for="date">Date</label>
-                                </div>
-                                <input type="date" class="form_style" id="date" name="date">
-                            </div>
-
-                            <div class="form-group float-left mb-0">
-                                <div class="upper">
-                                    <i class="fa-solid fa-users"></i>
-                                    <label for="people">People</label>
-                                </div>
-                                <input type="text" class="form_style" id="people" name="people" placeholder="4 People">
-                            </div>
-
-                            <div class="form-group float-left mb-0">
-                                <div class="upper">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <label for="number">Phone Number</label>
-                                </div>
-                                <input type="tel" class="form_style" id="number" name="number" placeholder="Enter phone number">
-                            </div>
-
-                            <div class="form-group float-left mb-0 mt-2">
-                                <div class="upper">
-                                    <i class="fa-solid fa-comment-dots"></i>
-                                    <label for="remark">Remark</label>
-                                </div>
-                                <textarea class="form_style" id="remark" name="remark" style="border-radius:10px; border:none;" placeholder="Add any remarks here..." rows="2"></textarea>
-                            </div>
-                            <button type="submit" style="margin-top:37px!important;">Book Now</button>
-
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-1 mx-auto">
-                <a href="#dropdown" class="top-btn text-center">
-                    <figure class="banner-dropdownimage mb-0">
-                        <img src="./assets/images/banner-dropdownimage.png" class="img-fluid" alt="image">
-                    </figure>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-</div>
-<!-- Explore -->
-<section class="explore-con" id="dropdown">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="explore_content" data-aos="fade-up">
-                <h6>Trending Tour</h6>
-                <h2>Trending Tour Packages</h2>
-            </div>
-        </div>
-        <style>
-            .equal {
-                height: 350px;
-                object-fit: cover;
+<?php
+require_once 'config.php';
+$page_title = "Home - Tourist Drivers India Private Tours";
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $page_title; ?></title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>assets/css/main-style.css">
+    
+    <style>
+        /* Top Bar Orange */
+        .top-info-bar {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 12px 0;
+            color: white;
+            font-size: 14px;
+        }
+        .top-info-bar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .top-info-bar i {
+            margin-right: 6px;
+        }
+        
+        /* Main Navbar */
+        .main-navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s;
+        }
+        .main-navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .navbar-brand-logo {
+            height: 60px;
+        }
+        .main-navbar .nav-link {
+            color: #333;
+            font-weight: 600;
+            padding: 10px 18px !important;
+            transition: all 0.3s;
+        }
+        .main-navbar .nav-link:hover {
+            color: #FF6B35;
+        }
+        .navbar-dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-radius: 10px;
+            padding: 15px 0;
+            min-width: 300px;
+        }
+        .navbar-dropdown-item {
+            padding: 14px 28px;
+            transition: all 0.3s;
+            color: #555;
+            font-weight: 500;
+        }
+        .navbar-dropdown-item:hover {
+            background: #FF6B35;
+            color: white !important;
+            padding-left: 35px;
+        }
+        .navbar-contact-btn {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white !important;
+            padding: 12px 35px !important;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-left: 15px;
+            transition: all 0.3s;
+        }
+        .navbar-contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+        @media (min-width: 992px) {
+            .navbar-nav .dropdown:hover .dropdown-menu {
+                display: block;
             }
-        </style>
-        <div class="row" data-aos="fade-up">
-            <div class="owl-carousel">
-                <div class="item">
-                    <div class="explore-box">
-                        <figure class="image mb-0">
-                            <img src="./assets/images/taj-mahal.avif" alt="image" class="img-fluid equal">
-                        </figure>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i>
-                            <span class="text-white">5.0</span>
-                        </div>
-                        <div class="content">
-                            <div class="text">
-                                <!-- <div class="place">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span class="text-white">Agra</span>
-                                </div> -->
-                                <h4 class="text-white mb-0">Taj Mahal</h4>
-                            </div>
-                        </div>
-                    </div>
+        }
+        
+        /* Footer */
+        .main-footer {
+            background: #1F2937;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        .main-footer h5 {
+            color: white;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        .main-footer a {
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .main-footer a:hover {
+            color: #FF6B35;
+            padding-left: 5px;
+        }
+        .footer-social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 12px;
+            transition: all 0.3s;
+        }
+        .footer-social-links a:hover {
+            background: #FF6B35;
+            transform: translateY(-4px);
+        }
+        
+        /* WhatsApp Float */
+        .whatsapp-float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+            z-index: 9999;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        .whatsapp-float-btn:hover {
+            background: #128C7E;
+            transform: scale(1.1);
+            color: white;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(37, 211, 102, 0.7);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Info Bar -->
+    <div class="top-info-bar">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span><?php echo getSetting('site_address') ?: 'Plot No C 50 Ganesh Nagar Complex - New Delhi 110092'; ?></span>
                 </div>
-                <div class="item">
-                    <div class="explore-box">
-                        <figure class="image mb-0">
-                            <img src="./assets/images/mathura-vrindavan.webp" alt="image" class="img-fluid equal">
-                        </figure>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i>
-                            <span class="rate text-white">5.0</span>
-                        </div>
-                        <div class="content">
-                            <div class="text">
-                                <!-- <div class="place">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span class="text-white">Mathura Vrindavan</span>
-                                </div> -->
-                                <h4 class="text-white mb-0">Mathura Vrindavan</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="explore-box">
-                        <figure class="image mb-0">
-                            <img src="./assets/images/trending-tours/amarnath.jpg" alt="image" class="img-fluid equal">
-                        </figure>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i>
-                            <span class="rate text-white">5.0</span>
-                        </div>
-                        <div class="content">
-                            <div class="text">
-                                <!-- <div class="place">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span class="text-white">15 Places</span>
-                                </div> -->
-                                <h4 class="text-white mb-0">Amarnath Yatra</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="explore-box">
-                        <figure class="image mb-0">
-                            <img src="./assets/images/trending-tours/chardham.jpg" alt="image" class="img-fluid equal">
-                        </figure>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i>
-                            <span class="rate text-white">5.0</span>
-                        </div>
-                        <div class="content">
-                            <div class="text">
-                                <!-- <div class="place">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span class="text-white">C</span>
-                                </div> -->
-                                <h4 class="text-white mb-0">Chardham Yatra</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="explore-box">
-                        <figure class="image mb-0">
-                            <img src="./assets/images/trending-tours/kashmir.webp" alt="image" class="img-fluid equal">
-                        </figure>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i>
-                            <span class="rate text-white">4.5</span>
-                        </div>
-                        <div class="content">
-                            <div class="text">
-                                <!-- <div class="place">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span class="text-white">16 Places</span>
-                                </div> -->
-                                <h4 class="text-white mb-0">Kashmir</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="explore-box">
-                        <figure class="image mb-0">
-                            <img src="./assets/images/trending-tours/uttrakhand.jpg" alt="image"
-                                class="img-fluid equal">
-                        </figure>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i>
-                            <span class="rate text-white">3.8</span>
-                        </div>
-                        <div class="content">
-                            <!-- <div class="place">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="text-white">17 Places</span>
-                            </div> -->
-                            <h4 class="text-white mb-0">Uttrakhand</h4>
-                        </div>
-                    </div>
+                <div class="col-lg-4 col-md-6 text-end">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:<?php echo getSetting('site_phone'); ?>"><?php echo getSetting('site_phone') ?: '+91 9310042916'; ?></a>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<!-- About -->
-<section class="about-con position-relative">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-xl-7 col-lg-6 col-md-12 col-sm-12 col-12 text-lg-left text-center">
-                <div class="about_wrapper position-relative" data-aos="zoom-in">
-                    <figure class="about-image mb-0">
-                        <img src="./assets/images/about-us-image.avif" style="max-width: 90%;" alt="image"
-                            class="img-fluid">
-                    </figure>
-                    <!-- <figure class="about-locationimage mb-0">
-                            <img src="./assets/images/about-locationimage.png" alt="image" class="img-fluid">
-                        </figure> -->
-                    <!-- <div class="box" data-aos="fade-up">
-                            <div class="images">
-                                <figure class="about-personimage1 mb-0 ml-0">
-                                    <img src="./assets/images/about-personimage1.jpg" alt="image" class="img-fluid">
-                                </figure>
-                                <figure class="about-personimage2 mb-0">
-                                    <img src="./assets/images/about-personimage2.jpg" alt="image" class="img-fluid">
-                                </figure>
-                                <figure class="about-personimage3 mb-0">
-                                    <img src="./assets/images/about-personimage3.jpg" alt="image" class="img-fluid">
-                                </figure>
+
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg main-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
+                <img src="<?php echo SITE_URL; ?>assets/img/logo.png" alt="Tourist Drivers India" class="navbar-brand-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo SITE_URL; ?>">Home</a>
+                    </li>
+                    
+                    <?php
+                    $nav_categories = $conn->query("SELECT * FROM categories WHERE is_active = 1 AND show_in_header = 1 ORDER BY display_order");
+                    while($nav_cat = $nav_categories->fetch_assoc()):
+                        $nav_packages = $conn->query("SELECT id, title FROM tour_packages WHERE category_id = {$nav_cat['id']} AND is_active = 1 ORDER BY display_order LIMIT 10");
+                        $has_nav_packages = $nav_packages->num_rows > 0;
+                    ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="<?php echo SITE_URL; ?>tour-packages.php?category=<?php echo $nav_cat['id']; ?>" 
+                           <?php if($has_nav_packages): ?>data-bs-toggle="dropdown"<?php endif; ?>>
+                            <?php echo htmlspecialchars($nav_cat['name']); ?>
+                        </a>
+                        <?php if($has_nav_packages): ?>
+                        <ul class="dropdown-menu navbar-dropdown-menu">
+                            <?php while($nav_pkg = $nav_packages->fetch_assoc()): ?>
+                            <li>
+                                <a class="dropdown-item navbar-dropdown-item" href="<?php echo SITE_URL; ?>package-detail.php?id=<?php echo $nav_pkg['id']; ?>">
+                                    <?php echo htmlspecialchars($nav_pkg['title']); ?>
+                                </a>
+                            </li>
+                            <?php endwhile; ?>
+                        </ul>
+                        <?php endif; ?>
+                    </li>
+                    <?php endwhile; ?>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo SITE_URL; ?>vehicles.php">Car Rental</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-contact-btn" href="<?php echo SITE_URL; ?>contact.php">
+                            <i class="fas fa-phone me-2"></i>Contact Us
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner-wrapper">
+        <div class="hero-banner-content">
+            <h1 class="hero-main-title">Discover the Magic of India</h1>
+            <p class="hero-subtitle-text">Experience Unforgettable Journeys with Professional Drivers & Premium Tours</p>
+            <div class="hero-cta-buttons">
+                <a href="#tour-destinations" class="btn-primary-action">Explore Tours</a>
+                <a href="<?php echo SITE_URL; ?>contact.php" class="btn-secondary-action">Contact Us</a>
+            </div>
+        </div>
+        <div class="hero-scroll-down">
+            <a href="#tour-destinations"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="category-showcase-section" id="tour-destinations">
+        <div class="container">
+            <div class="section-heading-wrapper">
+                <p class="section-label">Popular Destinations</p>
+                <h2 class="section-main-heading">Explore Our Tour Categories</h2>
+                <p class="section-description-text">Choose from our carefully curated tour packages across incredible India</p>
+            </div>
+            <div class="category-cards-grid">
+                <?php
+                $categories = $conn->query("SELECT * FROM categories WHERE is_active = 1 ORDER BY display_order LIMIT 6");
+                while($category = $categories->fetch_assoc()):
+                ?>
+                <div class="category-single-card">
+                    <div class="category-icon-wrapper">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="category-card-title"><?php echo htmlspecialchars($category['name']); ?></h3>
+                    <p class="category-card-description">
+                        <?php echo htmlspecialchars(substr($category['description'], 0, 120)); ?>...
+                    </p>
+                    <a href="<?php echo SITE_URL; ?>tour-packages.php?category=<?php echo $category['id']; ?>" class="category-view-link">
+                        Explore Tours <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <?php endwhile; ?>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Tours -->
+    <section class="tour-packages-showcase">
+        <div class="container">
+            <div class="section-heading-wrapper">
+                <p class="section-label">Trending Now</p>
+                <h2 class="section-main-heading">Featured Tour Packages</h2>
+                <p class="section-description-text">Handpicked tours showcasing the best of India</p>
+            </div>
+            <div class="tour-package-items-grid">
+                <?php
+                $featured_tours = $conn->query("SELECT * FROM tour_packages WHERE is_active = 1 ORDER BY created_at DESC LIMIT 6");
+                while($tour = $featured_tours->fetch_assoc()):
+                ?>
+                <div class="tour-package-card">
+                    <div class="tour-package-image-wrapper">
+                        <img src="<?php echo htmlspecialchars($tour['image']); ?>" 
+                             alt="<?php echo htmlspecialchars($tour['title']); ?>" 
+                             class="tour-package-image">
+                        <div class="tour-rating-badge">
+                            <i class="fas fa-star"></i> 4.9
+                        </div>
+                    </div>
+                    <div class="tour-package-details">
+                        <div class="tour-meta-info">
+                            <span><i class="far fa-clock"></i> <?php echo htmlspecialchars($tour['duration']); ?></span>
+                            <span><i class="fas fa-users"></i> <?php echo htmlspecialchars($tour['persons']); ?></span>
+                        </div>
+                        <h3 class="tour-package-title"><?php echo htmlspecialchars($tour['title']); ?></h3>
+                        <p class="tour-package-excerpt">
+                            <?php echo htmlspecialchars(substr(strip_tags($tour['description']), 0, 110)); ?>...
+                        </p>
+                        <div class="tour-package-footer">
+                            <div class="tour-price-display">
+                                <?php if($tour['price']): ?>
+                                ₹<?php echo number_format($tour['price']); ?>
+                                <span class="tour-price-label">per person</span>
+                                <?php endif; ?>
                             </div>
-                            <div class="text">
-                                <span class="value"><span class="numb counter">156</span>+</span>
-                                <span class="review">Satisfied Clients</span>
-                            </div>
-                        </div> -->
+                            <a href="<?php echo SITE_URL; ?>package-detail.php?id=<?php echo $tour['id']; ?>" class="btn-view-details">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <?php endwhile; ?>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-highlight-section">
+        <div class="container">
+            <div class="section-heading-wrapper">
+                <p class="section-label">Why Choose Us</p>
+                <h2 class="section-main-heading">Your Trusted Travel Partner</h2>
+                <p class="section-description-text">We provide exceptional service with attention to every detail</p>
+            </div>
+            <div class="features-grid-wrapper">
+                <div class="feature-item-box">
+                    <div class="feature-icon-circle">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4 class="feature-item-title">Professional Drivers</h4>
+                    <p class="feature-item-text">Experienced and licensed drivers ensuring safe journeys</p>
+                </div>
+                <div class="feature-item-box">
+                    <div class="feature-icon-circle">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h4 class="feature-item-title">Premium Vehicles</h4>
+                    <p class="feature-item-text">Well-maintained fleet of comfortable vehicles</p>
+                </div>
+                <div class="feature-item-box">
+                    <div class="feature-icon-circle">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="feature-item-title">Safe & Secure</h4>
+                    <p class="feature-item-text">Your safety is our top priority always</p>
+                </div>
+                <div class="feature-item-box">
+                    <div class="feature-icon-circle">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4 class="feature-item-title">24/7 Support</h4>
+                    <p class="feature-item-text">Round the clock customer assistance</p>
                 </div>
             </div>
-            <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="about_content" data-aos="fade-up">
-                    <h6>About Us</h6>
-                    <h2>Your Gateway to Indian Adventures</h2>
-                    <p class="text-size-16 text">
-                        We specialize in personalized private tours across India – from the royal palaces of Rajasthan
-                        and the iconic Taj Mahal
-                        to the spiritual serenity of Chardham and Amarnath Yatra. With decades of experience, we ensure
-                        each journey is comfortable,
-                        memorable, and truly unforgettable.
-                    </p>
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <span class="value"><span class="counter">15</span>k</span>
-                            <p class="text-size-14 mb-0">Happy Travelers</p>
-                        </li>
-                        <li>
-                            <span class="value"><span class="counter">5</span>+</span>
-                            <p class="text-size-14 mb-0">Awards & Recognitions</p>
-                        </li>
-                        <li>
-                            <span class="value"><span class="counter">14</span>+</span>
-                            <p class="text-size-14 mb-0">Years of Experience</p>
-                        </li>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-banner-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 cta-content-wrapper">
+                    <h2>Ready to Explore India?</h2>
+                    <p>Start your unforgettable journey with us today. Book now and get special offers!</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="<?php echo SITE_URL; ?>contact.php" class="btn-cta-large">
+                        <i class="fas fa-phone"></i> Contact Us Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>Tourist Drivers India</h5>
+                    <p class="text-white-50">Your trusted partner for exploring the wonders of India with professional drivers.</p>
+                    <div class="footer-social-links mt-3">
+                        <?php if(getSetting('facebook_url')): ?>
+                        <a href="<?php echo getSetting('facebook_url'); ?>" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <?php endif; ?>
+                        <?php if(getSetting('instagram_url')): ?>
+                        <a href="<?php echo getSetting('instagram_url'); ?>" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <?php endif; ?>
+                        <?php if(getSetting('twitter_url')): ?>
+                        <a href="<?php echo getSetting('twitter_url'); ?>" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="<?php echo SITE_URL; ?>">Home</a></li>
+                        <li class="mb-2"><a href="<?php echo SITE_URL; ?>about.php">About</a></li>
+                        <li class="mb-2"><a href="<?php echo SITE_URL; ?>contact.php">Contact</a></li>
                     </ul>
                 </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Golden Triangle section -->
-<section class="place-con position-relative pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="place_content text-center" data-aos="fade-up">
-                    <h6 class="places">Best Places</h6>
-                    <h2>Golden Triangle Private Tours
-                    </h2>
-                </div>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <?php
-
-            $sql = "SELECT * FROM golden_triangle";
-            $result = $conn->query($sql);
-
-
-
-            if ($result->num_rows > 0) {
-                echo '<div class="owl-carousel owl-theme">';
-                while ($goldentrianglerow = $result->fetch_assoc()) {
-                    // Sanitize and prepare fields
-                    $id = htmlspecialchars($goldentrianglerow["id"]);
-
-                    $image = htmlspecialchars($goldentrianglerow["image"]);
-                    $duration = htmlspecialchars($goldentrianglerow["duration"]);
-                    $persons = htmlspecialchars($goldentrianglerow["persons"]);
-                    $title = htmlspecialchars($goldentrianglerow["title"]);
-
-                    // Limit places_covered to 5 words
-                    $places = htmlspecialchars($goldentrianglerow["places_covered"]);
-                    $places_words = explode(' ', $places);
-                    $places_limited = implode(' ', array_slice($places_words, 0, 5));
-
-                    // Limit description to 10 words
-                    $description = strip_tags($goldentrianglerow["description"]);
-                    $desc_words = explode(' ', $description);
-                    $desc_limited = htmlspecialchars(implode(' ', array_slice($desc_words, 0, 10)));
-
-                    echo '<div class="item">
-            <div class="place-box">
-                <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
-                </figure>
-                <div class="lower_content">
-                    <div class="content">
-                        <div class="calendar">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <span class="day">' . $duration . '</span>
-                        </div>
-                        <div class="people">
-                            <i class="fa-solid fa-user"></i>
-                            <span class="person">' . $persons . '</span>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="person">' . $places_limited . '</span>
-                    </div>
-                    <a href="golden-triangle-detail-page.php?id=' . $id . '" class="text-decoration-none">
-                        <h4>' . $title . '</h4>';
-
-                    if (!empty($goldentrianglerow["description"])) {
-                        echo '<p>' . $desc_limited . '</p>';
-                    }
-
-                    echo '</a>
-                    <div class="value">
-                        <a href="tel:8800608559" class="text-decoration-none book_now">Call Now<i class="fa-solid fa-arrow-right"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#blog-model-1" class="text-decoration-none book_now">Book Now<i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>';
-                }
-                echo '</div>';
-            } else {
-                echo "No packages available.";
-            }
-            ?>
-
-
-
-        </div>
-    </div>
-</section>
-
-<!-- tajmahal_tours section -->
-<section class="place-con position-relative pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="place_content text-center" data-aos="fade-up">
-                    <h6>Best Places</h6>
-                    <h2>Tajmahal Tours
-                    </h2>
-                </div>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <?php
-
-            $sql = "SELECT * FROM tajmahal_tours";
-            $result = $conn->query($sql);
-
-
-
-            if ($result->num_rows > 0) {
-                echo '<div class="owl-carousel owl-theme">';
-                while ($goldentrianglerow = $result->fetch_assoc()) {
-                    // Sanitize and prepare fields
-                    $id = htmlspecialchars($goldentrianglerow["id"]);
-
-                    $image = htmlspecialchars($goldentrianglerow["image"]);
-                    $duration = htmlspecialchars($goldentrianglerow["duration"]);
-                    $persons = htmlspecialchars($goldentrianglerow["persons"]);
-                    $title = htmlspecialchars($goldentrianglerow["title"]);
-
-                    // Limit places_covered to 5 words
-                    $places = htmlspecialchars($goldentrianglerow["places_covered"]);
-                    $places_words = explode(' ', $places);
-                    $places_limited = implode(' ', array_slice($places_words, 0, 5));
-
-                    // Limit description to 10 words
-                    $description = strip_tags($goldentrianglerow["description"]);
-                    $desc_words = explode(' ', $description);
-                    $desc_limited = htmlspecialchars(implode(' ', array_slice($desc_words, 0, 10)));
-
-                    echo '<div class="item">
-            <div class="place-box">
-                <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
-                </figure>
-                <div class="lower_content">
-                    <div class="content">
-                        <div class="calendar">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <span class="day">' . $duration . '</span>
-                        </div>
-                        <div class="people">
-                            <i class="fa-solid fa-user"></i>
-                            <span class="person">' . $persons . '</span>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="person">' . $places_limited . '</span>
-                    </div>
-                    <a href="tajmahal-detail-page.php?id=' . $id . '" class="text-decoration-none">
-                        <h4>' . $title . '</h4>';
-
-                    if (!empty($goldentrianglerow["description"])) {
-                        echo '<p>' . $desc_limited . '</p>';
-                    }
-
-                    echo '</a>
-                    <div class="value">
-                        <a href="tel:8800608559" class="text-decoration-none book_now">Call Now<i class="fa-solid fa-arrow-right"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#blog-model-1" class="text-decoration-none book_now">Book Now<i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>';
-                }
-                echo '</div>';
-            } else {
-                echo "No packages available.";
-            }
-            ?>
-
-
-
-        </div>
-    </div>
-</section>
-
-
-
-<!-- Pilgrimage tours -->
-<section class="place-con position-relative pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="place_content text-center" data-aos="fade-up">
-                    <h6>Best Places</h6>
-                    <h2>Pilgrimage Tours
-                    </h2>
-                </div>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <?php
-
-            $sql = "SELECT * FROM pilgrimage_package";
-            $result = $conn->query($sql);
-
-
-
-            if ($result->num_rows > 0) {
-                echo '<div class="owl-carousel owl-theme">';
-                while ($goldentrianglerow = $result->fetch_assoc()) {
-                    // Sanitize and prepare fields
-                    $id = htmlspecialchars($goldentrianglerow["id"]);
-
-                    $image = htmlspecialchars($goldentrianglerow["image"]);
-                    $duration = htmlspecialchars($goldentrianglerow["duration"]);
-                    $persons = htmlspecialchars($goldentrianglerow["persons"]);
-                    $title = htmlspecialchars($goldentrianglerow["title"]);
-
-                    // Limit places_covered to 5 words
-                    $places = htmlspecialchars($goldentrianglerow["places_covered"]);
-                    $places_words = explode(' ', $places);
-                    $places_limited = implode(' ', array_slice($places_words, 0, 5));
-
-                    // Limit description to 10 words
-                    $description = strip_tags($goldentrianglerow["description"]);
-                    $desc_words = explode(' ', $description);
-                    $desc_limited = htmlspecialchars(implode(' ', array_slice($desc_words, 0, 10)));
-
-                    echo '<div class="item">
-            <div class="place-box">
-                <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
-                </figure>
-                <div class="lower_content">
-                    <div class="content">
-                        <div class="calendar">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <span class="day">' . $duration . '</span>
-                        </div>
-                        <div class="people">
-                            <i class="fa-solid fa-user"></i>
-                            <span class="person">' . $persons . '</span>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="person">' . $places_limited . '</span>
-                    </div>
-                    <a href="pilgrimage-detail-page.php?id=' . $id . '" class="text-decoration-none">
-                        <h4>' . $title . '</h4>';
-
-                    if (!empty($goldentrianglerow["description"])) {
-                        echo '<p>' . $desc_limited . '</p>';
-                    }
-
-                    echo '</a>
-                    <div class="value">
-                        <a href="tel:8800608559" class="text-decoration-none book_now">Call Now<i class="fa-solid fa-arrow-right"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#blog-model-1" class="text-decoration-none book_now">Book Now<i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>';
-                }
-                echo '</div>';
-            } else {
-                echo "No packages available.";
-            }
-            ?>
-
-
-
-        </div>
-    </div>
-</section>
-
-
-<!-- Himachal tours -->
-<section class="place-con position-relative pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="place_content text-center" data-aos="fade-up">
-                    <h6>Best Places</h6>
-                    <h2>Himachal Pradesh Tours
-                    </h2>
-                </div>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <?php
-
-            $sql = "SELECT * FROM himachal_packages";
-            $result = $conn->query($sql);
-
-
-
-            if ($result->num_rows > 0) {
-                echo '<div class="owl-carousel owl-theme">';
-                while ($goldentrianglerow = $result->fetch_assoc()) {
-                    // Sanitize and prepare fields
-                    $id = htmlspecialchars($goldentrianglerow["id"]);
-
-                    $image = htmlspecialchars($goldentrianglerow["image"]);
-                    $duration = htmlspecialchars($goldentrianglerow["duration"]);
-                    $persons = htmlspecialchars($goldentrianglerow["persons"]);
-                    $title = htmlspecialchars($goldentrianglerow["title"]);
-
-                    // Limit places_covered to 5 words
-                    $places = htmlspecialchars($goldentrianglerow["places_covered"]);
-                    $places_words = explode(' ', $places);
-                    $places_limited = implode(' ', array_slice($places_words, 0, 5));
-
-                    // Limit description to 10 words
-                    $description = strip_tags($goldentrianglerow["description"]);
-                    $desc_words = explode(' ', $description);
-                    $desc_limited = htmlspecialchars(implode(' ', array_slice($desc_words, 0, 10)));
-
-                    echo '<div class="item">
-            <div class="place-box">
-                <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
-                </figure>
-                <div class="lower_content">
-                    <div class="content">
-                        <div class="calendar">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <span class="day">' . $duration . '</span>
-                        </div>
-                        <div class="people">
-                            <i class="fa-solid fa-user"></i>
-                            <span class="person">' . $persons . '</span>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="person">' . $places_limited . '</span>
-                    </div>
-                    <a href="/himachal-detail-page.php?id=' . $id . '" class="text-decoration-none">
-                        <h4>' . $title . '</h4>';
-
-                    if (!empty($goldentrianglerow["description"])) {
-                        echo '<p>' . $desc_limited . '</p>';
-                    }
-
-                    echo '</a>
-                    <div class="value">
-                        <a href="tel:8800608559" class="text-decoration-none book_now">Call Now<i class="fa-solid fa-arrow-right"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#blog-model-1" class="text-decoration-none book_now">Book Now<i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>';
-                }
-                echo '</div>';
-            } else {
-                echo "No packages available.";
-            }
-            ?>
-
-
-
-        </div>
-    </div>
-</section>
-
-<!--15 Days Rajasthan Tours Package-->
-<section class="place-con position-relative pt-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="place_content text-center" data-aos="fade-up">
-                    <h6>Best Places</h6>
-                    <h2>15 Days Rajasthan Tours Package
-                    </h2>
-                </div>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <?php
-
-            $sql = "SELECT * FROM rajasthan_tour";
-            $result = $conn->query($sql);
-
-
-
-            if ($result->num_rows > 0) {
-                echo '<div class="owl-carousel owl-theme">';
-                while ($goldentrianglerow = $result->fetch_assoc()) {
-                    // Sanitize and prepare fields
-                    $id = htmlspecialchars($goldentrianglerow["id"]);
-
-                    $image = htmlspecialchars($goldentrianglerow["image"]);
-                    $duration = htmlspecialchars($goldentrianglerow["duration"]);
-                    $persons = htmlspecialchars($goldentrianglerow["persons"]);
-                    $title = htmlspecialchars($goldentrianglerow["title"]);
-
-                    // Limit places_covered to 5 words
-                    $places = htmlspecialchars($goldentrianglerow["places_covered"]);
-                    $places_words = explode(' ', $places);
-                    $places_limited = implode(' ', array_slice($places_words, 0, 5));
-
-                    // Limit description to 10 words
-                    $description = strip_tags($goldentrianglerow["description"]);
-                    $desc_words = explode(' ', $description);
-                    $desc_limited = htmlspecialchars(implode(' ', array_slice($desc_words, 0, 10)));
-
-                    echo '<div class="item">
-            <div class="place-box">
-                <figure class="image mb-0">
-                    <img style="height:250px; object-fit:cover;" src="' . $image . '" alt="image" class="img-fluid">
-                </figure>
-                <div class="lower_content">
-                    <div class="content">
-                        <div class="calendar">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <span class="day">' . $duration . '</span>
-                        </div>
-                        <div class="people">
-                            <i class="fa-solid fa-user"></i>
-                            <span class="person">' . $persons . '</span>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="person">' . $places_limited . '</span>
-                    </div>
-                    <a href="/rajasthan-detail-page.php?id=' . $id . '" class="text-decoration-none">
-                        <h4>' . $title . '</h4>';
-
-                    if (!empty($goldentrianglerow["description"])) {
-                        echo '<p>' . $desc_limited . '</p>';
-                    }
-
-                    echo '</a>
-                    <div class="value">
-                        <a href="tel:8800608559" class="text-decoration-none book_now">Call Now<i class="fa-solid fa-arrow-right"></i></a>
-                        <a href="#" data-toggle="modal" data-target="#blog-model-1" class="text-decoration-none book_now">Book Now<i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>';
-                }
-                echo '</div>';
-            } else {
-                echo "No packages available.";
-            }
-            ?>
-
-
-
-        </div>
-    </div>
-</section>
-<style>
-    .custome-img-fluid {
-        height: 250px;
-    }
-</style>
-
-<!-- Service -->
-<section class="service-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="service_content text-center" data-aos="fade-up">
-                    <h6>features</h6>
-                    <h2>Our Best Features</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row" data-aos="fade-up">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="service-box">
-                    <figure class="icon">
-                        <img src="./assets/images/service-icon1.png" alt="image" class="img-fluid">
-                    </figure>
-                    <h4>Exciting Journeys</h4>
-                    <p class="text-size-16">Embark on thrilling expeditions and immerse yourself in unforgettable
-                        experiences.</p>
-                    <!-- <a href="./service.html" class="text-decoration-none learn_more">Learn More<i
-                            class="fa-solid fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="service-box">
-                    <figure class="icon">
-                        <img src="./assets/images/service-icon2.png" alt="image" class="img-fluid">
-                    </figure>
-                    <h4>Expert Guides</h4>
-                    <p class="text-size-16">Our seasoned guides ensure a safe and enriching adventure, tailored to
-                        your needs.</p>
-                    <!-- <a href="./service.html" class="text-decoration-none learn_more">Learn More<i
-                            class="fa-solid fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="service-box">
-                    <figure class="icon">
-                        <img src="./assets/images/service-icon3.png" alt="image" class="img-fluid">
-                    </figure>
-                    <h4>Personalized Packages</h4>
-                    <p class="text-size-16">Choose from a variety of custom packages designed to suit every
-                        traveler's desire.</p>
-                    <!-- <a href="./service.html" class="text-decoration-none learn_more">Learn More<i
-                            class="fa-solid fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="service-box">
-                    <figure class="icon">
-                        <img src="./assets/images/service-icon4.png" alt="image" class="img-fluid">
-                    </figure>
-                    <h4>Scenic Trails</h4>
-                    <p class="text-size-16">Explore breathtaking trails and discover the beauty of untouched nature.
-                    </p>
-                    <!-- <a href="./service.html" class="text-decoration-none learn_more">Learn More<i
-                            class="fa-solid fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="service-box">
-                    <figure class="icon">
-                        <img src="./assets/images/service-icon5.png" alt="image" class="img-fluid">
-                    </figure>
-                    <h4>Family Adventures</h4>
-                    <p class="text-size-16">Create lasting memories with family trips that are fun and suitable for
-                        all ages.</p>
-                    <!-- <a href="./service.html" class="text-decoration-none learn_more">Learn More<i
-                            class="fa-solid fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="service-box">
-                    <figure class="icon">
-                        <img src="./assets/images/service-icon6.png" alt="image" class="img-fluid">
-                    </figure>
-                    <h4>Comprehensive Support</h4>
-                    <p class="text-size-16">Receive a complete guide to make your adventure seamless and worry-free.
-                    </p>
-                    <!-- <a href="./service.html" class="text-decoration-none learn_more">Learn More<i
-                            class="fa-solid fa-arrow-right"></i></a> -->
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Join -->
-<section class="join-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="join_content text-center" data-aos="fade-up">
-                    <h6 class="text-white">Come & Join Us</h6>
-                    <h2 class="text-white">Making Adventure Tours and Activities Accessible and Affordable for
-                        Everyone.</h2>
-                    <a href="contact.php" class="text-decoration-none all_button">Book Now<i
-                            class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-<div class="container py-5">
-    <h6 class="text-center">Our Vehicles</h6>
-
-    <h2 class="text-center mb-5">Car Rental</h2>
-
-    <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-
-            <!-- Slide 1 -->
-            <div class="swiper-slide">
-                <div class="card h-100">
-                    <img src="assets/vehicles/luxury-coaches.webp" class="card-img-top" alt="Luxury Urbania">
-                    <div class="card-body">
-                        <h5 class="card-title">Luxury Urbania / Coaches</h5>
-                        <p class="text-warning">Seating Capacity - 9</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 2 -->
-            <div class="swiper-slide">
-                <div class="card h-100">
-                    <img src="assets/vehicles/mini-coaches.webp" class="card-img-top" alt="Mini Coach">
-                    <div class="card-body">
-                        <h5 class="card-title">Mini Coach / Coaches</h5>
-                        <p class="text-warning">Seating Capacity - 22</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="swiper-slide">
-                <div class="card h-100">
-                    <img src="assets/vehicles/volvo-coaches.webp" class="card-img-top" alt="Volvo Coach">
-                    <div class="card-body">
-                        <h5 class="card-title">Volvo / Coaches</h5>
-                        <p class="text-warning">Seating Capacity - 42</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 4 -->
-            <div class="swiper-slide">
-                <div class="card h-100">
-                    <img src="assets/vehicles/swift-dezire.webp" class="card-img-top" alt="Toyota Innova">
-                    <div class="card-body">
-                        <h5 class="card-title">Swift Dzire / Economy Car</h5>
-                        <p class="text-warning">Seating Capacity - 3</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="card h-100">
-                    <img src="assets/vehicles/toyota-innova.webp" class="card-img-top" alt="Toyota Innova">
-                    <div class="card-body">
-                        <h5 class="card-title">Toyota Innova / SUV / MUV Cars</h5>
-                        <p class="text-warning">Seating Capacity - 6</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-    </div>
-
-    <!-- CTA Buttons -->
-    <div class="text-center mt-4">
-        <a href="vehicle.php" class="btn btn-dark me-2">See All</a>
-        <a href="contact.php" class="btn " style="background-color:#F26D52;">Contact for Customized Tour</a>
-    </div>
-</div>
-
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    const swiper = new Swiper('.mySwiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        autoplay: {
-            delay: 3000, // Slide changes every 3 seconds
-            disableOnInteraction: false, // Keeps autoplay running even after user interaction
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-            576: {
-                slidesPerView: 2,
-            },
-            992: {
-                slidesPerView: 3,
-            },
-            1200: {
-                slidesPerView: 4,
-            },
-        },
-    });
-</script>
-
-
-
-<!-- Testimonial -->
-
-<?php
-
-$sql = "SELECT * FROM client_reviews ORDER BY created_at DESC";
-$result = $conn->query($sql);
-?>
-
-<section class="testimonial-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="testimonial_wrapper position-relative" data-aos="zoom-in">
-                    <figure class="testimonial-circle image mb-0">
-                        <img src="./assets/images/testimonial-centerimage.jpg" alt="image" class="img-fluid">
-                    </figure>
-                    <figure class="testimonial-image1 image mb-0">
-                        <img src="./assets/images/testimonial-image1.jpg" alt="image" class="img-fluid">
-                    </figure>
-                    <figure class="testimonial-image2 image mb-0">
-                        <img src="./assets/images/testimonial-image2.jpg" alt="image" class="img-fluid">
-                    </figure>
-                    <figure class="testimonial-image3 image mb-0">
-                        <img src="./assets/images/testimonial-image3.jpg" alt="image" class="img-fluid">
-                    </figure>
-                    <figure class="testimonial-image4 image mb-0">
-                        <img src="./assets/images/testimonial-image4.jpg" alt="image" class="img-fluid">
-                    </figure>
-                </div>
-            </div>
-            <div class="col-xl-7 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="testimonial_contentwrapper" data-aos="fade-up">
-                    <div class="testimonial_content">
-                        <h6>Testimonials</h6>
-                        <h2>What Our Customer Say About Us</h2>
-                    </div>
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <?php
-                            $isFirst = true;
-                            while ($reviewrow = $result->fetch_assoc()):
-                            ?>
-                                <div class="carousel-item <?php if ($isFirst) {
-                                                                echo 'active';
-                                                                $isFirst = false;
-                                                            } ?>">
-                                    <div class="testimonial-box">
-                                        <div class="content-box">
-                                            <p class="text-size-16">
-                                                <?php echo htmlspecialchars($reviewrow['client_review']); ?>
-                                            </p>
-                                            <div class="content">
-                                                <figure class="testimonial-quote">
-                                                    <img src="./assets/images/testimonial-quote.png" alt="image"
-                                                        class="img-fluid">
-                                                </figure>
-                                                <div class="designation-outer">
-                                                    <span
-                                                        class="name"><?php echo htmlspecialchars($reviewrow['client_name']); ?></span>
-                                                    <span
-                                                        class="review"><?php echo htmlspecialchars($reviewrow['client_location']); ?></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endwhile; ?>
-                        </div>
-
-                        <div class="pagination-outer">
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                data-slide="prev">
-                                <i class="fa-solid fa-arrow-left"></i>
-                                <span class="sr-only">Previous</span>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Categories</h5>
+                    <ul class="list-unstyled">
+                        <?php
+                        $footer_cats = $conn->query("SELECT * FROM categories WHERE is_active = 1 ORDER BY display_order LIMIT 5");
+                        while($fcat = $footer_cats->fetch_assoc()):
+                        ?>
+                        <li class="mb-2">
+                            <a href="<?php echo SITE_URL; ?>tour-packages.php?category=<?php echo $fcat['id']; ?>">
+                                <?php echo htmlspecialchars($fcat['name']); ?>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                data-slide="next">
-                                <i class="fa-solid fa-arrow-right"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
+                        </li>
+                        <?php endwhile; ?>
+                    </ul>
                 </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<style>
-    @media only screen and (max-width: 767px) {
-        /* Styles for devices with width 767px and below (phones) */
-
-
-        .custome-container-fluid {
-            padding: 0px !important;
-            margin: 0px !important;
-
-        }
-    }
-</style>
-
-<!-- <div class="container py-5">
-  <h2 class="text-center mb-4">Gallery</h2>
-  <div class="row">
-    <?php
-
-
-    // Fetch gallery images
-    // $sql = "SELECT * FROM gallery ORDER BY id ASC";
-    // $result = $conn->query($sql);
-
-    // if ($result->num_rows > 0) {
-    //   while ($galleryrow = $result->fetch_assoc()) {
-    //     echo '
-    //       <div class="col-md-3 mb-4">
-    //         <div class="card shadow-sm">
-    //           <img  style="height:200px; object-fit:cover;" src="admin/html/' . $galleryrow["image_url"] . '" class="card-img-top" alt="Gallery Image">
-
-    //        </div>
-    //       </div>
-    //
-    //      ';
-    //   }
-    //  } else {
-    //   echo '<p class="text-center">No images found.</p>';
-    // }
-
-
-    ?>
-  </div>
-</div> -->
-
-<div class="container py-5">
-    <div class="row">
-        <div class="col-12 mx-auto">
-            <div class="service_content text-center pb-4" data-aos="fade-up">
-                <h6>Our Videos</h6>
-                <h2>Our Videos Gallery</h2>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="ratio ratio-9x16">
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/C7-r4Y0S1Ju/?utm_source=ig_embed&amp;utm_campaign=loading"
-                    data-instgrm-version="14"></blockquote>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="ratio ratio-9x16">
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/C7HCyn7ShlO/?utm_source=ig_embed&amp;utm_campaign=loading"
-                    data-instgrm-version="14"></blockquote>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="ratio ratio-9x16">
-                <blockquote class="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/reel/C_K207Kyuom/"
-                    data-instgrm-version="14"></blockquote>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Contact Form -->
-<section class="contactform-con position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="contact_wrapper position-relative" data-aos="zoom-in">
-                    <figure class="contact-leftbackground mb-0">
-                        <img src="assets/images/contact-leftbackground.jpg" alt="image" class="img-fluid">
-                    </figure>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact</h5>
+                    <p class="text-white-50">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        <?php echo getSetting('site_address') ?: 'New Delhi, India'; ?>
+                    </p>
+                    <p class="text-white-50">
+                        <i class="fas fa-phone me-2"></i>
+                        <?php echo getSetting('site_phone'); ?>
+                    </p>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="contact_content" data-aos="fade-up">
-                    <h6 class="text-white">Get In Touch</h6>
-                    <h2 class="text-white">Send us a Message</h2>
-                    <form method="post" action="banner-email.php" class="position-relative">
-                        <div class="form-group input1 float-left">
-                            <input type="text" class="form_style" placeholder="Name" name="fname" id="fname" required>
-                        </div>
-                        <div class="form-group float-left">
-                            <input type="tel" class="form_style" placeholder="Phone" name="phone" id="phone" required>
-                        </div>
-                        <div class="form-group input1 float-left">
-                            <input type="email" class="form_style" placeholder="Email" name="email" id="email" required>
-                        </div>
-                        <div class="form-group float-left">
-                            <input type="text" class="form_style" placeholder="Subject" name="subject" id="subject" required>
-                        </div>
-                        <div class="form-group message">
-                            <textarea class="form_style" placeholder="Message" rows="3" name="msg" required></textarea>
-                        </div>
-                        <button type="submit" id="submit" class="submit_now text-decoration-none">
-                            Submit <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </form>
-
+            <div class="row mt-4 pt-4 border-top border-secondary">
+                <div class="col-12 text-center">
+                    <p class="text-white-50 mb-0">© <?php echo date('Y'); ?> Tourist Drivers India. All rights reserved.</p>
                 </div>
             </div>
         </div>
-    </div>
-    <figure class="contact-bottomimage mb-0">
-        <img src="assets/images/tour-packages-photos/delhi.webp" alt="image" class="img-fluid">
-    </figure>
-</section>
+    </footer>
 
+    <!-- WhatsApp Float Button -->
+    <?php if(getSetting('whatsapp_number')): ?>
+    <a href="https://wa.me/<?php echo getSetting('whatsapp_number'); ?>" 
+       class="whatsapp-float-btn" 
+       target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <?php endif; ?>
 
-<!-- Instagram Embed Script -->
-<script async src="https://www.instagram.com/embed.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo SITE_URL; ?>assets/js/main-script.js"></script>
 
-<!-- Trigger Embed Rendering -->
-<script>
-    window.addEventListener("load", function() {
-        if (window.instgrm) {
-            window.instgrm.Embeds.process();
-        }
-    });
-</script>
-<div class="d-flex justify-content-center align-items-center bg-light py-3">
-    <div id="TA_selfserveprop126" class="TA_selfserveprop">
-        <ul id="iKJiU8UHX" class="TA_links jXc79ZG">
-            <li id="hz9l8JkBRjv" class="KqQqqFQkNOX7"><a target="_blank" href="https://www.tripadvisor.in/Attraction_Review-g304551-d2350110-Reviews-Tourist_Drivers_India_Private_Tours-New_Delhi_National_Capital_Territory_of_Delhi.html"><img src="https://www.tripadvisor.in/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_secondary_registered-11900-2.svg" alt="TripAdvisor" /></a></li>
-        </ul>
-    </div>
-    <script async src="https://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=126&amp;locationId=2350110&amp;lang=en_IN&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2" data-loadtrk onload="this.loadtrk=true"></script>
-
-    <div id="TA_certificateOfExcellence480" class="TA_certificateOfExcellence">
-        <ul id="Jh3XixJWr" class="TA_links 5SV6Lnt23">
-            <li id="RLAw2pKd5H" class="kx7hY3"><a target="_blank" href="https://www.tripadvisor.in/Attraction_Review-g304551-d2350110-Reviews-Tourist_Drivers_India_Private_Tours-New_Delhi_National_Capital_Territory_of_Delhi.html"><img src="https://static.tacdn.com/img2/travelers_choice/widgets/tchotel_2024_LL.png" alt="TripAdvisor" height="100" class="widCOEImg" id="CDSWIDCOELOGO" /></a></li>
-        </ul>
-    </div>
-    <script async src="https://www.jscache.com/wejs?wtype=certificateOfExcellence&amp;uniq=480&amp;locationId=2350110&amp;lang=en_IN&amp;year=2024&amp;display_version=2" data-loadtrk onload="this.loadtrk=true"></script>
-
-</div>
-
-
-<!-- Add this CSS to fix the widget -->
-
-
-<!-- Footer -->
-<?php include "footer.php"; ?>
+</body>
+</html>

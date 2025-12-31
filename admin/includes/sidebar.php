@@ -85,7 +85,7 @@
             </li>
             
             <li class="menu-item">
-                <a href="<?php echo BASE_URL; ?>settings/meta-tags.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/settings/') !== false) ? 'active' : ''; ?>">
+                <a href="<?php echo BASE_URL; ?>settings/index.php" class="menu-link <?php echo (strpos($_SERVER['PHP_SELF'], '/settings/') !== false) ? 'active' : ''; ?>">
                     <i class="fas fa-cog"></i>
                     <span>Website Settings</span>
                 </a>
