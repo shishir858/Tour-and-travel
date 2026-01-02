@@ -27,7 +27,7 @@ $stats_query = "SELECT
     COUNT(*) as total_bookings,
     SUM(CASE WHEN booking_status = 'completed' THEN 1 ELSE 0 END) as completed_bookings,
     SUM(CASE WHEN booking_status = 'cancelled' THEN 1 ELSE 0 END) as cancelled_bookings,
-    SUM(total_amount) as total_spent
+    SUM(final_price) as total_spent
     FROM bookings WHERE customer_id = $id";
 $stats_result = mysqli_query($conn, $stats_query);
 $stats = mysqli_fetch_assoc($stats_result);
@@ -194,13 +194,13 @@ include '../includes/sidebar.php';
                                     ?>
                                     <tr>
                                         <td>
-                                            <strong class="text-primary"><?php echo htmlspecialchars($booking['booking_code']); ?></strong>
+                                            <strong class="text-primary"><?php echo htmlspecialchars($booking['booking_number'] ?? 'N/A'); ?></strong>
                                             <br>
                                             <small class="text-muted"><?php echo format_date($booking['created_at']); ?></small>
                                         </td>
                                         <td><?php echo htmlspecialchars($booking['package_title']); ?></td>
                                         <td><?php echo format_date($booking['travel_date']); ?></td>
-                                        <td><strong class="text-success"><?php echo format_price($booking['total_amount']); ?></strong></td>
+                                        <td><strong class="text-success"><?php echo format_price($booking['final_price'] ?? 0); ?></strong></td>
                                         <td>
                                             <span class="badge bg-<?php echo $status_color; ?>">
                                                 <?php echo ucfirst($booking['booking_status']); ?>

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>assets/css/main-style.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>assets/css/main-style.css?v=<?php echo time(); ?>">
     
     <style>
         /* Top Bar Orange */
@@ -34,6 +34,16 @@
         }
         .top-info-bar i {
             margin-right: 6px;
+        }
+        .top-info-bar .social-icon {
+            color: white;
+            margin-left: 15px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .top-info-bar .social-icon:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
         }
         
         /* Main Navbar */
@@ -70,8 +80,9 @@
         .navbar-dropdown-item {
             padding: 14px 28px;
             transition: all 0.3s;
-            color: #555;
+            color: #000;
             font-weight: 500;
+            font-size: 14px;
         }
         .navbar-dropdown-item:hover {
             background: #FF6B35;
@@ -102,15 +113,22 @@
 
     <!-- Top Info Bar -->
     <div class="top-info-bar">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-lg-8 col-md-6">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span><?php echo getSetting('site_address') ?: 'Plot No C 50 Ganesh Nagar Complex - New Delhi 110092'; ?></span>
+                    <span class="me-4">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <?php echo getSetting('site_address') ?: 'Plot No C 50 Ganesh Nagar Complex - New Delhi 110092'; ?>
+                    </span>
+                    <span>
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:<?php echo getSetting('site_phone'); ?>"><?php echo getSetting('site_phone') ?: '+91 9310042916'; ?></a>
+                    </span>
                 </div>
                 <div class="col-lg-4 col-md-6 text-end">
-                    <i class="fas fa-phone"></i>
-                    <a href="tel:<?php echo getSetting('site_phone'); ?>"><?php echo getSetting('site_phone') ?: '+91 9310042916'; ?></a>
+                    <a href="<?php echo getSetting('facebook_url') ?: '#'; ?>" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="<?php echo getSetting('instagram_url') ?: '#'; ?>" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="<?php echo getSetting('youtube_url') ?: '#'; ?>" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -118,7 +136,7 @@
 
     <!-- Main Navigation -->
     <nav class="navbar navbar-expand-lg main-navbar sticky-top">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
                 <img src="<?php echo SITE_URL; ?>assets/img/logo.png" alt="Tourist Drivers India" class="navbar-brand-logo">
             </a>
@@ -130,15 +148,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo SITE_URL; ?>">Home</a>
                     </li>
-                    
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo SITE_URL; ?>about">About</a>
+                    </li>
                     <?php
                     $nav_categories = $conn->query("SELECT * FROM categories WHERE is_active = 1 AND show_in_header = 1 ORDER BY display_order");
                     while($nav_cat = $nav_categories->fetch_assoc()):
-                        $nav_packages = $conn->query("SELECT id, title FROM tour_packages WHERE category_id = {$nav_cat['id']} AND is_active = 1 ORDER BY display_order LIMIT 10");
+                        $nav_packages = $conn->query("SELECT id, title, slug FROM tour_packages WHERE category_id = {$nav_cat['id']} AND is_active = 1 ORDER BY display_order LIMIT 10");
                         $has_nav_packages = $nav_packages->num_rows > 0;
                     ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="<?php echo SITE_URL; ?>tour-packages.php?category=<?php echo $nav_cat['id']; ?>" 
+                        <a class="nav-link dropdown-toggle" href="<?php echo SITE_URL; ?>tour-packages?category=<?php echo $nav_cat['id']; ?>" 
                            <?php if($has_nav_packages): ?>data-bs-toggle="dropdown"<?php endif; ?>>
                             <?php echo htmlspecialchars($nav_cat['name']); ?>
                         </a>
@@ -146,7 +167,7 @@
                         <ul class="dropdown-menu navbar-dropdown-menu">
                             <?php while($nav_pkg = $nav_packages->fetch_assoc()): ?>
                             <li>
-                                <a class="dropdown-item navbar-dropdown-item" href="<?php echo SITE_URL; ?>package-detail.php?id=<?php echo $nav_pkg['id']; ?>">
+                                <a class="dropdown-item navbar-dropdown-item" href="<?php echo SITE_URL; ?>package/<?php echo $nav_pkg['slug'] ?: $nav_pkg['id']; ?>">
                                     <?php echo htmlspecialchars($nav_pkg['title']); ?>
                                 </a>
                             </li>
@@ -157,10 +178,10 @@
                     <?php endwhile; ?>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo SITE_URL; ?>vehicles.php">Car Rental</a>
+                        <a class="nav-link" href="<?php echo SITE_URL; ?>vehicles">Car Rental</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navbar-contact-btn" href="<?php echo SITE_URL; ?>contact.php">
+                        <a class="nav-link navbar-contact-btn" href="<?php echo SITE_URL; ?>contact">
                             <i class="fas fa-phone me-2"></i>Contact Us
                         </a>
                     </li>

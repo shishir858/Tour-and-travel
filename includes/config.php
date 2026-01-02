@@ -22,9 +22,9 @@ if ($is_local) {
     define('SITE_URL', 'http://localhost/touristdriversindiaprivatetours/');
 } else {
     $db_host = "localhost";
-    $db_user = "sspsof5_tdspt";
-    $db_pass = "SYlVv16qX459";
-    $db_name = "sspsof5_tdspt2";
+    $db_user = "sspsof5_tdip";
+    $db_pass = "c3BLiUFay6bU";
+    $db_name = "sspsof5_tdip";
     define('SITE_URL', 'https://touristdriversindiaprivatetours.com/');
 }
 

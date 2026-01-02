@@ -76,7 +76,7 @@ include '../includes/sidebar.php';
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <p class="mb-2"><strong>Booking Code:</strong></p>
-                            <p class="text-primary fs-5"><?php echo htmlspecialchars($booking['booking_code']); ?></p>
+                            <p class="text-primary fs-5"><?php echo htmlspecialchars($booking['booking_number'] ?? 'N/A'); ?></p>
                         </div>
                         <div class="col-md-6">
                             <p class="mb-2"><strong>Booking Date:</strong></p>
@@ -91,7 +91,7 @@ include '../includes/sidebar.php';
                         </div>
                         <div class="col-md-6">
                             <p class="mb-2"><strong>Number of Guests:</strong></p>
-                            <p><i class="fas fa-users text-primary me-2"></i><?php echo $booking['number_of_guests']; ?> Guest(s)</p>
+                            <p><i class="fas fa-users text-primary me-2"></i><?php echo $booking['number_of_persons'] ?? 0; ?> Guest(s)</p>
                         </div>
                     </div>
 
@@ -189,7 +189,7 @@ include '../includes/sidebar.php';
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
                         <span>Total Amount:</span>
-                        <strong class="text-success fs-5"><?php echo format_price($booking['total_amount']); ?></strong>
+                        <strong class="text-success fs-5"><?php echo format_price($booking['final_price'] ?? 0); ?></strong>
                     </div>
 
                     <div class="mb-2">

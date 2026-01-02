@@ -25,7 +25,7 @@ if(!empty($status_filter)) {
 }
 
 if(!empty($search)) {
-    $where .= " AND (c.name LIKE '%$search%' OR c.email LIKE '%$search%' OR c.phone LIKE '%$search%' OR b.booking_code LIKE '%$search%') ";
+    $where .= " AND (c.name LIKE '%$search%' OR c.email LIKE '%$search%' OR c.phone LIKE '%$search%' OR b.booking_number LIKE '%$search%') ";
 }
 
 // Get all bookings
@@ -125,7 +125,7 @@ include '../includes/sidebar.php';
                         ?>
                         <tr>
                             <td>
-                                <strong class="text-primary"><?php echo htmlspecialchars($booking['booking_code']); ?></strong>
+                                <strong class="text-primary"><?php echo htmlspecialchars($booking['booking_number'] ?? 'N/A'); ?></strong>
                                 <br>
                                 <small class="text-muted"><?php echo format_date($booking['created_at']); ?></small>
                             </td>
@@ -147,10 +147,10 @@ include '../includes/sidebar.php';
                                 <i class="fas fa-calendar me-1"></i><?php echo format_date($booking['travel_date']); ?>
                             </td>
                             <td>
-                                <i class="fas fa-users me-1"></i><?php echo $booking['number_of_guests']; ?>
+                                <i class="fas fa-users me-1"></i><?php echo $booking['number_of_persons'] ?? 0; ?>
                             </td>
                             <td>
-                                <strong class="text-success"><?php echo format_price($booking['total_amount']); ?></strong>
+                                <strong class="text-success"><?php echo format_price($booking['final_price'] ?? 0); ?></strong>
                             </td>
                             <td>
                                 <span class="badge bg-<?php echo $status_color; ?>">
