@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'includes/config.php';
 $page_title = "Home - Tourist Drivers India Private Tours";
 include 'includes/header.php';
@@ -10,16 +11,45 @@ include 'includes/header.php';
             <h1 class="hero-main-title">Discover the Magic of India</h1>
             <p class="hero-subtitle-text">Experience Unforgettable Journeys with Professional Drivers & Premium Tours</p>
             
+            <?php if(isset($_SESSION['error'])): ?>
+            <div style="background:#ff4444;color:white;padding:15px;border-radius:10px;margin-bottom:20px;text-align:center;">
+                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+            </div>
+            <?php endif; ?>
+            
             <!-- Enquiry Form -->
             <div class="hero-enquiry-form">
-                <form id="heroEnquiryForm" method="POST" class="enquiry-form-container">
+                <form id="heroEnquiryForm" method="POST" action="<?php echo SITE_URL; ?>process-enquiry.php" class="enquiry-form-container">
+                    <!-- Name Field - First & Required -->
+                    <div class="form-input-group">
+                        <div class="input-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="input-field-wrapper">
+                            <label>Your Name <span style="color:#FF6B35;font-weight:600;">*</span></label>
+                            <input type="text" name="name" class="form-input-field" placeholder="Enter your name" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone Number Field - Second & Required -->
+                    <div class="form-input-group">
+                        <div class="input-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="input-field-wrapper">
+                            <label>Phone No. <span style="color:#FF6B35;font-weight:600;">*</span></label>
+                            <input type="tel" name="phone" class="form-input-field" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Destination - Optional -->
                     <div class="form-input-group">
                         <div class="input-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="input-field-wrapper">
-                            <label>Destination</label>
-                            <select name="package_id" class="form-input-field" required>
+                            <label>Destination </label>
+                            <select name="package_id" class="form-input-field">
                                 <option value="">Select Destination</option>
                                 <?php
                                 $packages = $conn->query("SELECT id, title FROM tour_packages WHERE is_active = 1 ORDER BY title LIMIT 20");
@@ -31,23 +61,25 @@ include 'includes/header.php';
                         </div>
                     </div>
                     
+                    <!-- Date - Optional -->
                     <div class="form-input-group">
                         <div class="input-icon">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="input-field-wrapper">
                             <label>Date</label>
-                            <input type="date" name="travel_date" class="form-input-field" placeholder="dd-mm-yyyy" min="<?php echo date('Y-m-d'); ?>" required>
+                            <input type="date" name="travel_date" class="form-input-field" placeholder="dd-mm-yyyy" min="<?php echo date('Y-m-d'); ?>">
                         </div>
                     </div>
                     
+                    <!-- People - Optional -->
                     <div class="form-input-group">
                         <div class="input-icon">
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="input-field-wrapper">
-                            <label>People</label>
-                            <select name="people" class="form-input-field" required>
+                            <label>People </label>
+                            <select name="people" class="form-input-field">
                                 <option value="1">1 Person</option>
                                 <option value="2">2 People</option>
                                 <option value="3">3 People</option>
@@ -59,16 +91,6 @@ include 'includes/header.php';
                                 <option value="9">9 People</option>
                                 <option value="10+">10+ People</option>
                             </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-input-group">
-                        <div class="input-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="input-field-wrapper">
-                            <label>Phone Number</label>
-                            <input type="tel" name="phone" class="form-input-field" placeholder="Enter phone number" pattern="[0-9]{10}" required>
                         </div>
                     </div>
                     

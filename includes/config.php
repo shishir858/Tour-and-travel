@@ -19,7 +19,7 @@ if ($is_local) {
     $db_user = "root";
     $db_pass = "";
     $db_name = "sspsof5_tdspt2";
-    define('SITE_URL', 'http://localhost/touristdriversindiaprivatetours/');
+    define('SITE_URL', 'http://localhost/Tour-and-travel/');
 } else {
     $db_host = "localhost";
     $db_user = "sspsof5_tdip";

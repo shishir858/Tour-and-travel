@@ -506,67 +506,63 @@ include 'includes/header.php';
                     ?>
 
 <script>
-document.getElementById('bookTourForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const bookingForm = document.getElementById('bookTourForm');
     
-    const form = this;
-    const submitBtn = form.querySelector('.btn-book-submit');
-    const messageDiv = document.getElementById('formMessage');
-    const originalBtnText = submitBtn.innerHTML;
-    
-    // Disable button and show loading
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-    
-    // Submit form data
-    fetch('<?php echo SITE_URL; ?>process-booking.php', {
-        method: 'POST',
-        body: new FormData(form)
-    })
-    .then(response => {
-        console.log('Response status:', response.status);
-        console.log('Response headers:', response.headers);
-        return response.text();
-    })
-    .then(text => {
-        console.log('Raw response:', text);
-        try {
-            const data = JSON.parse(text);
-            messageDiv.style.display = 'block';
+    if(bookingForm) {
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            if(data.success) {
-                messageDiv.className = 'alert alert-success';
-                messageDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + data.message;
-                form.reset();
-                
-                // Redirect after 3 seconds
-                setTimeout(() => {
-                    window.location.href = '<?php echo SITE_URL; ?>contact';
-                }, 3000);
-            } else {
-                messageDiv.className = 'alert alert-danger';
-                messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + data.message;
+            const submitBtn = this.querySelector('.btn-book-submit');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            
+            // Submit with AJAX to show SweetAlert
+            fetch('<?php echo SITE_URL; ?>process-booking.php', {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    // Show success SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Booking Confirmed!',
+                        html: `<p>${data.message}</p><p><strong>Booking Reference:</strong><br><span style="font-size:1.2em;color:#FF6B35;">${data.booking_number}</span></p><p style="font-size:0.9em;color:#666;">We will contact you within 24 hours!</p>`,
+                        confirmButtonColor: '#FF6B35',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        bookingForm.reset();
+                    });
+                } else {
+                    // Show error SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.message,
+                        confirmButtonColor: '#FF6B35'
+                    });
+                }
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
-            }
-        } catch(e) {
-            console.error('JSON Parse Error:', e);
-            console.error('Response was:', text);
-            messageDiv.style.display = 'block';
-            messageDiv.className = 'alert alert-danger';
-            messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Server error. Please check console for details.';
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-        }
-    })
-    .catch(error => {
-        console.error('Fetch Error:', error);
-        messageDiv.style.display = 'block';
-        messageDiv.className = 'alert alert-danger';
-        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error: ' + error.message;
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-    });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred. Please try again.',
+                    confirmButtonColor: '#FF6B35'
+                });
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            });
+        });
+    }
 });
 </script>
                     <div class="sidebar-widget mb-4">

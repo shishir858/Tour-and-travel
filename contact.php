@@ -1,128 +1,7 @@
 <?php
 require_once 'includes/config.php';
-require_once 'vendor/autoload.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 $page_title = "Contact Us - Tourist Drivers India";
-
-// Handle form submission
-$success_message = '';
-$error_message = '';
-
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    $package_id = isset($_POST['package_id']) ? intval($_POST['package_id']) : null;
-    $message = mysqli_real_escape_string($conn, $_POST['message']);
-    
-    // Insert inquiry into database
-    $insert_query = "INSERT INTO bookings (name, email, phone, package_id, message, status, created_at) 
-                     VALUES ('$name', '$email', '$phone', " . ($package_id ? $package_id : 'NULL') . ", '$message', 'pending', NOW())";
-    
-    if($conn->query($insert_query)) {
-        $inquiry_id = $conn->insert_id;
-        
-        // Get package name if selected
-        $package_name = 'General Inquiry';
-        if($package_id) {
-            $pkg_result = $conn->query("SELECT title FROM tour_packages WHERE id = $package_id");
-            if($pkg_result && $pkg_result->num_rows > 0) {
-                $pkg = $pkg_result->fetch_assoc();
-                $package_name = $pkg['title'];
-            }
-        }
-        
-        // Send email notification
-        $mail = new PHPMailer(true);
-        
-        try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'touristdriversindiapvttours@gmail.com';
-            $mail->Password = 'your-app-password-here'; // Replace with App Password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
-            
-            $mail->setFrom('touristdriversindiapvttours@gmail.com', 'Tourist Drivers India');
-            $mail->addAddress('touristdriversindiapvttours@gmail.com');
-            $mail->addReplyTo($email, $name);
-            
-            $mail->isHTML(true);
-            $mail->Subject = "New Contact Inquiry - $package_name (ID: #$inquiry_id)";
-            
-            $mail->Body = "
-            <html>
-            <head>
-                <style>
-                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-                    .header { background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%); padding: 20px; text-align: center; color: white; }
-                    .content { padding: 30px; background: #f9f9f9; }
-                    .info-table { width: 100%; background: white; border-collapse: collapse; margin: 20px 0; }
-                    .info-table td { padding: 12px; border: 1px solid #ddd; }
-                    .info-table td:first-child { background: #f5f5f5; font-weight: bold; width: 40%; }
-                </style>
-            </head>
-            <body>
-                <div class='header'>
-                    <h2>📧 New Contact Form Inquiry</h2>
-                </div>
-                <div class='content'>
-                    <table class='info-table'>
-                        <tr>
-                            <td>Inquiry ID</td>
-                            <td>#$inquiry_id</td>
-                        </tr>
-                        <tr>
-                            <td>Package Interest</td>
-                            <td>$package_name</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>$name</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td><a href='mailto:$email'>$email</a></td>
-                        </tr>
-                        <tr>
-                            <td>Phone</td>
-                            <td><a href='tel:$phone'>$phone</a></td>
-                        </tr>
-                        <tr>
-                            <td>Message</td>
-                            <td>" . nl2br(htmlspecialchars($message)) . "</td>
-                        </tr>
-                        <tr>
-                            <td>Date & Time</td>
-                            <td>" . date('d M, Y h:i A') . "</td>
-                        </tr>
-                    </table>
-                    
-                    <p style='margin-top: 30px;'>
-                        <a href='" . SITE_URL . "admin/dashboard.php' style='display: inline-block; padding: 12px 30px; background: #FF6B35; color: white; text-decoration: none; border-radius: 5px;'>
-                            View in Admin Panel
-                        </a>
-                    </p>
-                </div>
-            </body>
-            </html>
-            ";
-            
-            $mail->send();
-            $success_message = "Thank you! Your inquiry has been received. We'll contact you soon.";
-            
-        } catch (Exception $e) {
-            $success_message = "Thank you! Your inquiry has been received. We'll contact you soon.";
-        }
-        
-    } else {
-        $error_message = "Sorry, something went wrong. Please try again or call us directly.";
-    }
-}
 
 // Get package if specified
 $selected_package = null;
@@ -387,19 +266,7 @@ include 'includes/header.php';
                 <div class="contact-card">
                     <h3 class="mb-4">Send us a Message</h3>
                     
-                    <?php if($success_message): ?>
-                        <div class="alert alert-success">
-                            <i class="fas fa-check-circle"></i> <?php echo $success_message; ?>
-                        </div>
-                    <?php endif; ?>
-                    
-                    <?php if($error_message): ?>
-                        <div class="alert alert-danger">
-                            <i class="fas fa-exclamation-circle"></i> <?php echo $error_message; ?>
-                        </div>
-                    <?php endif; ?>
-                    
-                    <form method="POST">
+                    <form id="contactForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Your Name *</label>
@@ -457,5 +324,62 @@ include 'includes/header.php';
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    
+    if(contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            fetch('process-contact.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Message Sent!',
+                        html: data.message + '<br><br><strong>Reference: ' + data.contact_number + '</strong>',
+                        confirmButtonColor: '#FF6B35',
+                        confirmButtonText: 'OK'
+                    });
+                    contactForm.reset();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.message,
+                        confirmButtonColor: '#FF6B35'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong. Please try again.',
+                    confirmButtonColor: '#FF6B35'
+                });
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            });
+        });
+    }
+});
+</script>
 
 <?php include 'includes/footer.php'; ?>

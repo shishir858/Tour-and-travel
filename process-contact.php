@@ -9,15 +9,20 @@ header('Content-Type: application/json');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
-        $phone = mysqli_real_escape_string($conn, $_POST['phone'] ?? '');
         $name = mysqli_real_escape_string($conn, $_POST['name'] ?? '');
+        $email = mysqli_real_escape_string($conn, $_POST['email'] ?? '');
+        $phone = mysqli_real_escape_string($conn, $_POST['phone'] ?? '');
         $package_id = intval($_POST['package_id'] ?? 0);
-        $travel_date = mysqli_real_escape_string($conn, $_POST['travel_date'] ?? '');
-        $people = mysqli_real_escape_string($conn, $_POST['people'] ?? '1');
+        $message = mysqli_real_escape_string($conn, $_POST['message'] ?? '');
         
-        // Validation - name and phone both required
+        // Validation
         if(empty($name)) {
             echo json_encode(['success' => false, 'message' => 'Please enter your name.']);
+            exit;
+        }
+        
+        if(empty($email)) {
+            echo json_encode(['success' => false, 'message' => 'Please enter your email.']);
             exit;
         }
         
@@ -26,11 +31,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
         
-        // Use provided name
-        $customer_name = $name;
+        if(empty($message)) {
+            echo json_encode(['success' => false, 'message' => 'Please enter your message.']);
+            exit;
+        }
         
-        // If package not selected, use default message
-        $package_title = 'General Enquiry';
+        // Get package title if selected
+        $package_title = 'General Inquiry';
         if($package_id > 0) {
             $package_result = $conn->query("SELECT title FROM tour_packages WHERE id = $package_id");
             if($package_result && $package_result->num_rows > 0) {
@@ -39,28 +46,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
         
-        // Use default date if not provided
-        if(empty($travel_date)) {
-            $travel_date = date('Y-m-d', strtotime('+7 days')); // Default to 7 days from now
-        }
-        
-        // Check if customer exists with phone number
-        $check_customer = $conn->query("SELECT id, name, email FROM customers WHERE phone = '$phone' LIMIT 1");
+        // Check if customer exists or create new
+        $check_customer = $conn->query("SELECT id FROM customers WHERE email = '$email' LIMIT 1");
         
         if($check_customer && $check_customer->num_rows > 0) {
-            // Customer exists - update name if provided
             $customer = $check_customer->fetch_assoc();
             $customer_id = $customer['id'];
-            
-            // Update name if new name is provided and current is 'Guest'
-            if(!empty($name) && $customer['name'] == 'Guest') {
-                $conn->query("UPDATE customers SET name = '$customer_name' WHERE id = $customer_id");
-            }
         } else {
-            // Create new customer with unique email based on phone
-            $guest_email = 'guest_' . $phone . '@example.com';
+            // Create new customer
             $insert_customer = "INSERT INTO customers (name, email, phone, created_at) 
-                               VALUES ('$customer_name', '$guest_email', '$phone', NOW())";
+                               VALUES ('$name', '$email', '$phone', NOW())";
             if(!$conn->query($insert_customer)) {
                 echo json_encode(['success' => false, 'message' => 'Database Error: Unable to save customer details.']);
                 exit;
@@ -68,19 +63,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $customer_id = $conn->insert_id;
         }
         
-        // Generate unique booking number
-        $booking_number = 'ENQ' . date('Ymd') . str_pad($customer_id, 4, '0', STR_PAD_LEFT) . rand(100, 999);
+        // Generate unique contact reference number
+        $contact_number = 'CNT' . date('Ymd') . str_pad($customer_id, 4, '0', STR_PAD_LEFT) . rand(100, 999);
         
-        // Create message
-        $message = "Quick Enquiry - Name: $customer_name | Phone: $phone";
-        if(!empty($people)) {
-            $message .= " | Guests: $people";
-        }
+        // Create full message with package info
+        $full_message = "Contact Form Message";
         if($package_id > 0) {
-            $message .= " | Package: $package_title";
+            $full_message .= " | Package Interest: $package_title";
         }
+        $full_message .= " | Message: " . $message;
         
-        // Insert into bookings table (use package_id = 1 if not selected)
+        // Insert into bookings table (using it as contact inquiries)
         $final_package_id = $package_id > 0 ? $package_id : 1;
         
         $insert_query = "INSERT INTO bookings (
@@ -96,43 +89,43 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             special_requests,
             created_at
         ) VALUES (
-            '$booking_number',
+            '$contact_number',
             $customer_id, 
             $final_package_id, 
-            '$travel_date',
-            " . intval($people) . ",
+            CURDATE(),
+            1,
             1,
             0.00,
             0.00,
             'pending',
-            '$message', 
+            '$full_message', 
             NOW()
         )";
         
         if(!$conn->query($insert_query)) {
-            echo json_encode(['success' => false, 'message' => 'Database Error: Unable to save enquiry.']);
+            echo json_encode(['success' => false, 'message' => 'Database Error: Unable to save your message.']);
             exit;
         }
         
-        // Enquiry saved successfully
-        $enquiry_id = $conn->insert_id;
+        // Contact saved successfully
+        $contact_id = $conn->insert_id;
         
         // Send email notification
         require_once 'send-mail.php';
-        sendEnquiryEmail([
-            'booking_number' => $booking_number,
-            'name' => $customer_name,
+        sendContactEmail([
+            'contact_number' => $contact_number,
+            'name' => $name,
+            'email' => $email,
             'phone' => $phone,
             'package_title' => $package_title,
-            'travel_date' => $travel_date,
-            'people' => $people
+            'message' => $message
         ]);
         
         // Return JSON
         echo json_encode([
             'success' => true,
-            'message' => 'Thank you! Your enquiry has been submitted successfully.',
-            'booking_number' => $booking_number
+            'message' => 'Thank you! Your message has been sent successfully. We will contact you soon.',
+            'contact_number' => $contact_number
         ]);
         exit;
         
@@ -140,7 +133,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
         exit;
     }
-    
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
     exit;
