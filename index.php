@@ -10,16 +10,45 @@ include 'includes/header.php';
             <h1 class="hero-main-title">Discover the Magic of India</h1>
             <p class="hero-subtitle-text">Experience Unforgettable Journeys with Professional Drivers & Premium Tours</p>
             
+            <?php if(isset($_SESSION['error'])): ?>
+            <div style="background:#ff4444;color:white;padding:15px;border-radius:10px;margin-bottom:20px;text-align:center;">
+                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+            </div>
+            <?php endif; ?>
+            
             <!-- Enquiry Form -->
             <div class="hero-enquiry-form">
-                <form id="heroEnquiryForm" method="POST" class="enquiry-form-container">
+                <form id="heroEnquiryForm" method="POST" action="<?php echo SITE_URL; ?>process-enquiry.php" class="enquiry-form-container">
+                    <!-- Name Field - First & Required -->
+                    <div class="form-input-group">
+                        <div class="input-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="input-field-wrapper">
+                            <label>Your Name <span style="color:#FF6B35;font-weight:600;">*</span></label>
+                            <input type="text" name="name" class="form-input-field" placeholder="Enter your name" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone Number Field - Second & Required -->
+                    <div class="form-input-group">
+                        <div class="input-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="input-field-wrapper">
+                            <label>Phone No. <span style="color:#FF6B35;font-weight:600;">*</span></label>
+                            <input type="tel" name="phone" class="form-input-field" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Destination - Optional -->
                     <div class="form-input-group">
                         <div class="input-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="input-field-wrapper">
-                            <label>Destination</label>
-                            <select name="package_id" class="form-input-field" required>
+                            <label>Destination </label>
+                            <select name="package_id" class="form-input-field">
                                 <option value="">Select Destination</option>
                                 <?php
                                 $packages = $conn->query("SELECT id, title FROM tour_packages WHERE is_active = 1 ORDER BY title LIMIT 20");
@@ -31,23 +60,25 @@ include 'includes/header.php';
                         </div>
                     </div>
                     
+                    <!-- Date - Optional -->
                     <div class="form-input-group">
                         <div class="input-icon">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="input-field-wrapper">
                             <label>Date</label>
-                            <input type="date" name="travel_date" class="form-input-field" placeholder="dd-mm-yyyy" min="<?php echo date('Y-m-d'); ?>" required>
+                            <input type="date" name="travel_date" class="form-input-field" placeholder="dd-mm-yyyy" min="<?php echo date('Y-m-d'); ?>">
                         </div>
                     </div>
                     
+                    <!-- People - Optional -->
                     <div class="form-input-group">
                         <div class="input-icon">
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="input-field-wrapper">
-                            <label>People</label>
-                            <select name="people" class="form-input-field" required>
+                            <label>People </label>
+                            <select name="people" class="form-input-field">
                                 <option value="1">1 Person</option>
                                 <option value="2">2 People</option>
                                 <option value="3">3 People</option>
@@ -59,16 +90,6 @@ include 'includes/header.php';
                                 <option value="9">9 People</option>
                                 <option value="10+">10+ People</option>
                             </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-input-group">
-                        <div class="input-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="input-field-wrapper">
-                            <label>Phone Number</label>
-                            <input type="tel" name="phone" class="form-input-field" placeholder="Enter phone number" pattern="[0-9]{10}" required>
                         </div>
                     </div>
                     
@@ -311,29 +332,73 @@ include 'includes/header.php';
     </section>
 
     <!-- Car Rental Section -->
-    <section class="car-rental-section">
+	<section class="car-rental-section">
         <div class="container">
             <div class="section-heading-wrapper">
                 <p class="section-label">Our Vehicles</p>
                 <h2 class="section-main-heading">Car Rental</h2>
             </div>
-            <div class="car-rental-carousel owl-carousel owl-theme">
-                <?php
-                $vehicles = $conn->query("SELECT * FROM vehicles_new WHERE is_active = 1 ORDER BY id DESC LIMIT 8");
-                while($vehicle = $vehicles->fetch_assoc()):
-                ?>
-                <div class="car-rental-card">
-                    <div class="car-rental-image-wrapper">
-                        <img src="<?php echo htmlspecialchars($vehicle['image'] ?? ''); ?>" 
-                             alt="<?php echo htmlspecialchars($vehicle['name'] ?? ''); ?>" 
-                             class="car-rental-image">
-                    </div>
-                    <div class="car-rental-details">
-                        <h3 class="car-rental-title"><?php echo htmlspecialchars($vehicle['name'] ?? ''); ?></h3>
-                        <p class="car-rental-capacity">Seating Capacity - <?php echo htmlspecialchars($vehicle['seating_capacity'] ?? '0'); ?></p>
+            <div class="row justify-content-center">
+                <!-- Delhi Taxi Service -->
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                        <img src="uploads/vehicles/69590b2c9cb5b_1767443244.jpg" alt="Delhi Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <h5 class="fw-bold mb-1">Delhi Taxi Service</h5>
+                        <div class="text-muted mb-3" style="font-size: 1rem;">City Rides</div>
+                        <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                            <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                            <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                        </div>
                     </div>
                 </div>
-                <?php endwhile; ?>
+                <!-- Delhi Airport Taxi -->
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                        <img src="uploads/vehicles/delhi-taxi-service.jpg" alt="Delhi Airport Taxi" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <h5 class="fw-bold mb-1">Delhi Airport Taxi</h5>
+                        <div class="text-muted mb-3" style="font-size: 1rem;">Airport Pickup</div>
+                        <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                            <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                            <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tempo Traveler Rental -->
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                        <img src="uploads/vehicles/tempo.jfif" alt="Tempo Traveler Rental" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <h5 class="fw-bold mb-1">Tempo Traveler Rental</h5>
+                        <div class="text-muted mb-3" style="font-size: 1rem;">Group Travel</div>
+                        <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                            <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                            <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Outstation Taxi Service -->
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                        <img src="uploads/vehicles/outstation.jfif" alt="Outstation Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <h5 class="fw-bold mb-1">Outstation Taxi Service</h5>
+                        <div class="text-muted mb-3" style="font-size: 1rem;">Long Trips</div>
+                        <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                            <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                            <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Rajasthan Taxi Service -->
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                        <img src="uploads/vehicles/rajasthan.jfif" alt="Rajasthan Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <h5 class="fw-bold mb-1">Rajasthan Taxi Service</h5>
+                        <div class="text-muted mb-3" style="font-size: 1rem;">Desert Tours</div>
+                        <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                            <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                            <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="car-rental-actions">
                 <a href="<?php echo SITE_URL; ?>vehicles" class="btn-see-all">See All</a>
@@ -341,6 +406,7 @@ include 'includes/header.php';
             </div>
         </div>
     </section>
+
 
     <!-- Testimonials Section -->
     <section class="testimonials-section">

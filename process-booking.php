@@ -4,15 +4,6 @@ ini_set('display_errors', 1);
 
 require_once 'includes/config.php';
 
-// Check if PHPMailer exists
-$phpmailer_exists = file_exists('vendor/autoload.php');
-if($phpmailer_exists) {
-    require_once 'vendor/autoload.php';
-}
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 header('Content-Type: application/json');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -96,8 +87,58 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Database insert SUCCESSFUL
         $booking_id = $conn->insert_id;
-        $email_sent = false;
-        $email_error = '';
+        
+        // Send email notification
+        require_once 'send-mail.php';
+        sendBookingEmail([
+            'booking_number' => $booking_number,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'package_title' => $package_title,
+            'travel_date' => $travel_date,
+            'guests' => $guests,
+            'message' => !empty($message) ? $message : 'No special requirements'
+        ]);
+        
+        // Return success response with booking number
+        echo json_encode([
+            'success' => true,
+            'message' => 'Thank you! Your booking request has been submitted successfully.',
+            'booking_id' => $booking_id,
+            'booking_number' => $booking_number
+        ]);
+        exit;
+        
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => '❌ Error: ' . $e->getMessage()
+        ]);
+        exit;
+    }
+    
+} else {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid request method.'
+    ]);
+    exit;
+}
+?>
+        echo json_encode([
+            'success' => false,
+            'message' => '❌ Error: ' . $e->getMessage()
+        ]);
+    }
+    
+} else {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid request method.'
+    ]);
+}
+?>
         
         // Now try to send email
         if($phpmailer_exists) {

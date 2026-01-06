@@ -151,6 +151,74 @@ include 'includes/header.php';
     </div>
 </section>
 
+<!-- Service Cards Section -->
+<section class="service-cards-section py-5" style="background: #f5f5f5;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Delhi Taxi Service -->
+            <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                    <img src="uploads/vehicles/delhi-taxi-service.jpg" alt="Delhi Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                    <h5 class="fw-bold mb-1">Delhi Taxi Service</h5>
+                    <div class="text-muted mb-3" style="font-size: 1rem;">City Rides</div>
+                    <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                        <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                        <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Delhi Airport Taxi -->
+            <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                    <img src="https://images.unsplash.com/photo-1465156799763-2c087c332922?auto=format&fit=crop&w=400&q=80" alt="Delhi Airport Taxi" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                    <h5 class="fw-bold mb-1">Delhi Airport Taxi</h5>
+                    <div class="text-muted mb-3" style="font-size: 1rem;">Airport Pickup</div>
+                    <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                        <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                        <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Tempo Traveler Rental -->
+            <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                    <img src="https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=crop&w=400&q=80" alt="Tempo Traveler Rental" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                    <h5 class="fw-bold mb-1">Tempo Traveler Rental</h5>
+                    <div class="text-muted mb-3" style="font-size: 1rem;">Group Travel</div>
+                    <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                        <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                        <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Outstation Taxi Service -->
+            <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80" alt="Outstation Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                    <h5 class="fw-bold mb-1">Outstation Taxi Service</h5>
+                    <div class="text-muted mb-3" style="font-size: 1rem;">Long Trips</div>
+                    <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                        <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                        <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Rajasthan Taxi Service -->
+            <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
+                    <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=400&q=80" alt="Rajasthan Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                    <h5 class="fw-bold mb-1">Rajasthan Taxi Service</h5>
+                    <div class="text-muted mb-3" style="font-size: 1rem;">Desert Tours</div>
+                    <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+                        <a href="tel:+919818249288" class="btn btn-sm btn-warning px-3"><i class="fa fa-phone"></i> Call Now</a>
+                        <a href="contact.php" class="btn btn-sm btn-outline-primary px-3"><i class="fa fa-calendar-check"></i> Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Vehicles Section -->
 <section class="vehicles-section">
     <div class="container">

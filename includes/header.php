@@ -19,6 +19,10 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>assets/css/main-style.css?v=<?php echo time(); ?>">
     
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         /* Top Bar Orange */
         .top-info-bar {
@@ -31,6 +35,7 @@
             color: white;
             text-decoration: none;
             margin: 0 10px;
+            font-weight: 600;
         }
         .top-info-bar i {
             margin-right: 6px;
@@ -111,24 +116,28 @@
 </head>
 <body>
 
-    <!-- Top Info Bar -->
-    <div class="top-info-bar">
+    <!-- Custom Top Header Bar (as per image) -->
+    <div class="top-info-bar" style="color: #fff; font-size: 15px; padding: 7px 0;">
         <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-8 col-md-6">
-                    <span class="me-4">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <?php echo getSetting('site_address') ?: 'Plot No C 50 Ganesh Nagar Complex - New Delhi 110092'; ?>
-                    </span>
-                    <span>
-                        <i class="fas fa-phone"></i>
-                        <a href="tel:<?php echo getSetting('site_phone'); ?>"><?php echo getSetting('site_phone') ?: '+91 9310042916'; ?></a>
-                    </span>
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex align-items-center flex-wrap custom-header-left" style="gap: 0.5rem;">
+                    <a href="<?php echo SITE_URL; ?>" style="color: #fff; text-decoration: none;">Home</a>
+                    <span class="mx-2">/</span>
+                    <a href="about.php" style="color: #fff; text-decoration: none;">About Us</a>
+                    <span class="mx-2">/</span>
+                    <a href="contact.php" style="color: #fff; text-decoration: none;">Contact</a>
+                    <span class="mx-2">/</span>
+                    <a href="gallery.php" style="color: #fff; text-decoration: none;">Gallery</a>
+                    <span class="mx-2">/</span>
+                    <a href="vehicles.php" style="color: #fff; text-decoration: none;">Our Vehicles</a>
                 </div>
-                <div class="col-lg-4 col-md-6 text-end">
-                    <a href="<?php echo getSetting('facebook_url') ?: '#'; ?>" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="<?php echo getSetting('instagram_url') ?: '#'; ?>" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="<?php echo getSetting('youtube_url') ?: '#'; ?>" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <div class="d-flex align-items-center flex-wrap custom-header-right" style="gap: 0.5rem;">
+                    <i class="fa fa-mobile-alt"></i>
+                    <span><a href="tel:<?php echo getSetting('site_phone'); ?>"><?php echo getSetting('site_phone') ?: '+91 9310042916'; ?></a></span>
+                    <span class="mx-2">/</span>
+                    <i class="fa fa-mobile-alt"></i>
+                    <span><a href="tel:9818249288?>"> +91 9818249288</a></span>
+                    
                 </div>
             </div>
         </div>
@@ -145,13 +154,6 @@
             </button>
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo SITE_URL; ?>">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo SITE_URL; ?>about">About</a>
-                    </li>
                     <?php
                     $nav_categories = $conn->query("SELECT * FROM categories WHERE is_active = 1 AND show_in_header = 1 ORDER BY display_order");
                     while($nav_cat = $nav_categories->fetch_assoc()):

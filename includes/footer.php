@@ -367,7 +367,7 @@
     </style>
 
 <script>
-// Hero Enquiry Form Submission
+// Hero Enquiry Form Submission - Show loading on submit
 document.addEventListener('DOMContentLoaded', function() {
     const enquiryForm = document.getElementById('heroEnquiryForm');
     
@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
             
-            // Submit form data
+            // Submit with AJAX to show SweetAlert
             fetch('<?php echo SITE_URL; ?>process-enquiry.php', {
                 method: 'POST',
                 body: new FormData(this)
@@ -390,17 +390,36 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if(data.success) {
-                    alert('✅ ' + data.message);
-                    this.reset();
+                    // Show success SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thank You!',
+                        html: `<p>${data.message}</p><p><strong>Reference Number:</strong><br><span style="font-size:1.2em;color:#FF6B35;">${data.booking_number}</span></p><p style="font-size:0.9em;color:#666;">We will contact you shortly!</p>`,
+                        confirmButtonColor: '#FF6B35',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        enquiryForm.reset();
+                    });
                 } else {
-                    alert('❌ ' + data.message);
+                    // Show error SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.message,
+                        confirmButtonColor: '#FF6B35'
+                    });
                 }
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('❌ An error occurred. Please try again or call us directly.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred. Please try again.',
+                    confirmButtonColor: '#FF6B35'
+                });
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
             });
