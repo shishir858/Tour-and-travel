@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'includes/config.php';
 $page_title = "Home - Tourist Drivers India Private Tours";
 include 'includes/header.php';
