@@ -29,7 +29,7 @@ if($package_result->num_rows == 0) {
 
 $package = $package_result->fetch_assoc();
 $package_id = $package['id']; // Ensure package_id is set from the fetched package
-$page_title = (!empty($package['seo_title']) ? $package['seo_title'] : $package['title']) . " - Tourist Drivers India";
+$page_title = (isset($package['meta_title']) && !empty($package['meta_title']) ? $package['meta_title'] : $package['title']) . " - Tourist Drivers India";
 
 // Get itinerary
 $itinerary_query = "SELECT * FROM package_itinerary WHERE package_id = $package_id ORDER BY day_number ASC";
@@ -326,9 +326,7 @@ include 'includes/header.php';
             <h1 class="package-hero-title"><?php echo htmlspecialchars($package['title']); ?></h1>
             <div class="package-hero-meta">
                 <span><i class="far fa-clock"></i> <?php echo $package['duration_days']; ?> Days / <?php echo $package['duration_nights']; ?> Nights</span>
-                <?php if($package['max_group_size']): ?>
-                    <span><i class="fas fa-users"></i> Max <?php echo $package['max_group_size']; ?> People</span>
-                <?php endif; ?>
+                
                 <span><i class="fas fa-signal"></i> <?php echo ucfirst($package['difficulty_level']); ?></span>
             </div>
         </div>
@@ -505,66 +503,8 @@ include 'includes/header.php';
                         if($cat_packages->num_rows > 0):
                     ?>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const bookingForm = document.getElementById('bookTourForm');
-    
-    if(bookingForm) {
-        bookingForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = this.querySelector('.btn-book-submit');
-            const originalBtnText = submitBtn.innerHTML;
-            
-            // Disable button and show loading
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-            
-            // Submit with AJAX to show SweetAlert
-            fetch('<?php echo SITE_URL; ?>process-booking.php', {
-                method: 'POST',
-                body: new FormData(this)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.success) {
-                    // Show success SweetAlert
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Booking Confirmed!',
-                        html: `<p>${data.message}</p><p><strong>Booking Reference:</strong><br><span style="font-size:1.2em;color:#FF6B35;">${data.booking_number}</span></p><p style="font-size:0.9em;color:#666;">We will contact you within 24 hours!</p>`,
-                        confirmButtonColor: '#FF6B35',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        bookingForm.reset();
-                    });
-                } else {
-                    // Show error SweetAlert
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: data.message,
-                        confirmButtonColor: '#FF6B35'
-                    });
-                }
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'An error occurred. Please try again.',
-                    confirmButtonColor: '#FF6B35'
-                });
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-            });
-        });
-    }
-});
-</script>
+
+<!-- Removed AJAX booking script: now booking form submits directly to process-booking.php and shows server response page. -->
                     <div class="sidebar-widget mb-4">
                         <h5 class="widget-title">
                             <i class="fas fa-map-marker-alt text-primary"></i> 
@@ -615,10 +555,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <strong><?php echo $package['duration_days']; ?>D / <?php echo $package['duration_nights']; ?>N</strong>
                             </li>
                             <?php if($package['max_group_size']): ?>
-                            <li>
-                                <span><i class="fas fa-users"></i> Group Size</span>
-                                <strong>Max <?php echo $package['max_group_size']; ?></strong>
-                            </li>
                             <?php endif; ?>
                             <?php if($package['min_age']): ?>
                             <li>
@@ -646,92 +582,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </section>
 
-<!-- Related Tours Section -->
-<section class="related-tours-section" style="padding: 80px 0; background: #f8f9fa;">
-    <div class="container">
-        <div class="section-title text-center mb-5">
-            <h2 style="font-size: 2.5rem; font-weight: 800; color: #333; margin-bottom: 15px;">
-                Related Tours
-            </h2>
-            <p style="color: #666; font-size: 1.1rem;">Explore More Amazing Destinations</p>
-        </div>
-        
-        <div class="related-tours-carousel owl-carousel owl-theme">
-            <?php
-            // Fetch related tours from same category
-            $category_id = intval($package['category_id']);
-            $current_package_id = intval($package['id']);
-            
-            $related_sql = "SELECT * FROM tour_packages 
-                           WHERE category_id = $category_id 
-                           AND id != $current_package_id 
-                           ORDER BY id DESC 
-                           LIMIT 8";
-            
-            $related_query = $conn->query($related_sql);
-            
-            // Debug output
-            echo "<!-- DEBUG: Category ID: $category_id | Current Package ID: $current_package_id | SQL: $related_sql | Query Results: " . ($related_query ? $related_query->num_rows : 'Query Failed') . " -->";
-            
-            if($related_query && $related_query->num_rows > 0):
-                while($related_tour = $related_query->fetch_assoc()):
-            ?>
-            <div class="tour-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s;">
-                <div class="tour-image" style="height: 250px; overflow: hidden; position: relative;">
-                    <img src="<?php echo SITE_URL . 'uploads/packages/' . ($related_tour['featured_image'] ?? 'default.jpg'); ?>" 
-                         alt="<?php echo htmlspecialchars($related_tour['title']); ?>"
-                         style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;">
-                    <?php if($related_tour['is_featured']): ?>
-                    <span style="position: absolute; top: 15px; right: 15px; background: #FF6B35; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
-                        Featured
-                    </span>
-                    <?php endif; ?>
-                </div>
-                <div class="tour-content" style="padding: 25px;">
-                    <h4 style="font-size: 1.3rem; font-weight: 700; color: #333; margin-bottom: 15px; min-height: 60px;">
-                        <?php 
-                        $title = $related_tour['title'];
-                        $words = explode(' ', $title);
-                        echo htmlspecialchars(implode(' ', array_slice($words, 0, 6)));
-                        if(count($words) > 6) echo '...';
-                        ?>
-                    </h4>
-                    <div class="tour-meta" style="display: flex; gap: 20px; margin-bottom: 20px; color: #666; font-size: 0.95rem;">
-                        <span><i class="far fa-clock" style="color: #FF6B35; margin-right: 5px;"></i> <?php echo $related_tour['duration_days']; ?>D / <?php echo $related_tour['duration_nights']; ?>N</span>
-                        <?php if($related_tour['max_group_size']): ?>
-                        <span><i class="fas fa-users" style="color: #FF6B35; margin-right: 5px;"></i> Max <?php echo $related_tour['max_group_size']; ?></span>
-                        <?php endif; ?>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <?php if($related_tour['base_price'] > 0): ?>
-                        <div class="tour-price" style="font-size: 1.5rem; font-weight: 700; color: #FF6B35;">
-                            ₹<?php echo number_format($related_tour['base_price']); ?>
-                            <small style="font-size: 0.9rem; color: #666; font-weight: 400;">/person</small>
-                        </div>
-                        <?php else: ?>
-                        <div class="tour-price" style="font-size: 1.1rem; font-weight: 600; color: #FF6B35;">
-                            Contact for Price
-                        </div>
-                        <?php endif; ?>
-                        <a href="<?php echo SITE_URL; ?>package/<?php echo $related_tour['slug'] ?: $related_tour['id']; ?>" 
-                           class="btn-view-details"
-                           style="background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%); color: white; padding: 10px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.3s;">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <?php 
-                endwhile;
-            else:
-            ?>
-            <div class="col-12 text-center" style="padding: 40px;">
-                <p style="color: #666; font-size: 1.1rem;">No related tours available at the moment.</p>
-            </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</section>
+
 
 <style>
 .tour-card:hover {

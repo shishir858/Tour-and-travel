@@ -122,14 +122,14 @@ include '../includes/sidebar.php';
                                 <label class="form-label">Price per Kilometer (₹) <span class="text-danger">*</span></label>
                                 <input type="number" name="price_per_km" class="form-control" 
                                        value="<?php echo isset($_POST['price_per_km']) ? $_POST['price_per_km'] : ''; ?>" 
-                                       step="0.01" min="0" placeholder="e.g., 15" required>
+                                       step="0.01" min="0" placeholder="e.g., 15" >
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Price per Day (₹) <span class="text-danger">*</span></label>
                                 <input type="number" name="price_per_day" class="form-control" 
                                        value="<?php echo isset($_POST['price_per_day']) ? $_POST['price_per_day'] : ''; ?>" 
-                                       step="0.01" min="0" placeholder="e.g., 2500" required>
+                                       step="0.01" min="0" placeholder="e.g., 2500" >
                             </div>
                         </div>
 

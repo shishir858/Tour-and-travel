@@ -11,10 +11,8 @@ include 'includes/header.php';
             <h1 class="hero-main-title">Discover the Magic of India</h1>
             <p class="hero-subtitle-text">Experience Unforgettable Journeys with Professional Drivers & Premium Tours</p>
             
-            <?php if(isset($_SESSION['error'])): ?>
-            <div style="background:#ff4444;color:white;padding:15px;border-radius:10px;margin-bottom:20px;text-align:center;">
-                <i class="fas fa-exclamation-circle"></i> <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
-            </div>
+            <?php if(isset($_SESSION['enquiry_message'])): ?>
+                <?php echo $_SESSION['enquiry_message']; unset($_SESSION['enquiry_message']); ?>
             <?php endif; ?>
             
             <!-- Enquiry Form -->
@@ -343,7 +341,7 @@ include 'includes/header.php';
                 <!-- Delhi Taxi Service -->
                 <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
                     <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
-                        <img src="uploads/vehicles/69590b2c9cb5b_1767443244.jpg" alt="Delhi Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <img src="uploads/vehicles/1.jpg" alt="Delhi Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
                         <h5 class="fw-bold mb-1">Delhi Taxi Service</h5>
                         <div class="text-muted mb-3" style="font-size: 1rem;">City Rides</div>
                         <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
@@ -355,7 +353,7 @@ include 'includes/header.php';
                 <!-- Delhi Airport Taxi -->
                 <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
                     <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
-                        <img src="uploads/vehicles/delhi-taxi-service.jpg" alt="Delhi Airport Taxi" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <img src="uploads/vehicles/2.jpg" alt="Delhi Airport Taxi" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
                         <h5 class="fw-bold mb-1">Delhi Airport Taxi</h5>
                         <div class="text-muted mb-3" style="font-size: 1rem;">Airport Pickup</div>
                         <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
@@ -367,7 +365,7 @@ include 'includes/header.php';
                 <!-- Tempo Traveler Rental -->
                 <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
                     <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
-                        <img src="uploads/vehicles/tempo.jfif" alt="Tempo Traveler Rental" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <img src="uploads/vehicles/3.jpg" alt="Tempo Traveler Rental" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
                         <h5 class="fw-bold mb-1">Tempo Traveler Rental</h5>
                         <div class="text-muted mb-3" style="font-size: 1rem;">Group Travel</div>
                         <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
@@ -379,7 +377,7 @@ include 'includes/header.php';
                 <!-- Outstation Taxi Service -->
                 <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
                     <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
-                        <img src="uploads/vehicles/outstation.jfif" alt="Outstation Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <img src="uploads/vehicles/4.jpg" alt="Outstation Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
                         <h5 class="fw-bold mb-1">Outstation Taxi Service</h5>
                         <div class="text-muted mb-3" style="font-size: 1rem;">Long Trips</div>
                         <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
@@ -391,7 +389,7 @@ include 'includes/header.php';
                 <!-- Rajasthan Taxi Service -->
                 <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
                     <div class="service-card shadow-sm rounded-4 bg-white h-100 d-flex flex-column align-items-center p-3">
-                        <img src="uploads/vehicles/rajasthan.jfif" alt="Rajasthan Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
+                        <img src="uploads/vehicles/5.jpeg" alt="Rajasthan Taxi Service" class="img-fluid rounded-3 mb-3" style="height: 160px; object-fit: cover; width: 100%;">
                         <h5 class="fw-bold mb-1">Rajasthan Taxi Service</h5>
                         <div class="text-muted mb-3" style="font-size: 1rem;">Desert Tours</div>
                         <div class="d-flex gap-2 w-100 justify-content-center mt-auto">

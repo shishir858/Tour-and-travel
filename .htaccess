@@ -1,5 +1,7 @@
+RewriteCond %{HTTP_HOST} ^www\.touristdriversindiaprivatetours\.com$ [NC]
+RewriteRule ^(.*)$ https://touristdriversindiaprivatetours.com/$1 [L,R=301]
 RewriteEngine On
-RewriteBase /tour-and-travel/
+#RewriteBase /touristdriversindiaprivatetours/
 
 # Exclude admin folder from ALL rewrite rules
 RewriteRule ^admin/ - [L,NC]

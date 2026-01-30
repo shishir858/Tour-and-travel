@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>assets/css/main-style.css?v=<?php echo time(); ?>">
     
     <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
     <style>
         /* Top Bar Orange */
@@ -40,9 +40,11 @@
             text-decoration: none;
             margin: 0 10px;
             font-weight: 600;
+            font-size: 14px;
         }
         .top-info-bar i {
             margin-right: 6px;
+            font-size: 15px;
         }
         .top-info-bar .social-icon {
             color: white;
@@ -53,6 +55,22 @@
         .top-info-bar .social-icon:hover {
             color: #ffffff;
             transform: translateY(-2px);
+        }
+        @media (max-width: 767px) {
+            .top-info-bar {
+                font-size: 11px;
+                padding: 7px 0;
+            }
+            .top-info-bar a {
+                font-size: 11px;
+                margin: 0 6px;
+            }
+            .top-info-bar i {
+                font-size: 12px;
+            }
+            .custom-header-left, .custom-header-right {
+                gap: 0.2rem !important;
+            }
         }
         
         /* Main Navbar */
@@ -126,19 +144,19 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="d-flex align-items-center flex-wrap custom-header-left" style="gap: 0.5rem;">
                     <a href="<?php echo SITE_URL; ?>" style="color: #fff; text-decoration: none;">Home</a>
-                    <span class="mx-2">/</span>
+                    <span class="">/</span>
                     <a href="about.php" style="color: #fff; text-decoration: none;">About Us</a>
-                    <span class="mx-2">/</span>
+                    <span class="">/</span>
                     <a href="contact.php" style="color: #fff; text-decoration: none;">Contact</a>
-                    <span class="mx-2">/</span>
+                    <span class="">/</span>
                     <a href="gallery.php" style="color: #fff; text-decoration: none;">Gallery</a>
-                    <span class="mx-2">/</span>
+                    <span class="">/</span>
                     <a href="vehicles.php" style="color: #fff; text-decoration: none;">Our Vehicles</a>
                 </div>
                 <div class="d-flex align-items-center flex-wrap custom-header-right" style="gap: 0.5rem;">
                     <i class="fa fa-mobile-alt"></i>
                     <span><a href="tel:<?php echo getSetting('site_phone'); ?>"><?php echo getSetting('site_phone') ?: '+91 9310042916'; ?></a></span>
-                    <span class="mx-2">/</span>
+                    <span class="">/</span>
                     <i class="fa fa-mobile-alt"></i>
                     <span><a href="tel:9818249288?>"> +91 9818249288</a></span>
                     
@@ -153,10 +171,52 @@
             <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
                 <img src="<?php echo SITE_URL; ?>assets/img/logo.png" alt="Tourist Drivers India" class="navbar-brand-logo">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler mobile-menu-toggle custom-hamburger" type="button" aria-label="Open Menu" id="mobileNavToggle">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
             </button>
-            <div class="collapse navbar-collapse" id="mainNavbar">
+            <!-- Mobile Slide Nav -->
+            <nav class="mobile-slide-nav" id="mobileSlideNav">
+                <div class="mobile-slide-nav-header">
+                    <a href="<?php echo SITE_URL; ?>" class="mobile-slide-logo">
+                        <img src="<?php echo SITE_URL; ?>assets/img/logo.png" alt="Tourist Drivers India" style="height:44px;">
+                    </a>
+                    <button class="mobile-slide-close" id="mobileSlideClose" aria-label="Close Menu">&times;</button>
+                </div>
+                <ul class="mobile-slide-nav-list">
+                    <li><a href="<?php echo SITE_URL; ?>">Home</a></li>
+                    <li><a href="about.php">About Us</a></li>
+                    <?php
+                    $nav_categories = $conn->query("SELECT * FROM categories WHERE is_active = 1 AND show_in_header = 1 ORDER BY display_order");
+                    while($nav_cat = $nav_categories->fetch_assoc()):
+                        $nav_packages = $conn->query("SELECT id, title, slug FROM tour_packages WHERE category_id = {$nav_cat['id']} AND is_active = 1 ORDER BY display_order LIMIT 10");
+                        $has_nav_packages = $nav_packages->num_rows > 0;
+                    ?>
+                    <li class="mobile-cat-item<?php if($has_nav_packages) echo ' has-mobile-dropdown'; ?>">
+                        <a href="<?php echo SITE_URL; ?>tour-packages?category=<?php echo $nav_cat['id']; ?>">
+                            <?php echo htmlspecialchars($nav_cat['name']); ?>
+                            <?php if($has_nav_packages): ?><span class="mobile-cat-arrow">&#9662;</span><?php endif; ?>
+                        </a>
+                        <?php if($has_nav_packages): ?>
+                        <ul class="mobile-cat-dropdown">
+                            <?php while($nav_pkg = $nav_packages->fetch_assoc()): ?>
+                            <li>
+                                <a href="<?php echo SITE_URL; ?>package/<?php echo $nav_pkg['slug'] ?: $nav_pkg['id']; ?>"> <?php echo htmlspecialchars($nav_pkg['title']); ?> </a>
+                            </li>
+                            <?php endwhile; ?>
+                        </ul>
+                        <?php endif; ?>
+                    </li>
+                    <?php endwhile; ?>
+                    <li><a href="gallery.php">Gallery</a></li>
+                    <li><a href="vehicles.php">Our Vehicles</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="tel:<?php echo getSetting('site_phone'); ?>" class="tdi-header-phone"><i class="fa fa-phone"></i> <?php echo getSetting('site_phone') ?: '+91 9310042916'; ?></a></li>
+                </ul>
+            </nav>
+            <div class="mobile-slide-overlay" id="mobileSlideOverlay"></div>
+            <div class="collapse navbar-collapse d-none d-lg-block" id="mainNavbar">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <?php
                     $nav_categories = $conn->query("SELECT * FROM categories WHERE is_active = 1 AND show_in_header = 1 ORDER BY display_order");
@@ -165,15 +225,15 @@
                         $has_nav_packages = $nav_packages->num_rows > 0;
                     ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="<?php echo SITE_URL; ?>tour-packages?category=<?php echo $nav_cat['id']; ?>" 
-                           <?php if($has_nav_packages): ?>data-bs-toggle="dropdown"<?php endif; ?>>
+                                <a class="nav-link dropdown-toggle" href="<?php echo SITE_URL; ?>tour-packages?category=<?php echo $nav_cat['id']; ?>" 
+                                    <?php if($has_nav_packages): ?>data-bs-toggle="dropdown"<?php endif; ?> >
                             <?php echo htmlspecialchars($nav_cat['name']); ?>
                         </a>
                         <?php if($has_nav_packages): ?>
                         <ul class="dropdown-menu navbar-dropdown-menu">
                             <?php while($nav_pkg = $nav_packages->fetch_assoc()): ?>
                             <li>
-                                <a class="dropdown-item navbar-dropdown-item" href="<?php echo SITE_URL; ?>package/<?php echo $nav_pkg['slug'] ?: $nav_pkg['id']; ?>">
+                                <a class="dropdown-item navbar-dropdown-item" href="<?php echo SITE_URL; ?>package/<?php echo $nav_pkg['slug'] ?: $nav_pkg['id']; ?>"> 
                                     <?php echo htmlspecialchars($nav_pkg['title']); ?>
                                 </a>
                             </li>
@@ -182,7 +242,6 @@
                         <?php endif; ?>
                     </li>
                     <?php endwhile; ?>
-                    
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo SITE_URL; ?>vehicles">Car Rental</a>
                     </li>
@@ -193,5 +252,8 @@
                     </li>
                 </ul>
             </div>
+            <!-- Mobile Slide Menu -->
+            
+            <div class="mobile-slide-menu-overlay" id="mobileSlideMenuOverlay"></div>
         </div>
     </nav>

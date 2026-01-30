@@ -19,7 +19,7 @@ if ($is_local) {
     $db_user = "root";
     $db_pass = "";
     $db_name = "sspsof5_tdspt2";
-    define('SITE_URL', 'http://localhost/Tour-and-travel/');
+    define('SITE_URL', 'http://localhost/touristdriversindiaprivatetours/');
 } else {
     $db_host = "localhost";
     $db_user = "sspsof5_tdip";
@@ -48,4 +48,13 @@ function getSetting($key) {
     }
     return null;
 }
+
+// SMTP Configuration
+define('SMTP_HOST', 'smtp.touristdriversindiaprivatetours.com');
+define('SMTP_USER', 'info@touristdriversindiaprivatetours.com');
+define('SMTP_PASS', 'SJZpFgA5K27w');
+define('SMTP_PORT', 465);
+define('SMTP_FROM_EMAIL', 'info@touristdriversindiaprivatetours.com');
+define('SMTP_FROM_NAME', 'Tourist Drivers India');
+define('SMTP_ADMIN_EMAIL', 'touristdriversindiapvttours@gmail.com');
 ?>

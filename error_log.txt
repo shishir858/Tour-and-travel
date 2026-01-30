@@ -1,0 +1,95 @@
+[06-Jan-2026 15:06:59 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[06-Jan-2026 15:07:41 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[06-Jan-2026 15:19:17 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: CREATE command denied to user 'sspsof5_tdip'@'localhost' for table `sspsof5_tdip`.`site_settings` in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php:14
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php(14): mysqli_query()
+#1 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php on line 14
+[06-Jan-2026 15:19:20 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: CREATE command denied to user 'sspsof5_tdip'@'localhost' for table `sspsof5_tdip`.`site_settings` in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php:14
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php(14): mysqli_query()
+#1 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php on line 14
+[06-Jan-2026 15:19:31 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: CREATE command denied to user 'sspsof5_tdip'@'localhost' for table `sspsof5_tdip`.`site_settings` in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php:14
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php(14): mysqli_query()
+#1 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php on line 14
+[06-Jan-2026 15:19:43 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: CREATE command denied to user 'sspsof5_tdip'@'localhost' for table `sspsof5_tdip`.`site_settings` in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php:14
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php(14): mysqli_query()
+#1 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php on line 14
+[06-Jan-2026 15:47:39 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[06-Jan-2026 15:50:37 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[06-Jan-2026 15:51:17 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[06-Jan-2026 15:51:55 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[06-Jan-2026 15:56:33 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[06-Jan-2026 15:57:02 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[06-Jan-2026 15:59:50 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[07-Jan-2026 10:39:27 Asia/Kolkata] PHP Fatal error:  Uncaught mysqli_sql_exception: CREATE command denied to user 'sspsof5_tdip'@'localhost' for table `sspsof5_tdip`.`site_settings` in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php:14
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php(14): mysqli_query()
+#1 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/settings/index.php on line 14
+[07-Jan-2026 11:51:08 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[07-Jan-2026 11:53:40 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[08-Jan-2026 11:05:57 Asia/Kolkata] PHP Warning:  Undefined array key "error" in /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php on line 77
+[08-Jan-2026 11:19:35 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[08-Jan-2026 11:19:44 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[08-Jan-2026 11:19:47 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[08-Jan-2026 11:20:20 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[08-Jan-2026 11:22:18 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[08-Jan-2026 11:24:22 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[08-Jan-2026 11:27:29 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30
+[08-Jan-2026 11:28:14 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php:30
+Stack trace:
+#0 /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php(30): getimagesize()
+#1 /home/sspsof5/touristdriversindiaprivatetours.com/admin/packages/edit.php(69): upload_image()
+#2 {main}
+  thrown in /home/sspsof5/touristdriversindiaprivatetours.com/admin/includes/functions.php on line 30

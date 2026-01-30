@@ -1,3 +1,268 @@
+/* =============================
+   Mobile Slide Nav Category Dropdowns
+   ============================= */
+.mobile-cat-item {
+    position: relative;
+}
+.mobile-cat-item > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.mobile-cat-arrow {
+    font-size: 1.1em;
+    margin-left: 8px;
+    color: #888;
+    transition: transform 0.2s;
+}
+.mobile-cat-item.has-mobile-dropdown > .mobile-cat-dropdown {
+    display: none;
+    background: #f8f8f8;
+    padding-left: 10px;
+}
+.mobile-cat-item.open > .mobile-cat-dropdown {
+    display: block;
+}
+.mobile-cat-dropdown li a {
+    display: block;
+    padding: 12px 32px;
+    color: #222;
+    font-size: 1rem;
+    text-decoration: none;
+    border-bottom: 1px solid #ececec;
+}
+.mobile-cat-dropdown li:last-child a {
+    border-bottom: none;
+}
+.mobile-cat-item.open > a .mobile-cat-arrow {
+    transform: rotate(-180deg);
+}
+/* =============================
+   Mobile Slide Nav (Custom)
+   ============================= */
+.mobile-slide-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80vw;
+    max-width: 320px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 2px 0 24px rgba(0,0,0,0.18);
+    z-index: 1201;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.77,0.2,0.05,1.0);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+    visibility: hidden;
+}
+.mobile-slide-nav.open {
+    transform: translateX(0);
+    visibility: visible;
+}
+.mobile-slide-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px 12px 18px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.mobile-slide-close {
+    background: none;
+    border: none;
+    font-size: 2.2rem;
+    color: #FF6B35;
+    cursor: pointer;
+    line-height: 1;
+}
+.mobile-slide-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    overflow-y: auto;
+}
+.mobile-slide-nav-list li a {
+    display: block;
+    padding: 16px 24px;
+    color: #222;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.mobile-slide-nav-list li a:hover {
+    background: #f9f9f9;
+    color: #FF6B35;
+}
+.mobile-slide-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.32);
+    z-index: 1200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.mobile-slide-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+@media (min-width: 992px) {
+    .mobile-slide-nav,
+    .mobile-slide-overlay {
+        display: none !important;
+    }
+}
+/* =============================
+   Custom Hamburger Toggle Button
+   ============================= */
+.custom-hamburger {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1300;
+}
+.custom-hamburger .hamburger-bar {
+    width: 28px;
+    height: 3.5px;
+    background: #FF6B35;
+    margin: 3.5px 0;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.77,0.2,0.05,1.0);
+    display: block;
+}
+.custom-hamburger:focus {
+    outline: 2px solid #FF6B35;
+}
+@media (min-width: 992px) {
+    .custom-hamburger {
+        display: none !important;
+    }
+}
+/* =============================
+   MOBILE SLIDE MENU STYLES
+   ============================= */
+.mobile-slide-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80vw;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--white);
+    box-shadow: 2px 0 24px rgba(0,0,0,0.18);
+    z-index: 1200;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.77,0.2,0.05,1.0);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+}
+.mobile-slide-menu.open {
+    transform: translateX(0);
+}
+.mobile-slide-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px 12px 18px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.mobile-slide-menu-close {
+    background: none;
+    border: none;
+    font-size: 2.2rem;
+    color: var(--brand-dark);
+    cursor: pointer;
+    line-height: 1;
+}
+.mobile-slide-menu-list {
+    list-style: none;
+    padding: 0 0 0 0;
+    margin: 0;
+    flex: 1;
+    overflow-y: auto;
+}
+.mobile-slide-menu-item {
+    border-bottom: 1px solid #f5f5f5;
+}
+.mobile-slide-menu-item > a {
+    display: block;
+    padding: 16px 24px;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.mobile-slide-menu-item > a:hover {
+    background: #f9f9f9;
+}
+.mobile-slide-menu-item.has-dropdown > a:after {
+    content: '\25BC';
+    float: right;
+    font-size: 0.8em;
+    margin-top: 4px;
+    color: #888;
+    transition: transform 0.2s;
+}
+.mobile-slide-menu-item.has-dropdown.open > a:after {
+    transform: rotate(-180deg);
+}
+.mobile-slide-dropdown {
+    display: none;
+    background: #f8f8f8;
+    padding-left: 10px;
+}
+.mobile-slide-menu-item.has-dropdown.open > .mobile-slide-dropdown {
+    display: block;
+}
+.mobile-slide-dropdown li a {
+    display: block;
+    padding: 12px 32px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    text-decoration: none;
+    border-bottom: 1px solid #ececec;
+}
+.mobile-slide-dropdown li:last-child a {
+    border-bottom: none;
+}
+.mobile-slide-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.32);
+    z-index: 1199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.mobile-slide-menu-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+@media (min-width: 992px) {
+    .mobile-slide-menu,
+    .mobile-slide-menu-overlay,
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+}
 /* ===================================
    TOURIST DRIVERS INDIA - MAIN STYLES
    Modern & Unique Design
@@ -798,6 +1063,39 @@ body {
 
 .category-packages-section:nth-child(even) {
     background: #F9FAFB;
+}
+
+/* Mobile heading/title size adjustments (excluding admin) */
+@media (max-width: 575px) {
+    body:not(.admin) .hero-main-title,
+    body:not(.admin) .about-main-heading,
+    body:not(.admin) .section-main-heading,
+    body:not(.admin) .category-card-title,
+    body:not(.admin) .tour-package-title,
+    body:not(.admin) .feature-item-title,
+    body:not(.admin) .category-package-title,
+    body:not(.admin) .adventure-banner-heading,
+    body:not(.admin) .car-rental-title,
+    body:not(.admin) .testimonials-heading,
+    body:not(.admin) .cta-content-wrapper h2,
+    body:not(.admin) .video-gallery-section .service_content h2 {
+        font-size: 1.25rem !important;
+        line-height: 1.3 !important;
+    }
+    body:not(.admin) .hero-subtitle-text,
+    body:not(.admin) .section-label,
+    body:not(.admin) .tour-package-excerpt,
+    body:not(.admin) .about-description-text,
+    body:not(.admin) .category-card-description,
+    body:not(.admin) .feature-item-text,
+    body:not(.admin) .category-package-excerpt,
+    body:not(.admin) .car-rental-capacity,
+    body:not(.admin) .testimonials-carousel p,
+    body:not(.admin) .cta-content-wrapper p,
+    body:not(.admin) .video-gallery-section .service_content h6 {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+    }
 }
 
 .category-packages-carousel {

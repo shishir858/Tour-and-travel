@@ -12,13 +12,9 @@ if(!isset($_GET['id'])) {
 $id = intval($_GET['id']);
 
 // Check if destination has packages
-$package_count_query = "SELECT COUNT(*) as count FROM package_destinations WHERE destination_id = ?";
-$stmt = mysqli_prepare($conn, $package_count_query);
-mysqli_stmt_bind_param($stmt, "i", $id);
-mysqli_stmt_execute($stmt);
-$package_count_result = mysqli_stmt_get_result($stmt);
+$package_count_query = "SELECT COUNT(*) as count FROM package_destinations WHERE destination_id = $id";
+$package_count_result = mysqli_query($conn, $package_count_query);
 $package_count = mysqli_fetch_assoc($package_count_result)['count'];
-mysqli_stmt_close($stmt);
 
 if($package_count > 0) {
     // Cannot delete destination with packages
@@ -27,28 +23,20 @@ if($package_count > 0) {
 }
 
 // Get destination image to delete
-$image_query = "SELECT image FROM destinations WHERE id = ?";
-$stmt = mysqli_prepare($conn, $image_query);
-mysqli_stmt_bind_param($stmt, "i", $id);
-mysqli_stmt_execute($stmt);
-$image_result = mysqli_stmt_get_result($stmt);
+$image_query = "SELECT image FROM destinations WHERE id = $id";
+$image_result = mysqli_query($conn, $image_query);
 $destination = mysqli_fetch_assoc($image_result);
-mysqli_stmt_close($stmt);
 
 // Delete destination
-$delete_query = "DELETE FROM destinations WHERE id = ?";
-$stmt = mysqli_prepare($conn, $delete_query);
-mysqli_stmt_bind_param($stmt, "i", $id);
+$delete_query = "DELETE FROM destinations WHERE id = $id";
 
-if(mysqli_stmt_execute($stmt)) {
-    mysqli_stmt_close($stmt);
+if(mysqli_query($conn, $delete_query)) {
     // Delete image file if exists
     if(!empty($destination['image'])) {
         delete_image('../uploads/destinations/' . $destination['image']);
     }
     header('Location: index.php?msg=deleted');
 } else {
-    mysqli_stmt_close($stmt);
     header('Location: index.php?msg=error');
 }
 exit;

@@ -239,7 +239,7 @@ include 'includes/header.php';
                             <h5>Email</h5>
                             <p class="mb-0">
                                 <a href="mailto:<?php echo getSetting('site_email'); ?>" style="color: inherit; text-decoration: none;">
-                                    <?php echo getSetting('site_email') ?: 'info@touristdriversindia.com'; ?>
+                                    touristdriversindiapvttours <br/> @gmail.com
                                 </a>
                             </p>
                         </div>

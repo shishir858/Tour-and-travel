@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 require_once 'includes/config.php';
 
-header('Content-Type: application/json');
+
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
@@ -35,11 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $insert_customer = "INSERT INTO customers (name, email, phone, created_at) 
                                VALUES ('$name', '$email', '$phone', NOW())";
             if(!$conn->query($insert_customer)) {
-                echo json_encode([
-                    'success' => false,
-                    'message' => 'Database Error: Unable to save customer details.',
-                    'error' => $conn->error
-                ]);
+                echo '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Database Error: Unable to save customer details.<br>' . htmlspecialchars($conn->error) . '</div>';
                 exit;
             }
             $customer_id = $conn->insert_id;
@@ -77,11 +73,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if(!$conn->query($insert_query)) {
             // Database insert FAILED
-            echo json_encode([
-                'success' => false,
-                'message' => 'Database Error: Unable to save your booking. Please try again.',
-                'error' => $conn->error
-            ]);
+            echo '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Database Error: Unable to save your booking. Please try again.<br>' . htmlspecialchars($conn->error) . '</div>';
             exit;
         }
         
@@ -89,8 +81,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $booking_id = $conn->insert_id;
         
         // Send email notification
+
         require_once 'send-mail.php';
-        sendBookingEmail([
+
+        $mailResult = sendBookingEmail([
             'booking_number' => $booking_number,
             'name' => $name,
             'email' => $email,
@@ -100,29 +94,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             'guests' => $guests,
             'message' => !empty($message) ? $message : 'No special requirements'
         ]);
-        
-        // Return success response with booking number
-        echo json_encode([
-            'success' => true,
-            'message' => 'Thank you! Your booking request has been submitted successfully.',
-            'booking_id' => $booking_id,
-            'booking_number' => $booking_number
-        ]);
+
+
+        if ($mailResult !== true) {
+            echo '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Booking saved, but mail sending failed:<br>' . htmlspecialchars($mailResult) . '</div>';
+            exit;
+        }
+
+        // Success HTML page
+        echo '<div style="max-width:600px;margin:40px auto;padding:30px;background:#f3fff3;border:1px solid #ccffcc;color:#080;font-size:1.2em;">Thank you! Your booking request has been submitted successfully.<br><br><strong>Booking Reference:</strong> ' . htmlspecialchars($booking_number) . '<br>We will contact you within 24 hours!</div>';
         exit;
         
     } catch (Exception $e) {
-        echo json_encode([
-            'success' => false,
-            'message' => '❌ Error: ' . $e->getMessage()
-        ]);
+        echo '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">❌ Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
         exit;
     }
     
 } else {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Invalid request method.'
-    ]);
+    echo '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Invalid request method.</div>';
     exit;
 }
 ?>

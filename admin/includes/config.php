@@ -14,14 +14,14 @@ if ($is_local) {
     $username = "root";
     $password = "";
     $database = "sspsof5_tdspt2"; // NEW DATABASE
-    define('BASE_URL', '/Tour-and-travel/admin/');
-    define('SITE_URL', 'http://localhost/Tour-and-travel/');
+    define('BASE_URL', '/touristdriversindiaprivatetours/admin/');
+    define('SITE_URL', 'http://localhost/touristdriversindiaprivatetours/');
 } else {
     // Live Server Settings
     $servername = "localhost";
-    $username = "sspsof5_tdspt";
-    $password = "SYlVv16qX459";
-    $database = "sspsof5_tdspt2"; // NEW DATABASE
+    $username = "sspsof5_tdip";
+    $password = "c3BLiUFay6bU";
+    $database = "sspsof5_tdip"; // NEW DATABASE
     define('BASE_URL', '/admin/');
     define('SITE_URL', 'https://touristdriversindiaprivatetours.com/');
 }
@@ -65,7 +65,7 @@ $upload_dirs = [
 
 foreach ($upload_dirs as $dir) {
     if (!file_exists($dir)) {
-        @mkdir($dir, 0777, true); // @ suppresses errors if permission denied
+        mkdir($dir, 0755, true);
     }
 }
 

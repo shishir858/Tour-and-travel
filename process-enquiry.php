@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 require_once 'includes/config.php';
 
-header('Content-Type: application/json');
+
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
@@ -17,12 +17,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Validation - name and phone both required
         if(empty($name)) {
-            echo json_encode(['success' => false, 'message' => 'Please enter your name.']);
+            $_SESSION['enquiry_message'] = '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Please enter your name.</div>';
+            header('Location: index.php');
             exit;
         }
-        
         if(empty($phone)) {
-            echo json_encode(['success' => false, 'message' => 'Please enter your phone number.']);
+            $_SESSION['enquiry_message'] = '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Please enter your phone number.</div>';
+            header('Location: index.php');
             exit;
         }
         
@@ -62,7 +63,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $insert_customer = "INSERT INTO customers (name, email, phone, created_at) 
                                VALUES ('$customer_name', '$guest_email', '$phone', NOW())";
             if(!$conn->query($insert_customer)) {
-                echo json_encode(['success' => false, 'message' => 'Database Error: Unable to save customer details.']);
+                $_SESSION['enquiry_message'] = '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Database Error: Unable to save customer details.</div>';
+                header('Location: index.php');
                 exit;
             }
             $customer_id = $conn->insert_id;
@@ -110,7 +112,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         )";
         
         if(!$conn->query($insert_query)) {
-            echo json_encode(['success' => false, 'message' => 'Database Error: Unable to save enquiry.']);
+            $_SESSION['enquiry_message'] = '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Database Error: Unable to save enquiry.</div>';
+            header('Location: index.php');
             exit;
         }
         
@@ -119,7 +122,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Send email notification
         require_once 'send-mail.php';
-        sendEnquiryEmail([
+        $mailResult = sendEnquiryEmail([
             'booking_number' => $booking_number,
             'name' => $customer_name,
             'phone' => $phone,
@@ -127,22 +130,27 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             'travel_date' => $travel_date,
             'people' => $people
         ]);
-        
-        // Return JSON
-        echo json_encode([
-            'success' => true,
-            'message' => 'Thank you! Your enquiry has been submitted successfully.',
-            'booking_number' => $booking_number
-        ]);
+
+        if ($mailResult !== true) {
+            $_SESSION['enquiry_message'] = '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Enquiry saved, but mail sending failed:<br>' . htmlspecialchars($mailResult) . '</div>';
+            header('Location: index.php');
+            exit;
+        }
+
+        // Success HTML page
+        $_SESSION['enquiry_message'] = '<div style="max-width:600px;margin:40px auto;padding:30px;background:#f3fff3;border:1px solid #ccffcc;color:#080;font-size:1.2em;">Thank you! Your enquiry has been submitted successfully.<br><br><strong>Reference:</strong> ' . htmlspecialchars($booking_number) . '<br>We will contact you within 24 hours!</div>';
+        header('Location: index.php');
         exit;
         
     } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        $_SESSION['enquiry_message'] = '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">❌ Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
+        header('Location: index.php');
         exit;
     }
     
 } else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+    $_SESSION['enquiry_message'] = '<div style="max-width:600px;margin:40px auto;padding:30px;background:#fff3f3;border:1px solid #ffcccc;color:#a00;font-size:1.2em;">Invalid request method.</div>';
+    header('Location: index.php');
     exit;
 }
 ?>

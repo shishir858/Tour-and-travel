@@ -16,6 +16,14 @@ function sendBookingEmail($bookingData) {
         $mail->Password = 'SJZpFgA5K27w';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
+        // Allow self-signed certs and disable peer verification (for shared hosting SSL issues)
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ],
+        ];
         
         // Recipients
         $mail->setFrom('info@touristdriversindiaprivatetours.com', 'Tourist Drivers India');
@@ -92,7 +100,8 @@ function sendBookingEmail($bookingData) {
         return true;
     } catch (Exception $e) {
         error_log("Email Error: " . $mail->ErrorInfo);
-        return false;
+        // Return error message for AJAX
+        return 'Mailer Error: ' . $mail->ErrorInfo;
     }
 }
 
@@ -108,6 +117,14 @@ function sendEnquiryEmail($enquiryData) {
         $mail->Password = 'SJZpFgA5K27w';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
+        // Allow self-signed certs and disable peer verification (for shared hosting SSL issues)
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ],
+        ];
         
         // Recipients
         $mail->setFrom('info@touristdriversindiaprivatetours.com', 'Tourist Drivers India');
